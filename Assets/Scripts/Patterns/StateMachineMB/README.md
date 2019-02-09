@@ -5,7 +5,10 @@ This is an implementation of an abstract Push/Pop Generic Finite State Machine u
 Some details:
 - The concrete state machine and all the states (components) have to be attached to a single gameobject before the initialization. It's better to have all in a single prefab.
 - The implementation demands the user/programmer to keep each State in a single separated file/monobehavior/component, in other words, it enforces the single responsability principle of each behaviors/states (see more in https://en.wikipedia.org/wiki/Single_responsibility_principle).
-- Flexibility to make Editor schenanigans such as assign variables to states or use of coroutines. I'd like to remind that all the unity callbacks also live in each state because everything is inside the "Monobehavior world", for simple games its amazing, however not all the games can "afford" it. 
+- Flexibility to make Editor schenanigans such as assign variables to states or use of coroutines. I'd like to remind that all the unity callbacks also live in each state because everything is inside the "Monobehavior world", for simple games its amazing, however not all the games can "afford" it; 
+- All the core methods is documented with its own summary and you have also plenty of other comments adding explanations about the code;
+- I made a simple test of this StateMachine, the test scene is in the main repository: https://github.com/ycarowr/Tools located in the following path: Assets/Scenes/TestStateMachineMB.unity
+- The current version has some logs along the method. You might remove it in your final version.
 
 If you really need this flexibility and want to keep each behavior in different classes go for this implementation. Otherwise, you can switch to another implementation that fits better in your game.
 
@@ -18,5 +21,4 @@ This implementation is very useful to manage a turn based game, where you can cr
 3. Pregame Setup State: handle all the pre game configurations. Exemple: decide which player goes first and draw starting hand;
 4. Game Finished State: Win/Lose (both can be broken in two single separed states as well)
 
-
-
+![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)

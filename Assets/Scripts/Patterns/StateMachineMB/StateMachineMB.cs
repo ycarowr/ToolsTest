@@ -122,12 +122,12 @@ namespace Patterns
         /// <returns></returns>
         public StateMB<T> PeekState()
         {
-            StateMB<T> currentStateMb = null;
+            StateMB<T> state = null;
 
             if (stack.Count > 0)
-                currentStateMb = stack.Peek();
+                state = stack.Peek();
 
-            return currentStateMb;
+            return state;
         }
 
         /// <summary>

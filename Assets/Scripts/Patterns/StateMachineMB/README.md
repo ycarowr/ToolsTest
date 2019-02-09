@@ -1,4 +1,4 @@
-# Push/Pop Generic Finite State Machine in Unity using Monobehavior
+# Push/Pop Generic Finite State Machine in Unity using Monobehaviors
 
 This is an implementation of an abstract Push/Pop Generic Finite State Machine using the Monobehavior as a base class. 
 

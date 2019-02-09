@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,14 @@ namespace Patterns
 {
     public class SingletonMB<T> : MonoBehaviour where T : MonoBehaviour
     {
+        public class SingletonMBException<T> : Exception
+        {
+            public SingletonMBException(string message) : base(message)
+            {
+
+            }
+        }
+
         //singleton generic instance
         private static T instance;
 
@@ -86,11 +95,13 @@ namespace Patterns
                 foreach (var duplicated in allSingletonsOfThis)
                     singletonsNames += duplicated.name + ", ";
 
-                //log error for all objects that have this monobehavior
-                Debug.LogError("[" + GetType() + "] Something went really wrong, " +
-                               "there is more than one Singleton: \"" + typeof(T) +
-                               "\". GameObject names: " +
-                               singletonsNames);
+                //throws an error with all objects that have this monobehavior as message
+                var message = "[" + GetType() + "] Something went really wrong, " +
+                              "there is more than one Singleton: \"" + typeof(T) +
+                              "\". GameObject names: " +
+                              singletonsNames;
+
+                throw new SingletonMB<T>.SingletonMBException<T>(message);
             }
         }
     }

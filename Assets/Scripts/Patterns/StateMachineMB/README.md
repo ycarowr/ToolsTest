@@ -21,4 +21,4 @@ This implementation is very useful to manage a turn based game, where you can cr
 3. Pregame Setup State: handle all the pre game configurations. Exemple: decide which player goes first and draw starting hand;
 4. Game Finished State: Win/Lose (both can be broken in two single separed states as well)
 
-![alt text](https://raw.githubusercontent.com/ycarowr/Tools/edit/master/Assets/Scripts/Patterns/StateMachineMB/aistate.GIF)
+![alt text](https://github.com/ycarowr/Tools/blob/master/Assets/Scripts/Patterns/StateMachineMB/aistate.GIF)

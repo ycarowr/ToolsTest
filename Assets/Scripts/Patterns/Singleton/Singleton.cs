@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 namespace Patterns
 {
@@ -37,10 +38,10 @@ namespace Patterns
             instance = new T();
         }
 
-        //call this method if you need to raise errors when the instance is not null
-        private void HandleDuplicates()
+        //Setter used to injectec an instance 
+        public void SetInstance(T _instance)
         {
-            Debug.LogError("[Singleton] Something went really wrong there is more than one Singleton: " + typeof(T));
+            instance = _instance;
         }
     }
 }

@@ -24,7 +24,7 @@ This implementation is very useful to manage a turn based game, where you can cr
 - The test scene contains a concrete class for the state machine, for the states and some tests ;
 - The current version has some logs along the method. You might remove it.
 
-This is how looks like the prefab of the state machine:
+This is how looks like the prefab of the test state machine:
 
 ![alt text](https://github.com/ycarowr/Tools/blob/master/Assets/Scripts/Patterns/StateMachineMB/fsmstart.GIF)
 

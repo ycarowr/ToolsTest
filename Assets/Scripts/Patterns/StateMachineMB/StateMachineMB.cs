@@ -69,17 +69,19 @@ namespace Patterns
             Log("States Started", "blue");
         }
 
+
         /*
-         * /// <summary>
-         * /// Update all registered states (uncomment it if you needed).
-         * /// Consider to replace 'foreach' by 'for' to minimize garbage collection
-         * /// </summary>
-         * protected virtual void Update()
-         * {
-         *    foreach (var State in register.Values)
-         *       State.OnUpdate();
-         * }
-         */
+        /// <summary>
+        /// Update all registered states (uncomment it if you need this callback).
+        /// TODO: Consider to replace 'foreach' by 'for' to minimize garbage collection.
+        /// </summary>
+        protected virtual void Update()
+        {
+            var current = this.PeekState();
+            if (current != null)
+                current.OnUpdate();
+        }
+        */
 
         #endregion
 

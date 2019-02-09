@@ -26,7 +26,7 @@ This implementation is very useful to manage a turn based game, where you can cr
 
 This is how looks like the prefab of the test state machine:
 
-![alt text](https://github.com/ycarowr/Tools/blob/master/Assets/Scripts/Patterns/StateMachineMB/fsmstart.GIF)
+![alt text](https://github.com/ycarowr/Tools/blob/master/Assets/Scripts/Patterns/StateMachineMB/prefab%20struct.GIF)
 
 These are the logs after the state machine initialization:
 

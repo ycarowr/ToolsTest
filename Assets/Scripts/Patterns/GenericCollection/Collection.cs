@@ -103,7 +103,7 @@ namespace Patterns
         }
 
         /// <summary>
-        /// Shuffles the collection using Fisher Yates algorithm.
+        /// Shuffles the collection using Fisher Yates algorithm: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle.
         /// </summary>
         public void Shuffle()
         {

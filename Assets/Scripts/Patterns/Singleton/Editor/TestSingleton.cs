@@ -42,22 +42,36 @@ namespace Test
         [Test]
         public void SingletonTest()
         {
-            var singleton = new TestableSingleton();
-
             var someString = "testProperty";
-            singleton.SomeProperty = someString;
+            TestableSingleton.Instance.SomeProperty = someString;
 
-            //inject singleton instance
-            TestableSingleton.Instance.InjectInstance(singleton);
+            //create two sparing instances
+            var singleton1 = new TestableSingleton();
+            
+            //set property of 1
+            var someString1 = "testProperty1";
+            singleton1.SomeProperty = someString1;
 
             //assert if the instances point to the same adress
-            Assert.True(object.ReferenceEquals(TestableSingleton.Instance, singleton));
+            Assert.False(object.ReferenceEquals(TestableSingleton.Instance, singleton1));
 
             //assert if the instances are equal
-            Assert.AreEqual(TestableSingleton.Instance, singleton);
+            Assert.AreNotEqual(TestableSingleton.Instance, singleton1);
 
             //assert if the property on the singleton is still set
-            Assert.True(TestableSingleton.Instance.SomeProperty == someString);
+            Assert.False(TestableSingleton.Instance.SomeProperty == singleton1.SomeProperty);
+
+            //inject singleton instance
+            TestableSingleton.Instance.InjectInstance(singleton1);
+
+            //assert if the instances point to the same adress
+            Assert.True(object.ReferenceEquals(TestableSingleton.Instance, singleton1));
+
+            //assert if the instances are equal
+            Assert.AreEqual(TestableSingleton.Instance, singleton1);
+
+            //assert if the property on the singleton is still set
+            Assert.True(TestableSingleton.Instance.SomeProperty == someString1);
         }
     }
 }

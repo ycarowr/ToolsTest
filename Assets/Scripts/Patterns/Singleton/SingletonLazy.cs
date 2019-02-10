@@ -24,21 +24,16 @@ namespace Patterns
                 //multi thread locking
                 lock (locker)
                 {
+                    //lazy initialization
                     if (instance == null)
-                        Initialize();
+                        instance = new T();
                 }
 
                 return instance;
             }
         }
-
-        //lazy initialization
-        private static void Initialize()
-        {
-            instance = new T();
-        }
-
-        //Setter used to injectec an instance 
+        
+        //Setter used to inject an instance 
         public void InjectInstance(T _instance)
         {
             if (_instance != null)

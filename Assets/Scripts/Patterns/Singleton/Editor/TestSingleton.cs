@@ -47,7 +47,9 @@ namespace Test
 
             //create two sparing instances
             var singleton1 = new TestableSingleton();
-            
+            var singleton2 = new TestableSingleton();
+            var singleton3 = new TestableSingleton();
+
             //set property of 1
             var someString1 = "testProperty1";
             singleton1.SomeProperty = someString1;

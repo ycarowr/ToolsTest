@@ -6,14 +6,8 @@ namespace Patterns
 {
     public class Singleton<T> where T : class, new()
     {
-        //instance of T
-        private static T instance = CreateInstance();
-
         //public getter
-        public static T Instance
-        {
-            get { return instance; }
-        }
+        public static T Instance { get; private set; } = CreateInstance();
 
         //a protected constructor
         protected Singleton()
@@ -23,17 +17,17 @@ namespace Patterns
 
         private static T CreateInstance()
         {
-            if(instance == null)
-                instance = new T();
+            if(Instance == null)
+                Instance = new T();
 
-            return instance;
+            return Instance;
         }
 
         //Setter used to inject an instance 
         public void InjectInstance(T _instance)
         {
             if(_instance != null)
-                instance = _instance;
+                Instance = _instance;
         }
     }
 }

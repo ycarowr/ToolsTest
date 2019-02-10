@@ -122,7 +122,7 @@ PrefabInstance:
     - target: {fileID: 3080666491626313395, guid: f5fa9e8cf24445549bee8a493b2b6359,
         type: 3}
       propertyPath: m_Name
-      value: TestSimpleSingletonMB (1)
+      value: TestSimpleSingletonMB Copy
       objectReference: {fileID: 0}
     - target: {fileID: 3080666491626313394, guid: f5fa9e8cf24445549bee8a493b2b6359,
         type: 3}

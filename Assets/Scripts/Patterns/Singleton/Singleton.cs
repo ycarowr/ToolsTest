@@ -1,47 +1,39 @@
 ﻿using UnityEngine;
 using System;
+using System.Dynamic;
 
 namespace Patterns
 {
     public class Singleton<T> where T : class, new()
     {
         //instance of T
-        private static T instance;
-        
-        //multi thread locker
-        private static readonly object locker = new object();
+        private static T instance = CreateInstance();
+
+        //public getter
+        public static T Instance
+        {
+            get { return instance; }
+        }
 
         //a protected constructor
         protected Singleton()
         {
-            
+
         }
 
-        public static T Instance
+        private static T CreateInstance()
         {
-            get
-            {
-                //multi thread locking
-                lock (locker)
-                {
-                    if (instance == null)
-                        Initialize();
-                }
+            if(instance == null)
+                instance = new T();
 
-                return instance;
-            }
+            return instance;
         }
 
-        //lazy initialization
-        private static void Initialize()
+        //Setter used to inject an instance 
+        public void InjectInstance(T _instance)
         {
-            instance = new T();
-        }
-
-        //Setter used to injectec an instance 
-        public void SetInstance(T _instance)
-        {
-            instance = _instance;
+            if(_instance != null)
+                instance = _instance;
         }
     }
 }

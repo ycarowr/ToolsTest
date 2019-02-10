@@ -1,4 +1,4 @@
-# Generic Pure C# objects Pooler
+# Generic C# Object Pooler
 
 This is a generic object pooler that allows you to manipulate any pure c# class implementing the interface IPoolableObject.
 

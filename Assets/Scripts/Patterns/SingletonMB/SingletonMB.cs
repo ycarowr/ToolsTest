@@ -7,7 +7,7 @@ namespace Patterns
 {
     public class SingletonMB<T> : MonoBehaviour where T : MonoBehaviour
     {
-        public class SingletonMBException<T> : Exception
+        public class SingletonMBException : Exception
         {
             public SingletonMBException(string message) : base(message)
             {
@@ -101,7 +101,7 @@ namespace Patterns
                               "\". GameObject names: " +
                               singletonsNames;
 
-                throw new SingletonMB<T>.SingletonMBException<T>(message);
+                throw new SingletonMB<T>.SingletonMBException(message);
             }
         }
     }

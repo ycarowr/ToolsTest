@@ -9,6 +9,6 @@ the game play if the Singleton Loads and Deserializes objects, but in the other 
 
 You have to analise which implementation fits better you game.
 
-Inside the Editor folder you can also find some Unit Tests made in both Versions, check the following image:
+Inside the Editor folder you can also find some Unit Tests made in both Versions using the Unity3d Test Runner:
 ![alt text](https://github.com/ycarowr/Tools/blob/master/Assets/Scripts/Patterns/Singleton/Images/singleton%20test.GIF)
 

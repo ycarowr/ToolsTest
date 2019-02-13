@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Patterns
+namespace Tools
 {
     /// <summary>
     /// Class that wraps some of the List funcionalities and 

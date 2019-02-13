@@ -1,4 +1,4 @@
-# Generic GameObject Pooler
+# Generic Prefab/GameObject Pooler
 
 This is a generic gameobject pooler that allows you to manipulate a group of prefabs or gameobjects as keys of dictionaries.
 The main purpose of this class is to manage how many instances of an object you have already instantiated, that way 

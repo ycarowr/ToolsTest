@@ -7,7 +7,7 @@ namespace Tools
 {
     /// <summary>
     /// Ref:https://gist.github.com/ftvs/5822103
-    /// Monobehavior used to shake and Object. All the variables are set with the Editor.
+    /// Monobehavior used to shake an GameObject throught it's Transform. All the variables are set with the Editor.
     /// If you need global access to this class you can just inherit it from a SingletonMB instead.
     /// </summary>
     public class ShakeAnimation : MonoBehaviour

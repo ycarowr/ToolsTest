@@ -91,22 +91,23 @@ namespace Patterns
         /// State and OnExitState for the previous State in the stack.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
-        public void PushState<T1>() where T1 : StateMB<T>
+        public void PushState<T1>(bool isSilent = false) where T1 : StateMB<T>
         {
             var stateType = typeof(T1);
             var state = register[stateType];
-            PushState(state);
+            PushState(state, isSilent);
         }
 
         /// <summary>
         /// Pushes State by instance of the class triggering OnEnterState for the 
-        /// pushed State and OnExitState for the previous State in the stack.
+        /// pushed State and if not silent OnExitState for the previous State in the stack.
         /// </summary>
         /// <param name="State"></param>
-        public void PushState(StateMB<T> State)
+        /// <param name="isSilent"></param>
+        public void PushState(StateMB<T> State, bool isSilent = false)
         {
             Log("Operation: Push, State: " + State.GetType(), "purple");
-            if (stack.Count > 0)
+            if (stack.Count > 0 && !isSilent)
             {
                 var previous = stack.Peek();
                 previous.OnExitState();
@@ -132,9 +133,10 @@ namespace Patterns
 
         /// <summary>
         /// Pops a State from the stack. It triggers OnExitState for the 
-        /// popped State and OnEnterState for the subsequent stacked State.
+        /// popped State and if not silent OnEnterState for the subsequent stacked State.
         /// </summary>
-        public void PopState()
+        /// <param name="isSilent"></param>
+        public void PopState(bool isSilent = false)
         {
             if (stack.Count > 0)
             {
@@ -143,7 +145,7 @@ namespace Patterns
                 state.OnExitState();
             }
 
-            if (stack.Count > 0)
+            if (stack.Count > 0 && !isSilent)
             {
                 var state = stack.Peek();
                 state.OnEnterState();

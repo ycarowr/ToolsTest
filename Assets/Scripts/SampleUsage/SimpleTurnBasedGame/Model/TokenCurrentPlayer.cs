@@ -24,6 +24,8 @@ namespace SimpleTurnBasedGame
 
             Players = players;
             Restart();
+            StarterPlayerIndex = startIndex;
+            CurrentPlayerIndex = currentIndex;
         }
 
         public int NextPlayerIndex => (CurrentPlayerIndex + 1) % QuantPlayers;

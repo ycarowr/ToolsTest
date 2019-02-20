@@ -120,8 +120,11 @@ namespace SimpleTurnBasedGame.Tests
                     .WithCurrentIndex(firstPlayerIndex)
                     .WithStartIndex(firstPlayerIndex);
 
+
+                token.UpdateCurrentPlayerIndex();
+
                 //set indexes to zero
-                const int expectedIndex = firstPlayerIndex + 1;
+                const int expectedIndex = firstPlayerIndex;
                 //current remains zero
                 Assert.AreEqual(token.CurrentPlayerIndex, firstPlayerIndex);
                 //next remains zero + 1

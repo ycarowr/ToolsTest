@@ -1,20 +1,16 @@
-﻿using UnityEngine;
-using System;
-
-namespace Patterns
+﻿namespace Patterns
 {
     public class SingletonLazy<T> where T : class, new()
     {
         //instance of T
         private static T instance;
-        
+
         //multi thread locker
         private static readonly object locker = new object();
 
         //a protected constructor
         protected SingletonLazy()
         {
-            
         }
 
         public static T Instance
@@ -32,7 +28,7 @@ namespace Patterns
                 return instance;
             }
         }
-        
+
         //Setter used to inject an instance 
         public void InjectInstance(T _instance)
         {

@@ -5,12 +5,12 @@ namespace Patterns
     public abstract class StateMB<T> : MonoBehaviour where T : MonoBehaviour
     {
         /// <summary>
-        /// Reference for the parent Finite StateMB Machine
+        ///     Reference for the parent Finite StateMB Machine
         /// </summary>
-        public StateMachineMB<T> FSM { get; private set; }
+        public StateMachineMB<T> Fsm { get; private set; }
 
         /// <summary>
-        /// Called by the FSM's Awake
+        ///     Called by the GameController's Awake
         /// </summary>
         public virtual void OnAwake()
         {
@@ -18,7 +18,7 @@ namespace Patterns
         }
 
         /// <summary>
-        /// Called by the FSM's Start
+        ///     Called by the GameController's Start
         /// </summary>
         public virtual void OnStart()
         {
@@ -26,7 +26,7 @@ namespace Patterns
         }
 
         /// <summary>
-        /// Called by the FSM's Update
+        ///     Called by the GameController's Update
         /// </summary>
         public virtual void OnUpdate()
         {
@@ -34,7 +34,7 @@ namespace Patterns
         }
 
         /// <summary>
-        /// Called right after enter the state
+        ///     Called right after enter the state
         /// </summary>
         public virtual void OnEnterState()
         {
@@ -42,7 +42,7 @@ namespace Patterns
         }
 
         /// <summary>
-        /// Called right after left the state
+        ///     Called right after left the state
         /// </summary>
         public virtual void OnExitState()
         {
@@ -51,23 +51,22 @@ namespace Patterns
 
 
         /// <summary>
-        /// Setter for Internal StateMB Machine
+        ///     Setter for Internal StateMB Machine
         /// </summary>
-        /// <param name="stateMachineMb"></param>
-        public void InjectStateMachine(StateMachineMB<T> stateMachineMb)
+        /// <param name="stateMachine"></param>
+        public void InjectStateMachine(StateMachineMB<T> stateMachine)
         {
-            FSM = stateMachineMb;
-            Log("FSM Assigned");
+            Fsm = stateMachine;
+            Log("StateMachine Assigned");
         }
 
 
         private void Log(string log, string colorName = "black")
         {
-            if (FSM.EnableLogs)
-            {
-                log = string.Format("[" + GetType() + "]: <color={0}><b>" + log + "</b></color>", colorName);
-                Debug.Log(log);
-            }
+            if (!Fsm.EnableLogs) return;
+
+            log = string.Format("[" + GetType() + "]: <color={0}><b>" + log + "</b></color>", colorName);
+            Debug.Log(log);
         }
     }
 }

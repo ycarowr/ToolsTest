@@ -1,46 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-
 
 namespace Patterns
 {
     public class GenericPooler<T> where T : class, IPoolableObject, new()
     {
-        public class GenericPoolerArgumentException : ArgumentException
-        {
-            public GenericPoolerArgumentException(string message) : base(message)
-            {
-
-            }
-        }
+        private readonly List<T> busyObjects = new List<T>();
 
         //lists that control the pool
         private readonly List<T> freeObjects = new List<T>();
-        private readonly List<T> busyObjects = new List<T>();
-
-        #region Utility
-        public int StartSize { get; private set; }
-
-        public int SizeFreeObjects
-        {
-            get { return freeObjects.Count; }
-        }
-
-        public int SizeBusyObjects
-        {
-            get { return busyObjects.Count; }
-        }
-
-        public Type PoolType
-        {
-            get { return typeof(T); }
-        }
-
-        #endregion
 
         /// <summary>
-        /// Constructor, you must have to specify the starting size of the pool
+        ///     Constructor, you must have to specify the starting size of the pool
         /// </summary>
         /// <param name="startingSize"></param>
         public GenericPooler(int startingSize)
@@ -48,17 +19,36 @@ namespace Patterns
             StartSize = startingSize;
 
             //pool start size
-            for (int i = 0; i < StartSize; ++i)
+            for (var i = 0; i < StartSize; ++i)
             {
                 var obj = new T();
                 freeObjects.Add(obj);
             }
         }
 
+        public class GenericPoolerArgumentException : ArgumentException
+        {
+            public GenericPoolerArgumentException(string message) : base(message)
+            {
+            }
+        }
+
+        #region Utility
+
+        public int StartSize { get; }
+
+        public int SizeFreeObjects => freeObjects.Count;
+
+        public int SizeBusyObjects => busyObjects.Count;
+
+        public Type PoolType => typeof(T);
+
+        #endregion
+
         #region Operations
 
         /// <summary>
-        /// Get an object of the type T
+        ///     Get an object of the type T
         /// </summary>
         /// <returns></returns>
         public T Get()
@@ -84,13 +74,13 @@ namespace Patterns
         }
 
         /// <summary>
-        /// Release an object of the type T
+        ///     Release an object of the type T
         /// </summary>
         /// <param name="released"></param>
         public void Release(T released)
         {
-            if(released == null)
-                throw new GenericPooler<T>.GenericPoolerArgumentException("Can't Release a null object");
+            if (released == null)
+                throw new GenericPoolerArgumentException("Can't Release a null object");
 
             //reset object
             released.Restart();

@@ -1,23 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Patterns
 {
-    public class SingletonMB<T> : MonoBehaviour where T : MonoBehaviour
+    public class SingletonMB<T> : MonoBehaviour where T : class
     {
-        public class SingletonMBException : Exception
-        {
-            public SingletonMBException(string message) : base(message)
-            {
-
-            }
-        }
-
         //singleton generic instance
-        private static T instance;
-
+        public static T Instance { get; private set; }
         //multi thread locker
         private static readonly object locker = new object();
 
@@ -29,11 +18,6 @@ namespace Patterns
         [SerializeField]
         private bool isSilent = false;
 
-        public static T Instance
-        {
-            get { return instance; }
-        }
-
         protected virtual void Awake()
         {
             //multi thread lock
@@ -41,28 +25,20 @@ namespace Patterns
             {
                 // if null we set the instance to be this and mark the
                 // gameobject whether or not is destroyed on load
-                if (instance == null)
-                {
+                if (Instance == null)
                     Initialize();
-                }
-                else if ((instance as SingletonMB<T>) != this)
-                {
-                    HandleDuplication();
-                }
+                else if (Instance as SingletonMB<T> != this) HandleDuplication();
             }
         }
 
         protected virtual void OnDestroy()
         {
-            if ((instance as SingletonMB<T>) == this)
-            {
-                instance = null;
-            }
+            if (Instance as SingletonMB<T> == this) Instance = null;
         }
 
         private void Initialize()
         {
-            instance = this as T;
+            Instance = this as T;
             if (isDontDestroyOnLoad)
                 DontDestroyOnLoad(gameObject);
 
@@ -82,11 +58,9 @@ namespace Patterns
             if (isSilent)
             {
                 foreach (var duplicated in allSingletonsOfThis)
-                {
                     //if the singleton is silent, just destroy the sparing objects
-                    if (duplicated != instance)
+                    if (duplicated != Instance)
                         Destroy(duplicated);
-                }
             }
             else
             {
@@ -101,7 +75,14 @@ namespace Patterns
                               "\". GameObject names: " +
                               singletonsNames;
 
-                throw new SingletonMB<T>.SingletonMBException(message);
+                throw new SingletonMBException(message);
+            }
+        }
+
+        public class SingletonMBException : Exception
+        {
+            public SingletonMBException(string message) : base(message)
+            {
             }
         }
     }

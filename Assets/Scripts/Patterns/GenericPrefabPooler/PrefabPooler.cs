@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using Patterns;
+using UnityEngine;
 
-public class PrefabPooler : SingletonMB<PrefabPooler> 
+public class PrefabPooler : SingletonMB<PrefabPooler>
 {
-    [Tooltip("How many objects will be created as soon as the game loads")] [SerializeField]
-    private int startSize = 10;
+    //StatesRegister of the already pooled objects
+    private readonly Dictionary<GameObject, List<GameObject>> busyObjects =
+        new Dictionary<GameObject, List<GameObject>>();
+
+    //StatesRegister of the pooled available objects
+    private readonly Dictionary<GameObject, List<GameObject>> poolAbleObjects =
+        new Dictionary<GameObject, List<GameObject>>();
 
     [Tooltip("All pooled models have to be inside this array before the initialization")] [SerializeField]
     private GameObject[] modelsPooled;
 
-    //register of the pooled available objects
-    private readonly Dictionary<GameObject, List<GameObject>> poolAbleObjects =
-        new Dictionary<GameObject, List<GameObject>>();
-
-    //register of the already pooled objects
-    private readonly Dictionary<GameObject, List<GameObject>> busyObjects =
-        new Dictionary<GameObject, List<GameObject>>();
+    [Tooltip("How many objects will be created as soon as the game loads")] [SerializeField]
+    private readonly int startSize = 10;
 
 
     /// <summary>
-    /// I am initializing it as soon as possible. You can move it to Awake or Start calls. It's up to you.
+    ///     I am initializing it as soon as possible. You can move it to Awake or Start calls. It's up to you.
     /// </summary>
     private void OnEnable()
     {
@@ -35,12 +34,12 @@ public class PrefabPooler : SingletonMB<PrefabPooler>
 
 
     /// <summary>
-    /// Here is the initialization of the pooler. All the models/prefabs which you need to pool have to be inside
-    /// the modelPooled array. They will be keys for the Lists inside the pool system.
+    ///     Here is the initialization of the pooler. All the models/prefabs which you need to pool have to be inside
+    ///     the modelPooled array. They will be keys for the Lists inside the pool system.
     /// </summary>
     private void Initialize()
     {
-        foreach (GameObject model in modelsPooled)
+        foreach (var model in modelsPooled)
         {
             //list for pool
             var pool = new List<GameObject>();
@@ -62,9 +61,9 @@ public class PrefabPooler : SingletonMB<PrefabPooler>
     }
 
     /// <summary>
-    /// Here you can pool the prefab objects. Currently the key is a reference to the prefab that you need to get.
-    /// Although I haven't had problems with this approach, you can come up with a solution that performs better
-    /// using an enumeration as key.
+    ///     Here you can pool the prefab objects. Currently the key is a reference to the prefab that you need to get.
+    ///     Although I haven't had problems with this approach, you can come up with a solution that performs better
+    ///     using an enumeration as key.
     /// </summary>
     /// <param name="prefabModel"></param>
     /// <returns></returns>
@@ -78,7 +77,7 @@ public class PrefabPooler : SingletonMB<PrefabPooler>
         if (busyObjects == null)
             Debug.LogError("Nop! Busy objects list is not created yet!");
 
-        //if prefabModel is not contained inside the register
+        //if prefabModel is not contained inside the StatesRegister
         if (!poolAbleObjects.ContainsKey(prefabModel))
             return null;
 
@@ -90,15 +89,9 @@ public class PrefabPooler : SingletonMB<PrefabPooler>
         }
 
         if (pooledObj != null)
-        {
-            //remove the grabbed element from the pool
             poolAbleObjects[prefabModel].Remove(pooledObj);
-        }
         else
-        {
-            //otherwise create a new object
             pooledObj = Instantiate(prefabModel, transform);
-        }
 
         //add the pooled object to the used objects list
         busyObjects[prefabModel].Add(pooledObj);
@@ -109,8 +102,8 @@ public class PrefabPooler : SingletonMB<PrefabPooler>
     }
 
     /// <summary>
-    /// Here you pool back objects that you no longer use. They are deactivated and 
-    /// stored back for future usage using the prefab model as key to get it back later on.
+    ///     Here you pool back objects that you no longer use. They are deactivated and
+    ///     stored back for future usage using the prefab model as key to get it back later on.
     /// </summary>
     /// <param name="prefabModel"></param>
     /// <param name="pooledObj"></param>
@@ -131,8 +124,8 @@ public class PrefabPooler : SingletonMB<PrefabPooler>
     }
 
     /// <summary>
-    /// Here you pool back objects that you no longer use. They are deactivated and 
-    /// stored back for future usage using the prefab model as key to get it back later on.
+    ///     Here you pool back objects that you no longer use. They are deactivated and
+    ///     stored back for future usage using the prefab model as key to get it back later on.
     /// </summary>
     /// <param name="pooledObj"></param>
     public void ReleasePooledObject(GameObject pooledObj)
@@ -146,21 +139,18 @@ public class PrefabPooler : SingletonMB<PrefabPooler>
         pooledObj.SetActive(false);
 
         foreach (var model in busyObjects.Keys)
-        {
             if (busyObjects[model].Contains(pooledObj))
             {
                 busyObjects[model].Remove(pooledObj);
                 poolAbleObjects[model].Add(pooledObj);
             }
-        }
-        
+
         pooledObj.transform.parent = transform;
         pooledObj.transform.localPosition = Vector3.zero;
         OnRelease(pooledObj);
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="prefabModel"></param>
     private void OnPool(GameObject prefabModel)
@@ -170,7 +160,6 @@ public class PrefabPooler : SingletonMB<PrefabPooler>
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="prefabModel"></param>
     private void OnRelease(GameObject prefabModel)

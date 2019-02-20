@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Patterns;
 
-public class TurnBasedStateMachine : StateMachineMB<TurnBasedStateMachine>
+
+namespace SampleTurnBasedGame
 {
-  
+    public class TurnBasedStateMachine : StateMachineMB<TurnBasedStateMachine>
+    {
+
+    }
 }

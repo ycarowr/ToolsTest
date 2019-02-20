@@ -1,36 +1,39 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using Tools;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 
 namespace Test
 {
     //class used to execute tests
     public class TestUnit
     {
-
     }
 
-    public class CollectionTest 
+    public class CollectionTest
     {
         [Test]
         public void ExceptionAddNull()
         {
             //create collection
             var collection = new Collection<TestUnit>();
-            
+
             //create null instances
             TestUnit nullObj = null;
             List<TestUnit> nullList = null;
 
-            void addNull(){ collection.Add(nullObj); };
-            void addListNull(){ collection.Add(nullList); };
+            void AddNull()
+            {
+                collection.Add(nullObj);
+            }
+
+            void AddListNull()
+            {
+                collection.Add(nullList);
+            }
 
             //Assert add exceptions
-            Assert.Throws<Collection<TestUnit>.CollectionArgumentException>(addNull);
-            Assert.Throws<Collection<TestUnit>.CollectionArgumentException>(addListNull);
+            Assert.Throws<Collection<TestUnit>.CollectionArgumentException>(AddNull);
+            Assert.Throws<Collection<TestUnit>.CollectionArgumentException>(AddListNull);
         }
 
         [Test]
@@ -49,17 +52,23 @@ namespace Test
             collection.Add(obj);
 
             //assert duplication exception
-            void addDuplicated()
-            { collection.Add(duplicatedObj); };
-            Assert.Throws<Collection<TestUnit>.CollectionArgumentException>(addDuplicated);
+            void AddDuplicated()
+            {
+                collection.Add(duplicatedObj);
+            }
+
+            Assert.Throws<Collection<TestUnit>.CollectionArgumentException>(AddDuplicated);
 
             //list with a duplicated element
             var listDuplicated = new List<TestUnit> {obj, duplicatedObj};
 
             //assert duplication exception
-            void addDuplicatedAgain()
-            { collection.Add(listDuplicated); };
-            Assert.Throws<Collection<TestUnit>.CollectionArgumentException>(addDuplicatedAgain);
+            void AddDuplicatedAgain()
+            {
+                collection.Add(listDuplicated);
+            }
+
+            Assert.Throws<Collection<TestUnit>.CollectionArgumentException>(AddDuplicatedAgain);
         }
 
 
@@ -86,7 +95,7 @@ namespace Test
         [Test]
         public void Add100Objects()
         {
-            for (int i = 0; i < 100; i++)
+            for (var i = 0; i < 100; i++)
                 AddObject();
         }
 

@@ -1,32 +1,16 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Tools
 {
     /// <summary>
-    /// Class that wraps some of the List funcionalities and 
-    /// add some Linq funcionalities without garbage generation
+    ///     Class that wraps some of the List and
+    ///     add some Linq functionality without garbage generation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class Collection<T> where T : class
     {
-        public class CollectionArgumentException : ArgumentException
-        {
-            public CollectionArgumentException(string message) : base(message)
-            {
-
-            }
-        }
-
-        //units of the collection
-        private List<T> Units { get; }
-
-        public int Size
-        {
-            get { return Units.Count; }
-        }
-
         //public clean constructor
         public Collection()
         {
@@ -34,7 +18,7 @@ namespace Tools
         }
 
         /// <summary>
-        /// Consider change it to an Array of Objects
+        ///     Consider change it to an Array of Objects
         /// </summary>
         /// <param name="units"></param>
         public Collection(List<T> units)
@@ -43,11 +27,31 @@ namespace Tools
             Add(units);
         }
 
+        //units of the collection
+        private List<T> Units { get; }
+
+        public int Size => Units.Count;
+
+        public override string ToString()
+        {
+            var s = string.Empty;
+            foreach (var c in Units)
+                s += c + ", ";
+            return s;
+        }
+
+        public class CollectionArgumentException : ArgumentException
+        {
+            public CollectionArgumentException(string message) : base(message)
+            {
+            }
+        }
+
         #region Operations
 
         /// <summary>
-        /// Clear the list completely. You lose all the references, however 
-        /// the elements are still in memory waiting for the Garbage Collector to clean
+        ///     Clear the list completely. You lose all the references, however
+        ///     the elements are still in memory waiting for the Garbage Collector to clean
         /// </summary>
         public virtual void Restart()
         {
@@ -55,7 +59,7 @@ namespace Tools
         }
 
         /// <summary>
-        /// Add elements to the collection. Null and duplicated elements raises Exceptions.
+        ///     Add elements to the collection. Null and duplicated elements raises Exceptions.
         /// </summary>
         /// <param name="unit"></param>
         public void Add(T unit)
@@ -70,7 +74,7 @@ namespace Tools
         }
 
         /// <summary>
-        /// Add a group of elements to the list. It falls back to Add(T unit) method. Null raises an Exception.
+        ///     Add a group of elements to the list. It falls back to Add(T unit) method. Null raises an Exception.
         /// </summary>
         /// <param name="units"></param>
         public void Add(List<T> units)
@@ -78,12 +82,12 @@ namespace Tools
             if (units == null)
                 throw new CollectionArgumentException("Null is not a valid type of unit inside the collection");
 
-            for (int i = 0; i < units.Count; i++)
+            for (var i = 0; i < units.Count; i++)
                 Add(units[i]);
         }
 
         /// <summary>
-        /// Check if the collection has an unit inside.
+        ///     Check if the collection has an unit inside.
         /// </summary>
         /// <param name="unit"></param>
         /// <returns></returns>
@@ -93,17 +97,17 @@ namespace Tools
         }
 
         /// <summary>
-        /// Remove element from the collection and returns whether the element has been successfully removed or not.
+        ///     Remove element from the collection and returns whether the element has been successfully removed or not.
         /// </summary>
         /// <param name="unit"></param>
         /// <returns></returns>
         public bool Remove(T unit)
         {
-            return Units.Remove(unit); 
+            return Units.Remove(unit);
         }
 
         /// <summary>
-        /// Shuffles the collection using Fisher Yates algorithm: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle.
+        ///     Shuffles the collection using Fisher Yates algorithm: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle.
         /// </summary>
         public void Shuffle()
         {
@@ -111,7 +115,7 @@ namespace Tools
             for (var i = 0; i <= n - 2; i++)
             {
                 //random index
-                var rdn = UnityEngine.Random.Range(0, n - i);
+                var rdn = Random.Range(0, n - i);
 
                 //swap positions
                 var curVal = Units[i];
@@ -121,8 +125,8 @@ namespace Tools
         }
 
         /// <summary>
-        /// Get and Remove an element randomly from the collection.
-        /// If the collection is empty it returns Null. Falls back to Remove.
+        ///     Get and Remove an element randomly from the collection.
+        ///     If the collection is empty it returns Null. Falls back to Remove.
         /// </summary>
         /// <returns></returns>
         public T GetAndRemoveRandom()
@@ -130,16 +134,16 @@ namespace Tools
             if (Size <= 0)
                 return null;
 
-            var rdn = UnityEngine.Random.Range(0, Units.Count);
+            var rdn = Random.Range(0, Units.Count);
             var unit = Units[rdn];
             Remove(unit);
             return unit;
         }
 
         /// <summary>
-        /// Get and Remove an element from an specific position.
-        /// Raises an exception if the index is negative or bigger than the
-        /// size of the collection. Falls back to Remove.
+        ///     Get and Remove an element from an specific position.
+        ///     Raises an exception if the index is negative or bigger than the
+        ///     size of the collection. Falls back to Remove.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -154,7 +158,7 @@ namespace Tools
         }
 
         /// <summary>
-        /// Get and Remove the last element from the collection.
+        ///     Get and Remove the last element from the collection.
         /// </summary>
         /// <returns></returns>
         public T GetLastAndRemove()
@@ -164,13 +168,5 @@ namespace Tools
         }
 
         #endregion
-
-        public override string ToString()
-        {
-            var s = string.Empty;
-            foreach (var c in Units)
-                s += c + ", ";
-            return s;
-        }
     }
 }

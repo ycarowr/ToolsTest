@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+
 /// <summary>
-/// Vectors extensions.
-/// Refs: https://gist.github.com/omgwtfgames/f917ca28581761b8100f
+///     Vectors extensions.
+///     Refs: https://gist.github.com/omgwtfgames/f917ca28581761b8100f
 /// </summary>
 public static class VectorExtensions
-{ 
+{
     public static Vector2 XY(this Vector3 v)
     {
         return new Vector2(v.x, v.y);
@@ -84,6 +85,6 @@ public static class VectorExtensions
         if (!isNormalized)
             lineDirection.Normalize();
         var d = Vector3.Dot(point - pointOnLine, lineDirection);
-        return pointOnLine + (lineDirection * d);
+        return pointOnLine + lineDirection * d;
     }
 }

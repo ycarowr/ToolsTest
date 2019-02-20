@@ -1,16 +1,20 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 /// <summary>
-/// Extension methods for the class List<T>.
-/// Some Refs:
-/// https://gist.github.com/omgwtfgames/f917ca28581761b8100f
-/// https://github.com/mminer/unity-extensions
+///     Extension methods for the class List<T>.
+///         Some Refs:
+///         https://gist.github.com/omgwtfgames/f917ca28581761b8100f
+///         https://github.com/mminer/unity-extensions
 /// </summary>
 public static class ListExtensions
 {
     /// <summary>
-    /// Returns a random item from inside the <typeparam name="T">List</typeparam>> 
+    ///     Returns a random item from inside the
+    ///     <typeparam name="T">List</typeparam>
+    ///     >
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
@@ -18,14 +22,16 @@ public static class ListExtensions
     public static T RandomItem<T>(this List<T> list)
     {
         if (list.Count == 0)
-            throw new System.IndexOutOfRangeException("List is Empty");
+            throw new IndexOutOfRangeException("List is Empty");
 
-        var randomIndex = UnityEngine.Random.Range(0, list.Count);
+        var randomIndex = Random.Range(0, list.Count);
         return list[randomIndex];
     }
 
     /// <summary>
-    /// Returns and Remove a random item from inside the <typeparam name="T">List</typeparam>> 
+    ///     Returns and Remove a random item from inside the
+    ///     <typeparam name="T">List</typeparam>
+    ///     >
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
@@ -38,7 +44,7 @@ public static class ListExtensions
     }
 
     /// <summary>
-    /// Shuffles the List using Fisher Yates algorithm: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle.
+    ///     Shuffles the List using Fisher Yates algorithm: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle.
     /// </summary>
     public static void Shuffle<T>(this List<T> list)
     {
@@ -46,7 +52,7 @@ public static class ListExtensions
         for (var i = 0; i <= n - 2; i++)
         {
             //random index
-            var rdn = UnityEngine.Random.Range(0, n - i);
+            var rdn = Random.Range(0, n - i);
 
             //swap positions
             var curVal = list[i];
@@ -56,7 +62,7 @@ public static class ListExtensions
     }
 
     /// <summary>
-    /// Adds an item at the beginning of the List
+    ///     Adds an item at the beginning of the List
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
@@ -67,7 +73,7 @@ public static class ListExtensions
     }
 
     /// <summary>
-    /// Add an item in before another item
+    ///     Add an item in before another item
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
@@ -80,7 +86,7 @@ public static class ListExtensions
     }
 
     /// <summary>
-    /// Add an item in after another item
+    ///     Add an item in after another item
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
@@ -93,14 +99,14 @@ public static class ListExtensions
     }
 
     /// <summary>
-    /// Prints the list in the following format: [item[0], item[1], ... , item[Count-1]]
+    ///     Prints the list in the following format: [item[0], item[1], ... , item[Count-1]]
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
     public static void Print<T>(this List<T> list)
     {
-        string log = "[";
-        for (int i = 0; i < list.Count; i++)
+        var log = "[";
+        for (var i = 0; i < list.Count; i++)
         {
             log += list[i].ToString();
             log += i != list.Count - 1 ? ", " : "]";

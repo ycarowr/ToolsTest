@@ -1,16 +1,13 @@
 ﻿using System;
-using NUnit.Framework;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Policy;
-using UnityEngine;
+using NUnit.Framework;
 
 public class TestListExtensions
 {
     [Test]
     public void AddBeforeOf()
     {
-        var list = new List<int>() {0, 1, 2, 3, 4, 5, 6};
+        var list = new List<int> {0, 1, 2, 3, 4, 5, 6};
         var item = 7;
 
         //add 7 in front of 3
@@ -23,22 +20,26 @@ public class TestListExtensions
     [Test]
     public void AddBeforeOfNotContainedItem_IndexOutOfBounds()
     {
-        var list = new List<int>() { 0, 1, 2, 3, 4, 5, 6 };
+        var list = new List<int> {0, 1, 2, 3, 4, 5, 6};
         var item = 7;
         var notContainedItem = 9;
-                
+
         var posBefore3 = list.IndexOf(3) - 1;
         Assert.False(list.Contains(notContainedItem));
-        
+
         //add 7 in front of 9
-        void addNotContained(){ list.AddBeforeOf(notContainedItem, item); }
+        void addNotContained()
+        {
+            list.AddBeforeOf(notContainedItem, item);
+        }
+
         Assert.Throws<ArgumentOutOfRangeException>(addNotContained);
     }
 
     [Test]
     public void AddAfterOf()
     {
-        var list = new List<int>() { 0, 1, 2, 3, 4, 5, 6 };
+        var list = new List<int> {0, 1, 2, 3, 4, 5, 6};
         var item = 7;
 
         //add 7 after of 3
@@ -51,7 +52,7 @@ public class TestListExtensions
     [Test]
     public void AddAfterOfLast()
     {
-        var list = new List<int>() { 0, 1, 2, 3, 4, 5, 6 };
+        var list = new List<int> {0, 1, 2, 3, 4, 5, 6};
         var item = 7;
         var present = 6;
 
@@ -67,11 +68,11 @@ public class TestListExtensions
     {
         var list = new List<int>();
 
-        void getRandom()
+        void GetRandom()
         {
             list.RandomItem();
         }
 
-        Assert.Throws<IndexOutOfRangeException>(getRandom);
+        Assert.Throws<IndexOutOfRangeException>(GetRandom);
     }
 }

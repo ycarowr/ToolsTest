@@ -1,2 +1,0 @@
-# Singleton Monobehavior Pattern Implementation
-

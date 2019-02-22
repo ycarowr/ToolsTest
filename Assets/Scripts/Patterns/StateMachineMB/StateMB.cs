@@ -7,10 +7,10 @@ namespace Patterns
         /// <summary>
         ///     Reference for the parent Finite StateMB Machine
         /// </summary>
-        public StateMachineMB<T> Fsm { get; private set; }
+        public T Fsm { get; private set; }
 
         /// <summary>
-        ///     Called by the GameController's Awake
+        ///     Called by the TurnBasedController's Awake
         /// </summary>
         public virtual void OnAwake()
         {
@@ -18,7 +18,7 @@ namespace Patterns
         }
 
         /// <summary>
-        ///     Called by the GameController's Start
+        ///     Called by the TurnBasedController's Start
         /// </summary>
         public virtual void OnStart()
         {
@@ -26,7 +26,7 @@ namespace Patterns
         }
 
         /// <summary>
-        ///     Called by the GameController's Update
+        ///     Called by the TurnBasedController's Update
         /// </summary>
         public virtual void OnUpdate()
         {
@@ -56,15 +56,13 @@ namespace Patterns
         /// <param name="stateMachine"></param>
         public void InjectStateMachine(StateMachineMB<T> stateMachine)
         {
-            Fsm = stateMachine;
+            Fsm = stateMachine as T;
             Log("StateMachine Assigned");
         }
 
 
         private void Log(string log, string colorName = "black")
         {
-            if (!Fsm.EnableLogs) return;
-
             log = string.Format("[" + GetType() + "]: <color={0}><b>" + log + "</b></color>", colorName);
             Debug.Log(log);
         }

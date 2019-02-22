@@ -19,7 +19,7 @@ namespace SimpleTurnBasedGame
 
         private void TryPassTurn()
         {
-            PlayersController.Instance.TryPassTurn(Player);
+            register.Instance.TryPassTurn(Player);
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Infrastructure
+namespace SimpleTurnBasedGame.Infrastructure
 {
     public static class A
     {

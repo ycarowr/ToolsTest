@@ -1,7 +1,7 @@
 ﻿using Patterns;
 using SimpleTurnBasedGame;
 
-namespace Infrastructure
+namespace SimpleTurnBasedGame.Infrastructure
 {
     public class PlayerBuilder : DataBuilder<Player>
     {

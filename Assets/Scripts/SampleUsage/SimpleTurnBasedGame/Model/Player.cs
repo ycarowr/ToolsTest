@@ -14,17 +14,17 @@
 
         void IPrimitivePlayer.DrawStartingHand()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         void IPrimitivePlayer.FinishTurn()
         {
-            throw new System.NotImplementedException();
+
         }
 
         void IPrimitivePlayer.StartTurn()
         {
-            throw new System.NotImplementedException();
+
         }
     }
 }

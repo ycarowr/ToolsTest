@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
-    public class PlayersController : SingletonMB<PlayersController>, IPlayerStateRegister
+    public class register : SingletonMB<register>, IPlayerStateRegister
     {
         private readonly Dictionary<IPrimitivePlayer, TurnState> registerStates =
             new Dictionary<IPrimitivePlayer, TurnState>();

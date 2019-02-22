@@ -50,5 +50,12 @@ namespace SimpleTurnBasedGame
         /// <param name="player"></param>
         /// <returns></returns>
         bool IsMyTurn(IPrimitivePlayer player);
+
+        /// <summary>
+        /// Returns the index of a player. -1 if the player is not registered yet.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        int GetPlayerIndex(IPrimitivePlayer player);
     }
 }

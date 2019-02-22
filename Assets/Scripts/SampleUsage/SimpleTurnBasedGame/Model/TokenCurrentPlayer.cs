@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Random = UnityEngine.Random;
 
 namespace SimpleTurnBasedGame
@@ -70,9 +71,21 @@ namespace SimpleTurnBasedGame
             CurrentPlayerIndex = StarterPlayerIndex;
         }
 
+        public int GetPlayerIndex(IPrimitivePlayer player)
+        {
+            foreach (var VARIABLE in Players)
+            {
+                LogCustom.Log(VARIABLE.Seat);
+            }
+            foreach (var p in Players)
+                if(player == p)
+                    return Players.IndexOf(player);
+
+            return -1;
+        }
+
         public void Restart()
         {
-            DecideStarterPlayerIndex();
             TurnCount = 0;
         }
 

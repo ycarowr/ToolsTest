@@ -3,17 +3,30 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
-    public abstract class TurnState : BaseBattleState, IPlayerRegister
+    public abstract class TurnState : BaseBattleState, IPlayerRegister, IStartedPlayerTurn, IFinishedPlayerTurn
     {
-        protected const float StartTurnDelay = 0;
-        protected const float MaxTimeToFinishTurn = 5;
-
         public IPrimitivePlayer Player { get; protected set; }
+
+        //timers
+        protected const float StartTurnDelay = 1;
+        protected const float TimeOutDelay = 5;
+        
+        //Turn Steps
+        protected StartPlayerTurn StartPlayerTurnStep { get; set; }
+        protected FinishPlayerTurn FinishPlayerTurnStep { get; set; }
+
         protected Coroutine TimeOutRoutine { get; set; }
 
         public void RegisterPlayer(IPrimitivePlayer player)
         {
             Player = player;
+        }
+
+        public override void RegisterRuntimeGame(IPrimitiveGame game)
+        {
+            base.RegisterRuntimeGame(game);
+            StartPlayerTurnStep = new StartPlayerTurn(game, this);
+            FinishPlayerTurnStep = new FinishPlayerTurn(game, this);
         }
 
         #region FSM
@@ -46,7 +59,7 @@ namespace SimpleTurnBasedGame
         public virtual IEnumerator StartTurn()
         {
             yield return new WaitForSeconds(StartTurnDelay);
-            GameLogic.StartCurrentPlayerTurn();
+            StartPlayerTurnStep.Execute();
         }
 
         /// <summary>
@@ -58,17 +71,27 @@ namespace SimpleTurnBasedGame
             if (TimeOutRoutine != null)
                 StopCoroutine(TimeOutRoutine);
             else
-                yield return new WaitForSeconds(MaxTimeToFinishTurn);
+                yield return new WaitForSeconds(TimeOutDelay);
 
             TryPassTurn();
         }
 
         /// <summary>
+        ///     Passes the turn to the next player.
+        /// </summary>
+        public void TryPassTurn()
+        {
+            if (!IsMyTurn())
+                return;
+
+            FinishPlayerTurnStep.Execute();
+        }
+
+        /// <summary>
         ///     Restart the state to the initial configuration and stops all the internal routines.
         /// </summary>
-        public override void Restart()
+        public virtual void Restart()
         {
-            base.Restart();
             if (TimeOutRoutine != null)
                 StopCoroutine(TimeOutRoutine);
             TimeOutRoutine = null;
@@ -80,19 +103,28 @@ namespace SimpleTurnBasedGame
         /// <returns></returns>
         public bool IsMyTurn()
         {
-            return GameLogic.Token.IsMyTurn(Player);
+            return RuntimeGame.Token.IsMyTurn(Player);
         }
 
-        /// <summary>
-        ///     Passes the turn to the next player.
-        /// </summary>
-        public void TryPassTurn()
+        void IStartedPlayerTurn.OnStartedCurrentPlayerTurn(IPrimitivePlayer player)
         {
-            if (!IsMyTurn())
-                return;
-
-            GameLogic.FinishCurrentPlayerTurn();
+            Log("OnStarted " + Player.Seat + " Player Turn");
         }
+
+        void IFinishedPlayerTurn.OnFinishedCurrentPlayerTurn(IPrimitivePlayer player)
+        {
+            Log("OnFinished "+ Player.Seat + " Player Turn");
+
+            NextTurn();
+        }
+
+        private void NextTurn()
+        {
+            var nextPlayer = RuntimeGame.Token.NextPlayer;
+            var nextState = Fsm.GetPlayerTurn(nextPlayer);
+            OnNext(nextState);
+        }
+
 
         #endregion
     }

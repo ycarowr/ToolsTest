@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Infrastructure;
+using SimpleTurnBasedGame.Infrastructure;
 using NUnit.Framework;
 
 namespace SimpleTurnBasedGame.Tests

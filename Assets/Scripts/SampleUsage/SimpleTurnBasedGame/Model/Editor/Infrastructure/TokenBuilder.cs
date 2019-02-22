@@ -2,7 +2,7 @@
 using Patterns;
 using SimpleTurnBasedGame;
 
-namespace Infrastructure
+namespace SimpleTurnBasedGame.Infrastructure
 {
     public class TokenBuilder : DataBuilder<TokenCurrentPlayer>
     {

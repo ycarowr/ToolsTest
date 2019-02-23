@@ -5,106 +5,137 @@ using UnityEngine;
 namespace Patterns
 {
     /// <summary>
-    ///     Attribute that allows to mark an Interface
-    ///     class is going to be listened by other classes.
-    ///     Usage: [GameEventAttribute] public IMyInterface { }
+    /// All the classes that are listened by IListener.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Interface, AllowMultiple = true)]
-    public class GameEventAttribute : Attribute
+    public interface ISubject
     {
+
     }
 
     /// <summary>
-    ///     This class contains a register that contains Subjects and Listeners. So,
-    ///     every time a Subject value is updated we notify this list to broadcast
-    ///     the modification to the Listeners.
+    /// All the classes that are listening ISubject.
+    /// </summary>
+    public interface IListener
+    {
+
+    }
+
+    //TODO: Consider a refactor to adapt the implementation using an Attribute instead only 
+    //TODO: Interfaces, because mid level interfaces cause a duplicated register as [Key, Listener].
+    //TODO: for instance: ISubject -> IGameEvent -> IMyInterface impacts in two keys inside the register.
+    /// <summary>
+    ///     This class contains a register that contains Subjects and their respective Listeners.
+    ///     Every time a Subject value is updated and notified, this pattern broadcast the modification to the Listeners.
     /// Refs:
     /// 1. https://forum.unity.com/threads/observer-pattern-hell.219749/
     /// 2. https://www.youtube.com/watch?v=Yy7Dt2usGy0
     /// 3. https://www.habrador.com/tutorials/programming-patterns/3-observer-pattern/
     /// 4. https://forum.unity.com/threads/observer-design-pattern-with-game-objects.388713/
     /// 5. https://jacekrojek.github.io/JacekRojek/2016/c-observer-design-pattern/
+    /// 6. https://docs.microsoft.com/en-us/dotnet/standard/events/how-to-implement-a-provider
     /// </summary>
-    public class Observer : SingletonMB<Observer>
+    public class Observer<T> : SingletonMB<Observer<T>>
     {
         /// <summary>
-        ///     List of listeners of each Interface that is marked as GameEvent. I am using object as
-        ///     base in order to subscribe both, Mono and Non-Monobehaviors.
+        ///     This is the Subject-Listener register. It supports both, Monobehaviors and 
+        ///     Pure C# classes that implement ISubject and IListener interfaces.
         /// </summary>
-        private readonly Dictionary<Type, List<object>>
-            listeners = new Dictionary<Type, List<object>>();
+        private readonly Dictionary<Type, List<IListener>>
+            register = new Dictionary<Type, List<IListener>>();
+
 
 
         /// <summary>
-        ///     Register a object as in the subscribers list based
-        ///     on each GameEvent Interface that this object implements.
+        ///     Register a listener as well as its implemented interfaces subjects.
         /// </summary>
-        /// <param name="obj"></param>
-        public void AddListener(object obj)
+        /// <param name="listener"></param>
+        public void AddListener(IListener listener)
         {
-            if(obj == null)
+            if(listener == null)
                 throw new ArgumentNullException("Can't register Null as a Listener");
-
+            
             //find the type of object
-            var type = obj.GetType();
+            var type = listener.GetType();
 
             //get all implemented interfaces by the type class
             var interfaces = type.GetInterfaces();
-
-            //iterate on all interfaces 
-            foreach (var element in interfaces)
+            
+            //iterate on all implemented interfaces
+            for (var i = 0; i < interfaces.Length; i++)
             {
-                //gets the event attribute from the interface type
-                var attr = Attribute.GetCustomAttribute(element, typeof(GameEventAttribute));
+                var subject = interfaces[i];
 
-                //if the attribute exists, Add the object to list
-                if (attr != null) CreateAndAdd(element, obj);
+                //TODO: ISubject and mid level interfaces are also added to the register
+                var isAssignableFrom = typeof(ISubject).IsAssignableFrom(subject);
+                //if the interface is a Subject, add the pair [Subject, Listener]
+                if (isAssignableFrom)
+                    CreateAndAdd(subject, listener);
             }
         }
 
+
         /// <summary>
-        ///     Remove an object that is already inside the subscribers list.
+        ///     Removes a listener from the register. Unlike the AddListener method this method doesn't affect the Key Register.
         /// </summary>
-        /// <param name="obj"></param>
-        public void RemoveListener(object obj)
+        /// <param name="listener"></param>
+        public void RemoveListener(IListener listener)
         {
-            foreach (var pair in listeners)
-                pair.Value.Remove(obj);
+            foreach (var pair in register)
+                pair.Value.Remove(listener);
         }
 
-        /// <summary>
-        ///     Broadcasts the Game Event Interface over the subscribers.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="subject"></param>
-        public void Notify<T>(Action<T> subject) where T : class
-        {
-            var isSubject = this.listeners.TryGetValue(typeof(T), out var listeners);
 
-            if (!isSubject) return;
+        /// <summary>
+        ///     Removes a subject and all its listeners from the register.
+        /// </summary>
+        /// <param name="subject"></param>
+        public void RemoveSubject(Type subject)
+        {
+            if(register.ContainsKey(subject))
+                register.Remove(subject);
+        }
+
+
+        /// <summary>
+        ///     Broadcasts the subject interface T1 for all listeners
+        ///     Usage: Notify<T1>(i => i.subject(subject params)).
+        /// </summary>
+        /// <typeparam name="T1"></typeparam>
+        /// <param name="subject"></param>
+        public void Notify<T1>(Action<T1> subject) where T1 : class
+        {
+            var subjectType = typeof(T1);
+
+            //if the type is a subject move forward
+            var isSubject = register.ContainsKey(subjectType);
+            if (!isSubject)
+                return;
+            
+            //if there are register for this subject move forward
+            var listeners = register[subjectType];
             if (listeners.Count == 0) return;
 
-            //broadcasts over the listeners
+            //broadcast for all gotten register
             for (var i = 0; i < listeners.Count; i++)
             {    
                 var obj = listeners[i];
                 if (obj != null)
-                    subject(obj as T);
+                    subject(obj as T1);
             }
         }
 
+
         /// <summary>
-        ///     Create or Subscribe an object to a list
-        ///     according to its implemented GameEvent Interface.
+        ///     Create the listeners register and add the it according to its own subject Interface.
         /// </summary>
-        /// <param name="anInterface"></param>
-        /// <param name="anObject"></param>
-        private void CreateAndAdd(Type anInterface, object anObject)
+        /// <param name="subject"></param>
+        /// <param name="listener"></param>
+        private void CreateAndAdd(Type subject, IListener listener)
         {
-            if (listeners.ContainsKey(anInterface))
-                listeners[anInterface].Add(anObject);
+            if (register.ContainsKey(subject))
+                register[subject].Add(listener);
             else
-                listeners.Add(anInterface, new List<object> {anObject});
+                register.Add(subject, new List<IListener> {listener});
         }
     }
 }

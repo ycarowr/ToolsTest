@@ -55,13 +55,13 @@ namespace SimpleTurnBasedGame
 
         void IStartedPlayerTurn.OnStartedCurrentPlayerTurn(IPrimitivePlayer player)
         {
-            ObserverGameEvents.Instance.Notify<IStartPlayerTurn>(i => i.OnStartPlayerTurn(player));
+            GameEvents.Instance.Notify<IStartPlayerTurn>(i => i.OnStartPlayerTurn(player));
             Log("OnStarted " + Player.Seat + " Player Turn");
         }
 
         void IFinishedPlayerTurn.OnFinishedCurrentPlayerTurn(IPrimitivePlayer player)
         {
-            ObserverGameEvents.Instance.Notify<IFinishedPlayerTurn>(i => i.OnFinishedCurrentPlayerTurn(player));
+            GameEvents.Instance.Notify<IFinishedPlayerTurn>(i => i.OnFinishedCurrentPlayerTurn(player));
             Log("OnFinished " + Player.Seat + " Player Turn");
             NextTurn();
         }

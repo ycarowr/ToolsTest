@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
-    public class ObserverGameEvents : Observer<ObserverGameEvents>
+    public class GameEvents : Observer<GameEvents>
     {
         
     }

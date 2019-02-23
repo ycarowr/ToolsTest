@@ -26,10 +26,10 @@ namespace SimpleTurnBasedGame
             var players = RuntimeGame.Token.Players;
 
             //notify pre game start event
-            ObserverGameEvents.Instance.Notify<IPreGameStart>(i => i.OnPreGameStart(players));
+            GameEvents.Instance.Notify<IPreGameStart>(i => i.OnPreGameStart(players));
             
             //notify game start event
-            ObserverGameEvents.Instance.Notify<IStartGame>(i=>i.OnStartGame(starter));
+            GameEvents.Instance.Notify<IStartGame>(i=>i.OnStartGame(starter));
 
             //go to next state
             var nextTurn = Fsm.GetPlayer(starter);

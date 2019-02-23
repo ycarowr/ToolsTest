@@ -21,13 +21,13 @@ namespace SimpleTurnBasedGame
 
         protected virtual void Start()
         {
-            ObserverGameEvents.Instance.AddListener(this);
+            GameEvents.Instance.AddListener(this);
         }
 
         protected virtual void OnDestroy()
         {
-            if(ObserverGameEvents.Instance)
-                ObserverGameEvents.Instance.RemoveListener(this);
+            if(GameEvents.Instance)
+                GameEvents.Instance.RemoveListener(this);
         }
 
         #region Game Events

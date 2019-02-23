@@ -18,17 +18,17 @@ namespace Patterns
         private static readonly object locker = new object();
 
         [Tooltip("Mark it whether this singleton will be destroyed when the scene changes")] [SerializeField]
-        private readonly bool isDontDestroyOnLoad = false;
+        private bool isDontDestroyOnLoad = false;
 
         [Tooltip(
             "Mark it whether the script raises an exception when another singleton like this is present in the scene")]
         [SerializeField]
-        private readonly bool isSilent = false;
+        private bool isSilent = false;
 
         //singleton generic instance
         public static T Instance { get; private set; }
 
-        protected virtual void Awake()
+        protected virtual void Awake() 
         {
             //multi thread lock
             lock (locker)

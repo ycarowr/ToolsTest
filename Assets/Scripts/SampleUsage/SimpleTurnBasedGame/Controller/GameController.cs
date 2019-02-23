@@ -15,7 +15,7 @@ namespace SimpleTurnBasedGame
         /// </summary>
         private IPrimitiveGame RuntimeGame { get; set; }
 
-        protected override void OnAwake()
+        private void Start()
         {
             //create player seats
             var userSeat = PlayerSeat.Bottom;
@@ -27,17 +27,14 @@ namespace SimpleTurnBasedGame
 
             //create game logic
             RuntimeGame = new Game(new List<IPrimitivePlayer> { userPlayer, player2 });
-
             //assign players to their state controllers
             TurnBasedController.Instance.RegisterPlayer(userPlayer);
             TurnBasedController.Instance.RegisterPlayer(player2);
 
             //Initialize State Machine this game the data
             TurnBasedController.Instance.Initialize(RuntimeGame);
-        }
 
-        private void Start()
-        {
+            //Push the start battle state
             TurnBasedController.Instance.StartBattle();
         }
     }

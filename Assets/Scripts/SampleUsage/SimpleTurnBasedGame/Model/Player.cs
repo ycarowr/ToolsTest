@@ -5,16 +5,15 @@
     /// </summary>
     public class Player : IPrimitivePlayer
     {
-        public PlayerSeat Seat { get; private set; }
+        public PlayerSeat Seat { get; }
+        public int Health { get; }
+
+        private const int DefaultMaxHealth = 5;
 
         public Player(PlayerSeat seat)
         {
             Seat = seat;
-        }
-
-        void IPrimitivePlayer.DrawStartingHand()
-        {
-            
+            Health = DefaultMaxHealth;
         }
 
         void IPrimitivePlayer.FinishTurn()

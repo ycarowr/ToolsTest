@@ -3,7 +3,7 @@
     public interface IPrimitivePlayer
     {
         PlayerSeat Seat { get; }
-        void DrawStartingHand();
+        int Health { get; }
         void StartTurn();
         void FinishTurn();
     }

@@ -12,7 +12,7 @@ namespace SimpleTurnBasedGame
     ///     using AddComponent calls, be sure this is called before the state's registration.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class StateMachineMB<T> : PersistentSingleton<T> where T : MonoBehaviour
+    public abstract class StateMachineMB<T> : SingletonMB<T> where T : MonoBehaviour
     {
         //This StatesRegister doesn't allowed you to have two states with the same Type
         private readonly Dictionary<Type, StateMB<T>> statesRegister = new Dictionary<Type, StateMB<T>>();
@@ -106,7 +106,7 @@ namespace SimpleTurnBasedGame
 
         /// <summary>
         ///     Pushes a state by Type triggering OnEnterState for the pushed
-        ///     state and OnExitState for the previous state in the stack.
+        ///     state and if not silent OnExitState for the previous state in the stack.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         public void PushState<T1>(bool isSilent = false) where T1 : StateMB<T>

@@ -23,7 +23,16 @@ namespace SimpleTurnBasedGame
         public void OnGameStarted(IPrimitivePlayer starter)
         {
             Log("Game Started Dispatched");
-            var nextTurn = Fsm.GetPlayerTurn(starter);
+            var players = RuntimeGame.Token.Players;
+
+            //notify pre game start event
+            ObserverGameEvents.Instance.Notify<IPreGameStart>(i => i.OnPreGameStart(players));
+            
+            //notify game start event
+            ObserverGameEvents.Instance.Notify<IStartGame>(i=>i.OnStartGame(starter));
+
+            //go to next state
+            var nextTurn = Fsm.GetPlayer(starter);
             StartCoroutine(OnNextState(nextTurn));
         }
 

@@ -15,6 +15,7 @@ namespace SimpleTurnBasedGame
         protected StartPlayerTurn StartPlayerTurnStep { get; set; }
         protected FinishPlayerTurn FinishPlayerTurnStep { get; set; }
 
+        //timeout 
         protected Coroutine TimeOutRoutine { get; set; }
 
         public void RegisterPlayer(IPrimitivePlayer player)
@@ -52,6 +53,21 @@ namespace SimpleTurnBasedGame
 
         #region Player Actions
 
+        void IStartedPlayerTurn.OnStartedCurrentPlayerTurn(IPrimitivePlayer player)
+        {
+            ObserverGameEvents.Instance.Notify<IStartPlayerTurn>(i => i.OnStartPlayerTurn(player));
+            Log("OnStarted " + Player.Seat + " Player Turn");
+        }
+
+        void IFinishedPlayerTurn.OnFinishedCurrentPlayerTurn(IPrimitivePlayer player)
+        {
+            ObserverGameEvents.Instance.Notify<IFinishedPlayerTurn>(i => i.OnFinishedCurrentPlayerTurn(player));
+            Log("OnFinished " + Player.Seat + " Player Turn");
+            NextTurn();
+        }
+        
+        #endregion
+
         /// <summary>
         ///     Starts the player turn.
         /// </summary>
@@ -66,25 +82,27 @@ namespace SimpleTurnBasedGame
         ///     Finishes the player turn.
         /// </summary>
         /// <returns></returns>
-        public virtual IEnumerator TimeOut()
+        public virtual IEnumerator TimeOut(float time = TimeOutDelay)
         {
             if (TimeOutRoutine != null)
                 StopCoroutine(TimeOutRoutine);
             else
-                yield return new WaitForSeconds(TimeOutDelay);
+                yield return new WaitForSeconds(time);
 
             TryPassTurn();
         }
 
         /// <summary>
-        ///     Passes the turn to the next player.
+        ///     Check if the player can pass the turn and passes the turn to the next player.
         /// </summary>
-        public void TryPassTurn()
+        public bool TryPassTurn()
         {
+            Debug.Log("Try pass turn");
             if (!IsMyTurn())
-                return;
-
+                return false;
+            Debug.Log("pass the turn");
             FinishPlayerTurnStep.Execute();
+            return true;
         }
 
         /// <summary>
@@ -106,26 +124,14 @@ namespace SimpleTurnBasedGame
             return RuntimeGame.Token.IsMyTurn(Player);
         }
 
-        void IStartedPlayerTurn.OnStartedCurrentPlayerTurn(IPrimitivePlayer player)
-        {
-            Log("OnStarted " + Player.Seat + " Player Turn");
-        }
-
-        void IFinishedPlayerTurn.OnFinishedCurrentPlayerTurn(IPrimitivePlayer player)
-        {
-            Log("OnFinished "+ Player.Seat + " Player Turn");
-
-            NextTurn();
-        }
-
+        /// <summary>
+        /// Switches the turn according to the next player. 
+        /// </summary>
         private void NextTurn()
         {
             var nextPlayer = RuntimeGame.Token.NextPlayer;
-            var nextState = Fsm.GetPlayerTurn(nextPlayer);
+            var nextState = Fsm.GetPlayer(nextPlayer);
             OnNext(nextState);
         }
-
-
-        #endregion
     }
 }

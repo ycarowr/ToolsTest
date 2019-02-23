@@ -15,14 +15,13 @@ namespace SimpleTurnBasedGame
         private readonly Dictionary<IPrimitivePlayer, TurnState> actorsRegister = new Dictionary<IPrimitivePlayer, TurnState>();
 
         //It holds the flow of the Player state
-        private UserTurnState UserState { get; set; }
+        public UserTurnState UserState { get; set; }
 
         //It holds the flow of the start game state
         private StartBattleState StartState { get; set; }
 
         //It holds the flow of the end game state
         private EndBattleState EndState { get; set; }
-
 
         public void Initialize(IPrimitiveGame game)
         {
@@ -37,8 +36,8 @@ namespace SimpleTurnBasedGame
         protected override void OnBeforeInitialize()
         {
             //create StartGame and EndGame states
-            StartState = gameObject.AddComponent<StartBattleState>();
-            EndState = gameObject.AddComponent<EndBattleState>();
+            StartState = GetComponent<StartBattleState>();
+            EndState = GetComponent<EndBattleState>();
         }
 
         /// <summary>
@@ -49,22 +48,56 @@ namespace SimpleTurnBasedGame
         {
             if (UserState == null)
             {
-                UserState = gameObject.AddComponent<UserTurnState>();
+                UserState = GetComponent<UserTurnState>();
                 UserState.RegisterPlayer(player);
                 actorsRegister.Add(player, UserState);
             }
             else
             {
-                var aiTurnState = gameObject.AddComponent<AITurnState>();
+                var aiTurnState = GetComponent<AITurnState>();
                 aiTurnState.RegisterPlayer(player);
                 actorsRegister.Add(player, aiTurnState);
             }
         }
 
+        /// <summary>
+        /// Returns whether the current player is sitting on a specified seat.
+        /// </summary>
+        /// <param name="seat"></param>
+        /// <returns></returns>
+        public bool IsMyTurn(PlayerSeat seat)
+        {
+            if (!IsInitialized)
+                return false;
 
-        public TurnState GetPlayerTurn(IPrimitivePlayer player)
+            var currentState = PeekState();
+            return currentState != null && GetPlayer(seat).IsMyTurn();
+        }
+
+        /// <summary>
+        /// Returns a Turn according to its registered player.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public TurnState GetPlayer(IPrimitivePlayer player)
         {
             return IsInitialized && actorsRegister.ContainsKey(player) ? actorsRegister[player] : null;
+        }
+
+        /// <summary>
+        /// Returns a Turn according to a position. Null if there isn't player registered with the argument.
+        /// </summary>
+        /// <param name="seat"></param>
+        /// <returns></returns>
+        public TurnState GetPlayer(PlayerSeat seat)
+        {
+            foreach (var player in actorsRegister.Keys)
+            {
+                if (player.Seat == seat)
+                    return actorsRegister[player];
+            }
+
+            return null;
         }
 
         /// <summary>

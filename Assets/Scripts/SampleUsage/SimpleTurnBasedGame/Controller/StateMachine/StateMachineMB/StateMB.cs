@@ -49,7 +49,6 @@ namespace SimpleTurnBasedGame
             Log("OnExitState <---------", "red");
         }
 
-
         /// <summary>
         ///     Setter for Internal StateMB Machine
         /// </summary>
@@ -59,7 +58,6 @@ namespace SimpleTurnBasedGame
             Fsm = stateMachine as T;
             Log("StateMachine Assigned");
         }
-
 
         private void Log(string log, string colorName = "black")
         {

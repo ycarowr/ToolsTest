@@ -2,6 +2,6 @@
 {
     public interface IPlayerStateRegister
     {
-        void RegisterPlayer(TurnState playerState);
+        void RegisterPlayerState(TurnState playerState);
     }
 }

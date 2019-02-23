@@ -7,8 +7,8 @@ namespace SimpleTurnBasedGame
     public enum PlayerSeat
     {
         Bottom = 0,
-        Top = 1,
-        Left = 2,
-        Right = 4
+        Left = 1,
+        Top = 2,
+        Right = 3
     }
 }

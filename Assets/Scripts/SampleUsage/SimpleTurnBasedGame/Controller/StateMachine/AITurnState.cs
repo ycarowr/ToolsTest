@@ -10,13 +10,17 @@ namespace SimpleTurnBasedGame
         private const float AiDoTurnDelay = 1;
         private const float AiFinishTurnDelay = 3;
         private Coroutine AiFinishTurnRoutine { get; set; }
-
         private AiModule AiModule { get; set; }
+
+        [SerializeField] private bool isTesting = false;
+        [SerializeField] private AiArchetype testAi;
 
         public override void InjectDependencies(IPrimitivePlayer player, IPrimitiveGame game)
         {
             base.InjectDependencies(player, game);
             AiModule = new AiModule(player, game);
+            if(isTesting)
+                AiModule.SwapAiToArchetype(testAi);
         }
 
         protected override IEnumerator StartTurn()

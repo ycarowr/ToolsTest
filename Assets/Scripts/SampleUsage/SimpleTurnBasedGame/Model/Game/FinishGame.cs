@@ -15,7 +15,7 @@ namespace SimpleTurnBasedGame
 
         }
 
-        public void Execute()
+        public void Execute(IPrimitivePlayer winner)
         {
             if (!Game.IsGameStarted)
                 return;
@@ -24,12 +24,16 @@ namespace SimpleTurnBasedGame
 
             Game.IsGameFinished = true;
 
-            OnGameFinished(Game.Token.CurrentPlayer);
+            OnGameFinished(winner);
         }
 
-        private void OnGameFinished(IPrimitivePlayer currentPlayer)
+        /// <summary>
+        /// Dispatch end game to the listeners.
+        /// </summary>
+        /// <param name="winner"></param>
+        private void OnGameFinished(IPrimitivePlayer winner)
         {
-            
+            GameEvents.Instance.Notify<IFinishGame>(i => i.OnFinishGame(winner));
         }
     }
 }

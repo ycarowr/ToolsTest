@@ -6,7 +6,7 @@ namespace SimpleTurnBasedGame
     /// <summary>
     ///     Simple concrete Game Implementation.
     /// </summary>
-    public partial class Game : IPrimitiveGame
+    public class Game : IPrimitiveGame
     {
         public Game(List<IPrimitivePlayer> players)
         {

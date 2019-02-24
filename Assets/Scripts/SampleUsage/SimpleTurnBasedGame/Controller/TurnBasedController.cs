@@ -72,13 +72,23 @@ namespace SimpleTurnBasedGame
         /// </summary>
         /// <param name="seat"></param>
         /// <returns></returns>
-        public bool IsMyTurn(PlayerSeat seat)
+        public bool IsCurrentPlayerOnSeat(PlayerSeat seat)
         {
             if (!IsInitialized)
                 return false;
 
             var currentState = PeekState();
             return currentState != null && GetPlayer(seat).IsMyTurn();
+        }
+
+        /// <summary>
+        /// Check if the player is the Player User.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public bool IsUser(IPrimitivePlayer player)
+        {
+            return UserState.Player == player;
         }
 
         /// <summary>

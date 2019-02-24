@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using Random = System.Random;
+﻿using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
@@ -12,13 +9,16 @@ namespace SimpleTurnBasedGame
     {
         public const int MaxDamage = 4;
         public const int MinDamage = 1;
+
+        private FinishGame FinishGameStep { get; }
+
         public ProcessDamageMove(IPrimitiveGame game) : base(game)
         {
-
+            FinishGameStep = new FinishGame(game);
         }
 
         /// <summary>
-        /// Execution of the damage logic.
+        ///     Execution of the damage logic.
         /// </summary>
         public void Execute()
         {
@@ -40,19 +40,28 @@ namespace SimpleTurnBasedGame
 
             //dispatch damage
             OnDoneDamage(source, target, damageDealt);
+
+            //check health
+            if (IsTargetDead(target))
+                FinishGameStep.Execute(source as IPrimitivePlayer);
+        }
+
+        private bool IsTargetDead(IDamageable target)
+        {
+            return (target as Player).Health == 0;
         }
 
         /// <summary>
-        /// Generates the damage amount.
+        ///     Generates the damage amount.
         /// </summary>
         /// <returns></returns>
         protected virtual int GetDamage()
         {
-            return UnityEngine.Random.Range(MinDamage, MaxDamage);
+            return Random.Range(MinDamage, MaxDamage);
         }
 
         /// <summary>
-        /// Dispatch damage dealt to the listeners.
+        ///     Dispatch damage dealt to the listeners.
         /// </summary>
         /// <param name="source"></param>
         /// <param name="target"></param>

@@ -14,7 +14,7 @@ namespace SimpleTurnBasedGame
 
         public bool IsMyTurn()
         {
-            return TurnBasedController.Instance.IsMyTurn(seat);
+            return TurnBasedController.Instance.IsCurrentPlayerOnSeat(seat);
         }
 
         public TurnState GetPlayer()

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SimpleTurnBasedGame
@@ -9,14 +10,12 @@ namespace SimpleTurnBasedGame
     /// </summary>
     public class FinishGame : TurnStep
     {
-        private IGameFinished Handler { get; }
-
-        public FinishGame(IPrimitiveGame game, IGameFinished handler) : base(game)
+        public FinishGame(IPrimitiveGame game) : base(game)
         {
-            Handler = handler;
+
         }
 
-        public override void Execute()
+        public void Execute()
         {
             if (!Game.IsGameStarted)
                 return;
@@ -24,7 +23,13 @@ namespace SimpleTurnBasedGame
                 return;
 
             Game.IsGameFinished = true;
-            Handler.OnGameFinished(Game.Token.CurrentPlayer);
+
+            OnGameFinished(Game.Token.CurrentPlayer);
+        }
+
+        private void OnGameFinished(IPrimitivePlayer currentPlayer)
+        {
+            
         }
     }
 }

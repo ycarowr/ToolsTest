@@ -10,12 +10,12 @@ namespace SimpleTurnBasedGame
     {
         public Game(List<IPrimitivePlayer> players)
         {
-            Token = new TokenCurrentPlayer(players);
+            Token = new TokenTurnLogic(players);
             Log("Game Created");
         }
 
-        public TokenCurrentPlayer Token { get; }
-        ITokenCurrentPlayer IPrimitiveGame.Token => Token;
+        public TokenTurnLogic Token { get; }
+        ITokenTurnLogic IPrimitiveGame.Token => Token;
         public bool IsGameStarted { get; set; }
         public bool IsGameFinished { get; set; }
         public bool IsTurnInProgress { get; set; }

@@ -16,57 +16,7 @@ namespace SimpleTurnBasedGame.Tests
 
                 void CreateBrokenToken()
                 {
-                    var token = (TokenCurrentPlayer) A.Token().WithPlayers(emptyList);
-                }
-
-                Assert.Throws<ArgumentException>(CreateBrokenToken);
-            }
-
-            [Test]
-            public void CreateTokenWithNegativeStartIndex_ArgumentError()
-            {
-                void CreateBrokenToken(int invalidStartIndex = -1)
-                {
-                    var token = (TokenCurrentPlayer) A.Token().WithStartIndex(invalidStartIndex);
-                }
-
-                Assert.Throws<ArgumentException>(() => CreateBrokenToken());
-            }
-
-            [Test]
-            public void CreateTokenWithTooBigStartIndex_ArgumentError()
-            {
-                void CreateBrokenToken()
-                {
-                    var players = new List<IPrimitivePlayer> {(Player) A.Player()};
-                    var token = (TokenCurrentPlayer) A.Token()
-                        .WithPlayers(players)
-                        .WithStartIndex(players.Count + 1);
-                }
-
-                Assert.Throws<ArgumentException>(CreateBrokenToken);
-            }
-
-            [Test]
-            public void CreateTokenWithNegativeCurrentIndex_ArgumentError()
-            {
-                void CreateBrokenToken(int invalidCurrentIndex = -1)
-                {
-                    var token = (TokenCurrentPlayer) A.Token().WithCurrentIndex(invalidCurrentIndex);
-                }
-
-                Assert.Throws<ArgumentException>(() => CreateBrokenToken());
-            }
-
-            [Test]
-            public void CreateTokenWithTooBigCurrentIndex_ArgumentError()
-            {
-                void CreateBrokenToken()
-                {
-                    var players = new List<IPrimitivePlayer> {(Player) A.Player()};
-                    var token = (TokenCurrentPlayer) A.Token()
-                        .WithPlayers(players)
-                        .WithCurrentIndex(players.Count + 1);
+                    var token = (TokenTurnLogic) A.Token().WithPlayers(emptyList);
                 }
 
                 Assert.Throws<ArgumentException>(CreateBrokenToken);
@@ -78,14 +28,12 @@ namespace SimpleTurnBasedGame.Tests
                 var player = (Player) A.Player().WithSeat(PlayerSeat.Bottom);
                 var player1 = (Player) A.Player().WithSeat(PlayerSeat.Top);
                 var players = new List<IPrimitivePlayer> {player, player1};
-                var token = (TokenCurrentPlayer) A.Token().WithPlayers(players);
+                var token = (TokenTurnLogic) A.Token().WithPlayers(players);
 
                 //initial state has turn count equals to zero
                 Assert.AreEqual(token.TurnCount, 0);
                 //on initial state starter and current are the same
-                Assert.AreEqual(token.StarterPlayerIndex, token.CurrentPlayerIndex);
-                //current index has to be smaller than quantity
-                Assert.Less(token.CurrentPlayerIndex, players.Count);
+                Assert.AreEqual(token.StarterPlayer, token.CurrentPlayer);
             }
 
             [Test]
@@ -94,58 +42,58 @@ namespace SimpleTurnBasedGame.Tests
                 var player = (Player) A.Player().WithSeat(PlayerSeat.Bottom);
                 var player1 = (Player) A.Player().WithSeat(PlayerSeat.Top);
                 var players = new List<IPrimitivePlayer> {player, player1};
-                var token = (TokenCurrentPlayer) A.Token().WithPlayers(players);
+                var token = (TokenTurnLogic) A.Token().WithPlayers(players);
                 var quantPlayers = players.Count;
 
-                const int firstPlayerIndex = 0;
-                token.SetCurrentIndex(firstPlayerIndex);
-                token.SetStarterIndex(firstPlayerIndex);
+                const PlayerSeat firstSeat = PlayerSeat.Bottom;
+                token.SetCurrentSeat(firstSeat);
+                token.SetStarterSeat(firstSeat);
 
                 const int n = 10;
                 //Update the index n times
-                for (var i = 0; i < n; i++) token.UpdateCurrentPlayerIndex();
+                for (var i = 0; i < n; i++) token.UpdateCurrentPlayer();
 
                 //turn count has to be the same as n
                 Assert.AreEqual(token.TurnCount, n);
                 //+1 because we don't update the index on the first attempt
                 var turnMod = n + 1 % quantPlayers;
-                Assert.AreEqual(token.CurrentPlayerIndex, (turnMod + firstPlayerIndex) % quantPlayers);
+                Assert.AreEqual(PlayerSeat.Top, token.CurrentPlayerSeat);
             }
 
             [Test]
             public void UpdateTokenFrom0_IndexRemainsTheSame()
             {
-                const int firstPlayerIndex = 0;
-                var token = (TokenCurrentPlayer) A.Token()
-                    .WithCurrentIndex(firstPlayerIndex)
-                    .WithStartIndex(firstPlayerIndex);
+                const PlayerSeat firstPlayerSeat = PlayerSeat.Bottom;
+                var token = (TokenTurnLogic) A.Token()
+                    .WithCurrentSeat(firstPlayerSeat)
+                    .WithStartSeat(firstPlayerSeat);
 
 
-                token.UpdateCurrentPlayerIndex();
+                token.UpdateCurrentPlayer();
 
                 //set indexes to zero
-                const int expectedIndex = firstPlayerIndex;
+                const PlayerSeat expectedIndex = PlayerSeat.Top;
                 //current remains zero
-                Assert.AreEqual(token.CurrentPlayerIndex, firstPlayerIndex);
+                Assert.AreEqual(firstPlayerSeat, token.CurrentPlayerSeat);
                 //next remains zero + 1
-                Assert.AreEqual(token.NextPlayerIndex, expectedIndex);
+                Assert.AreEqual(expectedIndex, token.NextPlayerSeat);
             }
 
             [Test]
             public void GetNextIndexFromZero_IndexIsOne()
             {
-                const int firstPlayerIndex = 0;
+                const PlayerSeat firstPlayerSeat = PlayerSeat.Bottom;
                 var player = (Player) A.Player().WithSeat(PlayerSeat.Bottom);
                 var player1 = (Player) A.Player().WithSeat(PlayerSeat.Top);
                 var players = new List<IPrimitivePlayer> {player, player1};
-                var token = (TokenCurrentPlayer) A.Token()
+                var token = (TokenTurnLogic) A.Token()
                     .WithPlayers(players)
-                    .WithCurrentIndex(firstPlayerIndex)
-                    .WithStartIndex(firstPlayerIndex);
+                    .WithCurrentSeat(firstPlayerSeat)
+                    .WithStartSeat(firstPlayerSeat);
 
                 //set indexes to zero
-                const int expectedIndex = 1;
-                Assert.AreEqual(token.NextPlayerIndex, expectedIndex);
+                const PlayerSeat expectedIndex = PlayerSeat.Top;
+                Assert.AreEqual(token.NextPlayerSeat, expectedIndex);
             }
         }
     }

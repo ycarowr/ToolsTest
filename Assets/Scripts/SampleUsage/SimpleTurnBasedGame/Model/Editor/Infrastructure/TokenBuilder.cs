@@ -4,11 +4,11 @@ using SimpleTurnBasedGame;
 
 namespace SimpleTurnBasedGame.Infrastructure
 {
-    public class TokenBuilder : DataBuilder<TokenCurrentPlayer>
+    public class TokenBuilder : DataBuilder<TokenTurnLogic>
     {
-        private int currentIndex;
+        private PlayerSeat currentIndex;
         private List<IPrimitivePlayer> defaultPlayers;
-        private int startIndex;
+        private PlayerSeat startIndex;
 
         public TokenBuilder(List<IPrimitivePlayer> players)
         {
@@ -25,21 +25,21 @@ namespace SimpleTurnBasedGame.Infrastructure
             return this;
         }
 
-        public TokenBuilder WithStartIndex(int startIndex)
+        public TokenBuilder WithStartSeat(PlayerSeat start)
         {
-            this.startIndex = startIndex;
+            this.startIndex = start;
             return this;
         }
 
-        public TokenBuilder WithCurrentIndex(int currentIndex)
+        public TokenBuilder WithCurrentSeat(PlayerSeat current)
         {
-            this.currentIndex = currentIndex;
+            this.currentIndex = current;
             return this;
         }
 
-        public override TokenCurrentPlayer Build()
+        public override TokenTurnLogic Build()
         {
-            return new TokenCurrentPlayer(defaultPlayers, startIndex, currentIndex);
+            return new TokenTurnLogic(defaultPlayers, startIndex, currentIndex);
         }
     }
 }

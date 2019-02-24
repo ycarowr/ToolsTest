@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Patterns;
-using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
@@ -12,7 +9,7 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Broadcast right before the game start event.
+    /// Broadcast of the players right before the game start.
     /// </summary>
     public interface IPreGameStart : ISubject
     {
@@ -20,7 +17,7 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Broadcast after the game starts for all the Listeners.
+    /// Broadcast of the starter player to the Listeners.
     /// </summary>
     public interface IStartGame : ISubject
     {
@@ -28,7 +25,7 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Broadcast after a game is finished for all the Listeners.
+    /// Broadcast of the winner after a game is finished to the Listeners.
     /// </summary>
     public interface IFinishGame : ISubject
     {
@@ -36,7 +33,7 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Broadcast after a player starts the turn for all the Listeners.
+    /// Broadcast of a player when it starts the turn to the Listeners.
     /// </summary>
     public interface IStartPlayerTurn : ISubject
     {
@@ -44,10 +41,26 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Broadcast after a player finishes the turn for all the Listeners.
+    /// Broadcast of a player when it finishes the turn to the Listeners.
     /// </summary>
     public interface IFinishPlayerTurn : ISubject
     {
         void OnFinishPlayerTurn(IPrimitivePlayer player);
+    }
+
+    /// <summary>
+    /// Broadcast of a damage to the Listeners.
+    /// </summary>
+    public interface IDoDamage : ISubject
+    {
+        void OnDamage(IAttackable source, IDamageable target, int amount);
+    }
+
+    /// <summary>
+    /// Broadcast of a heal to the Listeners.
+    /// </summary>
+    public interface IDoHeal: ISubject
+    {
+        void OnHeal(IHealer source, IHealable target, int amount);
     }
 }

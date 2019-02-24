@@ -8,7 +8,7 @@ namespace SimpleTurnBasedGame
     ///     control the game flow through a state machine where the states
     ///     act as controllers for each respective player.
     /// </summary>
-    public class TurnBasedController : StateMachineMB<TurnBasedController>, IPlayerRegister
+    public class TurnBasedController : StateMachineMB<TurnBasedController>, IRegisterPlayer
     {
         //Register with all States of the Players that are in the Match. Each state controls
         //the flow of the game 
@@ -85,7 +85,7 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        /// Returns a Turn according to a position. Null if there isn't player registered with the argument.
+        /// Returns a the player turn according to the position. Null if there isn't player registered with the argument.
         /// </summary>
         /// <param name="seat"></param>
         /// <returns></returns>
@@ -98,6 +98,18 @@ namespace SimpleTurnBasedGame
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Returns a player turn according to a opponent position. Null if there isn't player registered with the argument.
+        /// </summary>
+        /// <param name="seat"></param>
+        /// <returns></returns>
+        public TurnState GetOpponent(PlayerSeat seat)
+        {
+            var player = GetPlayer(seat);
+            var opponent = player.GetOpponent();
+            return GetPlayer(opponent);
         }
 
         /// <summary>

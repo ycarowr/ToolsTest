@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Patterns;
 using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
     /// <summary>
-    ///     Small Part of Turn.
+    ///     Small Part of a Turn.
     /// </summary>
     public abstract class TurnStep
     {
@@ -17,10 +18,5 @@ namespace SimpleTurnBasedGame
         {
             Game = game;
         }
-
-        /// <summary>
-        ///     Execution of this turn step.
-        /// </summary>
-        public abstract void Execute();
     }
 }

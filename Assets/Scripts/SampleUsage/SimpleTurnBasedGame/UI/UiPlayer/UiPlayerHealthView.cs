@@ -1,15 +1,45 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Patterns;
+using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
-    public class UiPlayerHealthView: UiTextMeshProText, IUiPlayerUpdateView
+    //TODO: Replace "string.Format(...)" calls by StringBuilder.Append(..)
+    public class UiPlayerHealthView: UiListener,
+        IPreGameStart, 
+        IDoDamage, 
+        IDoHeal
     {
-        //TODO: Replace "string.Format(...)" calls by StringBuilder.Append(..)
-        public void UpdatePlayer(IPrimitivePlayer player)
+        private UiPlayerContainer UiParent;
+        private UiText UiText;
+        private string healthText;
+        
+        private void Awake()
         {
-            Debug.Log(player.Seat);
-            var healthText = Localization.Instance.Get(LocalizationIds.Health);
-            SetText(healthText + ": " + player.Health);
+            UiParent = GetComponentInParent<UiPlayerContainer>();
+            UiText = GetComponent<UiText>();
+            healthText = Localization.Instance.Get(LocalizationIds.Health);
+        }
+
+        void IDoDamage.OnDamage(IAttackable source, IDamageable target, int amount)
+        {
+            UpdateText();
+        }
+
+        void IDoHeal.OnHeal(IHealer source, IHealable target, int amount)
+        {
+            UpdateText();
+        }
+
+        void IPreGameStart.OnPreGameStart(List<IPrimitivePlayer> players)
+        {
+            UpdateText();
+        }
+
+        private void UpdateText()
+        {
+            var health = UiParent.GetPlayer().Player.Health;
+            UiText.SetText(healthText + ": " + health);
         }
     }
 }

@@ -6,19 +6,8 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
-    public interface IUiPlayer :
-        IListener,
-        IPreGameStart,
-        IStartGame,
-        IFinishGame,
-        IStartPlayerTurn,
-        IFinishedPlayerTurn
+    public interface IUiPlayer
     {
         PlayerSeat Seat { get; }
-    }
-
-    public interface IUiPlayerUpdateView
-    {
-        void UpdatePlayer(IPrimitivePlayer player);
     }
 }

@@ -3,15 +3,18 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
-    public class StartBattleState : BaseBattleState, IGameStarted
+    public class StartBattleState : BaseBattleState, IStartGame
     {
-        private const float TimeUntilFirstTurn = 1;
+        private const float TimeUntilFirstTurn = 3;
         private StartGame StartGameStep { get; set; }
+
+        #region FSM
 
         public override void RegisterRuntimeGame(IPrimitiveGame game)
         {
             base.RegisterRuntimeGame(game);
-            StartGameStep = new StartGame(game, this);
+
+            StartGameStep = new StartGame(game);
         }
 
         public override void OnEnterState()
@@ -20,21 +23,18 @@ namespace SimpleTurnBasedGame
             StartGameStep.Execute();
         }
 
-        public void OnGameStarted(IPrimitivePlayer starter)
+        #endregion
+
+        #region Model --> Controller
+
+        void IStartGame.OnStartGame(IPrimitivePlayer starter)
         {
-            Log("Game Started Dispatched");
-            var players = RuntimeGame.Token.Players;
-
-            //notify pre game start event
-            GameEvents.Instance.Notify<IPreGameStart>(i => i.OnPreGameStart(players));
-            
-            //notify game start event
-            GameEvents.Instance.Notify<IStartGame>(i=>i.OnStartGame(starter));
-
-            //go to next state
             var nextTurn = Fsm.GetPlayer(starter);
             StartCoroutine(OnNextState(nextTurn));
         }
+
+        #endregion
+
 
         private IEnumerator OnNextState(BaseBattleState next)
         {

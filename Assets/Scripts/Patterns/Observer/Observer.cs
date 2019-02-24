@@ -51,7 +51,7 @@ namespace Patterns
         /// <param name="listener"></param>
         public void AddListener(IListener listener)
         {
-            if(listener == null)
+            if (listener == null)
                 throw new ArgumentNullException("Can't register Null as a Listener");
             
             //find the type of object

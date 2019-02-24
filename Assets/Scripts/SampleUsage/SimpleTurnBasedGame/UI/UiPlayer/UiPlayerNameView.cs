@@ -1,12 +1,25 @@
-﻿namespace SimpleTurnBasedGame
+﻿using System.Collections.Generic;
+using Patterns;
+using UnityEngine;
+
+namespace SimpleTurnBasedGame
 {
-    public class UiPlayerNameView: UiTextMeshProText, IUiPlayerUpdateView
+    public class UiPlayerNameView : MonoBehaviour
     {
-        //TODO: Replace "string.Format(...)" calls by StringBuilder.Append(..)
-        public void UpdatePlayer(IPrimitivePlayer player)
+        private UiPlayerContainer UiParent;
+        private UiText UiText;
+        private string playerText;
+
+        private void Awake()
         {
-            var playerText = Localization.Instance.Get(LocalizationIds.Player);
-            SetText(playerText + player.Seat);
+            UiParent = GetComponentInParent<UiPlayerContainer>();
+            UiText = GetComponent<UiText>();
+            playerText = Localization.Instance.Get(LocalizationIds.Player);
+        }
+
+        private void Start()
+        {
+            UiText.SetText(playerText +": "+UiParent.Seat);
         }
     }
 }

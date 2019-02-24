@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 namespace SimpleTurnBasedGame
 {
-    public class UiButton : MonoBehaviour
+    public interface IButtonHandler
+    {
+
+    }
+
+    public abstract class UiButton : MonoBehaviour
     {
         protected Button Button { get; set; }
 
@@ -17,12 +22,15 @@ namespace SimpleTurnBasedGame
 
         public virtual void AddListener(UnityAction action)
         {
-            Button.onClick.AddListener(action);
+            if(action != null)
+                Button.onClick.AddListener(action);
         }
 
         public virtual void RemoveListener(UnityAction action)
         {
             Button.onClick.RemoveListener(action);
         }
+
+        public abstract void SetHandler(IButtonHandler handler);
     }
 }

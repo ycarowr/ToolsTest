@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SimpleTurnBasedGame
@@ -8,14 +9,15 @@ namespace SimpleTurnBasedGame
     /// </summary>
     public class StartPlayerTurn : TurnStep
     {
-        private IStartedPlayerTurn Handler { get; }
-
-        public StartPlayerTurn(IPrimitiveGame game, IStartedPlayerTurn handler) : base(game)
+        public StartPlayerTurn(IPrimitiveGame game) : base(game)
         {
-            Handler = handler;
+            
         }
 
-        public override void Execute()
+        /// <summary>
+        /// Start current player turn logic.
+        /// </summary>
+        public void Execute()
         {
             if (Game.IsTurnInProgress)
                 return;
@@ -25,9 +27,19 @@ namespace SimpleTurnBasedGame
                 return;
 
             Game.IsTurnInProgress = true;
-            Game.Token.UpdateCurrentPlayerIndex();
+            Game.Token.UpdateCurrentPlayer();
             Game.Token.CurrentPlayer.StartTurn();
-            Handler.OnStartedCurrentPlayerTurn(Game.Token.CurrentPlayer);
+
+            OnStartedCurrentPlayerTurn(Game.Token.CurrentPlayer);
+        }
+
+        /// <summary>
+        /// Dispatch start current player turn to the listeners.
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        private void OnStartedCurrentPlayerTurn(IPrimitivePlayer currentPlayer)
+        {
+            GameEvents.Instance.Notify<IStartPlayerTurn>(i => i.OnStartPlayerTurn(currentPlayer));
         }
     }
 }

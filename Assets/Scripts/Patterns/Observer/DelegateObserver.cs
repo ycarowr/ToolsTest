@@ -5,9 +5,7 @@ using UnityEngine;
 namespace Patterns
 {
     /// <summary>
-    ///     This class contains a register that contains Subjects and Listeners. So,
-    ///     every time a Subject value is updated we notify this list to broadcast
-    ///     the modification to the Listeners.
+    ///     TODO: Implement this Pattern using Delegates instead Interfaces 
     /// Refs:
     /// 1. https://www.youtube.com/watch?v=LPlH87XaWC8&t=314s
     /// 2. https://forum.unity.com/threads/observer-pattern-hell.219749/
@@ -19,5 +17,6 @@ namespace Patterns
     public class DelegateObserver<T> : MonoBehaviour
     {
         public delegate void StartGameDelegate();
+            //...
     }
 }

@@ -2,7 +2,7 @@
 {
     public interface IPrimitiveGame
     {
-        ITokenCurrentPlayer Token { get; }
+        ITokenTurnLogic Token { get; }
 
         bool IsGameStarted { get; set; }
 

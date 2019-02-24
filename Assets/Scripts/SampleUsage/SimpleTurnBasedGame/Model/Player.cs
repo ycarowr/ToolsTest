@@ -13,7 +13,7 @@ namespace SimpleTurnBasedGame
         public PlayerSeat Seat { get; }
         public int Health { get; private set; }
 
-        private const int DefaultMaxHealth = 5;
+        private const int DefaultMaxHealth = 6;
 
         public Player(PlayerSeat seat)
         {

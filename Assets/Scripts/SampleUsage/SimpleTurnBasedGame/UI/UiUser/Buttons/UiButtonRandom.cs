@@ -6,13 +6,13 @@ namespace SimpleTurnBasedGame
     {
         public interface IPressRandom : IButtonHandler
         {
-            void Random();
+            void DoRandomMove();
         }
 
         public override void SetHandler(IButtonHandler handler)
         {
             if(handler is IPressRandom pressRandom)
-                AddListener(pressRandom.Random);
+                AddListener(pressRandom.DoRandomMove);
         }
     }
 }

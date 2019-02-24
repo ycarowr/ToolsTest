@@ -8,7 +8,7 @@ namespace SimpleTurnBasedGame
     ///     control the game flow through a state machine where the states
     ///     act as controllers for each respective player.
     /// </summary>
-    public class TurnBasedController : StateMachineMB<TurnBasedController>, IRegisterPlayer
+    public class TurnBasedController : StateMachineMB<TurnBasedController>
     {
         //Register with all States of the Players that are in the Match. Each state controls
         //the flow of the game 
@@ -26,11 +26,18 @@ namespace SimpleTurnBasedGame
         public void Initialize(IPrimitiveGame game)
         {
             base.Initialize();
+
+            //user is always the bottom player
+            var user = game.Token.GetPlayer(PlayerSeat.Bottom);
+            var opponent = game.Token.GetOpponent(user);
             
-            StartState.RegisterRuntimeGame(game);
-            EndState.RegisterRuntimeGame(game);
-            foreach (var turnState in actorsRegister.Values)
-                turnState.RegisterRuntimeGame(game);
+            //register both players
+            RegisterPlayer(user, game);
+            RegisterPlayer(opponent, game);
+
+            //register the game
+            StartState.InjectDependency(game);
+            EndState.InjectDependency(game);
         }
 
         protected override void OnBeforeInitialize()
@@ -44,18 +51,18 @@ namespace SimpleTurnBasedGame
         ///     Registers a player to its respective turn state.
         /// </summary>
         /// <param name="player"></param>
-        public void RegisterPlayer(IPrimitivePlayer player)
+        private void RegisterPlayer(IPrimitivePlayer player, IPrimitiveGame game)
         {
             if (UserState == null)
             {
                 UserState = GetComponent<UserTurnState>();
-                UserState.RegisterPlayer(player);
+                UserState.InjectDependencies(player, game);
                 actorsRegister.Add(player, UserState);
             }
             else
             {
-                var aiTurnState = GetComponent<AITurnState>();
-                aiTurnState.RegisterPlayer(player);
+                var aiTurnState = GetComponent<AiTurnState>();
+                aiTurnState.InjectDependencies(player, game);
                 actorsRegister.Add(player, aiTurnState);
             }
         }
@@ -98,18 +105,6 @@ namespace SimpleTurnBasedGame
             }
 
             return null;
-        }
-
-        /// <summary>
-        /// Returns a player turn according to a opponent position. Null if there isn't player registered with the argument.
-        /// </summary>
-        /// <param name="seat"></param>
-        /// <returns></returns>
-        public TurnState GetOpponent(PlayerSeat seat)
-        {
-            var player = GetPlayer(seat);
-            var opponent = player.GetOpponent();
-            return GetPlayer(opponent);
         }
 
         /// <summary>

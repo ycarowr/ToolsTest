@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
     public abstract class TurnState : BaseBattleState, 
-        IRegisterPlayer, 
         IFinishPlayerTurn
     {
         public IPrimitivePlayer Player { get; protected set; }
@@ -17,10 +17,10 @@ namespace SimpleTurnBasedGame
         protected StartPlayerTurn StartPlayerTurnStep { get; set; }
         protected FinishPlayerTurn FinishPlayerTurnStep { get; set; }
 
-        //Player Choices
-        protected DoDamage DoDamage { get; set; }
-        protected DoHeal DoHeal { get; set; }
-//        protected DoRandom DoRandom { get; set; }
+        //Player Moves
+        protected ProcessDamageMove ProcessDamageMove { get; set; }
+        protected ProcessHealMove ProcessHealMove { get; set; }
+        protected ProcessRandomMove ProcessRandomMove { get; set; }
 
         //timeout 
         protected Coroutine TimeOutRoutine { get; set; }
@@ -28,18 +28,22 @@ namespace SimpleTurnBasedGame
 
         #region Dependencies
         
-        public void RegisterPlayer(IPrimitivePlayer player)
+        public virtual void InjectDependencies(IPrimitivePlayer player, IPrimitiveGame game)
         {
+            //set player
             Player = player;
-        }
-
-        public override void RegisterRuntimeGame(IPrimitiveGame game)
-        {
-            base.RegisterRuntimeGame(game);
+            
+            //set game
+            base.InjectDependency(game);
+            
+            //Turn steps
             StartPlayerTurnStep = new StartPlayerTurn(game);
             FinishPlayerTurnStep = new FinishPlayerTurn(game);
-            DoDamage = new DoDamage(game);
-            DoHeal = new DoHeal(game);
+
+            //Moves
+            ProcessDamageMove = new ProcessDamageMove(game);
+            ProcessHealMove = new ProcessHealMove(game);
+            ProcessRandomMove = new ProcessRandomMove(game);
         }
 
         #endregion
@@ -81,7 +85,7 @@ namespace SimpleTurnBasedGame
         ///     Starts the player turn.
         /// </summary>
         /// <returns></returns>
-        public virtual IEnumerator StartTurn()
+        protected virtual IEnumerator StartTurn()
         {
             yield return new WaitForSeconds(StartTurnDelay);
             StartPlayerTurnStep.Execute();
@@ -90,7 +94,7 @@ namespace SimpleTurnBasedGame
         /// <summary>
         ///     Check if the player can pass the turn and passes the turn to the next player.
         /// </summary>
-        public bool TryPassTurn()
+        protected bool TryPassTurn()
         {
             if (!IsMyTurn())
                 return false;
@@ -99,30 +103,32 @@ namespace SimpleTurnBasedGame
             return true;
         }
 
-        public bool TryRandom()
-        {
-            if (!IsMyTurn())
-                return true;
-
-            return false;
-        }
-
-        public bool TryHeal()
+        protected bool TryRandom()
         {
             if (!IsMyTurn())
                 return false;
 
-            DoHeal.Execute();
+            ProcessRandomMove.Execute();
             TryPassTurn();
             return true;
         }
 
-        public bool TryDamage()
+        protected bool TryHeal()
         {
             if (!IsMyTurn())
                 return false;
 
-            DoDamage.Execute();
+            ProcessHealMove.Execute();
+            TryPassTurn();
+            return true;
+        }
+
+        protected bool TryDamage()
+        {
+            if (!IsMyTurn())
+                return false;
+
+            ProcessDamageMove.Execute();
             TryPassTurn();
             return true;
         }
@@ -147,11 +153,32 @@ namespace SimpleTurnBasedGame
 
         #endregion
 
+
+        /// <summary>
+        /// Processes a move based on its Type.
+        /// </summary>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        public bool ProcessMove(MoveType move)
+        {
+            switch (move)
+            {
+                case MoveType.RandomMove:
+                    return TryRandom();
+                case MoveType.DamageMove:
+                    return TryDamage();
+                case MoveType.HealMove:
+                    return TryHeal();
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(move), move, null);
+            }
+        }
+
         /// <summary>
         ///     Finishes the player turn.
         /// </summary>
         /// <returns></returns>
-        public virtual IEnumerator TimeOut(float time = TimeOutDelay)
+        protected virtual IEnumerator TimeOut(float time = TimeOutDelay)
         {
             if (TimeOutRoutine != null)
                 StopCoroutine(TimeOutRoutine);
@@ -164,7 +191,7 @@ namespace SimpleTurnBasedGame
         /// <summary>
         ///     Restart the state to the initial configuration and stops all the internal routines.
         /// </summary>
-        public virtual void Restart()
+        protected virtual void Restart()
         {
             if (TimeOutRoutine != null)
                 StopCoroutine(TimeOutRoutine);
@@ -178,7 +205,7 @@ namespace SimpleTurnBasedGame
         {
             var nextPlayer = RuntimeGame.Token.NextPlayer;
             var nextState = Fsm.GetPlayer(nextPlayer);
-            OnNext(nextState);
+            OnNextState(nextState);
         }
     }
 }

@@ -1,24 +1,30 @@
-﻿using System.Collections;
+﻿using SimpleTurnBasedGame.AI;
+using System.Collections;
 using UnityEngine;
+using Random = System.Random;
 
 namespace SimpleTurnBasedGame
 {
-    public class AITurnState : TurnState
+    public class AiTurnState : TurnState
     {
         private const float AiDoTurnDelay = 1;
         private const float AiFinishTurnDelay = 3;
-
-        private Coroutine AiDoTurnRoutine { get; set; }
         private Coroutine AiFinishTurnRoutine { get; set; }
 
-        //create AI module here
+        private AiModule AiModule { get; set; }
 
-        public override IEnumerator StartTurn()
+        public override void InjectDependencies(IPrimitivePlayer player, IPrimitiveGame game)
+        {
+            base.InjectDependencies(player, game);
+            AiModule = new AiModule(player, game);
+        }
+
+        protected override IEnumerator StartTurn()
         {
             yield return base.StartTurn();
 
             //call do turn routine
-            AiDoTurnRoutine = StartCoroutine(AiDoTurn());
+            StartCoroutine(AiDoTurn());
             //call finish turn routine
             AiFinishTurnRoutine = StartCoroutine(AiFinishTurn(AiFinishTurnDelay));
         }
@@ -29,7 +35,8 @@ namespace SimpleTurnBasedGame
             if (!IsMyTurn())
                 yield break;
 
-            //Implement AI turn here
+            var bestMove = AiModule.GetBestMove();
+            ProcessMove(bestMove);
         }
 
         private IEnumerator AiFinishTurn(float delay)
@@ -41,7 +48,7 @@ namespace SimpleTurnBasedGame
             StartCoroutine(TimeOut());
         }
 
-        public override void Restart()
+        protected override void Restart()
         {
             base.Restart();
             ResetTurnRoutine();

@@ -10,9 +10,9 @@ namespace SimpleTurnBasedGame
 
         #region FSM
 
-        public override void RegisterRuntimeGame(IPrimitiveGame game)
+        public override void InjectDependency(IPrimitiveGame game)
         {
-            base.RegisterRuntimeGame(game);
+            base.InjectDependency(game);
 
             StartGameStep = new StartGame(game);
         }
@@ -39,7 +39,7 @@ namespace SimpleTurnBasedGame
         private IEnumerator OnNextState(BaseBattleState next)
         {
             yield return new WaitForSeconds(TimeUntilFirstTurn);
-            OnNext(next);
+            base.OnNextState(next);
         }
     }
 }

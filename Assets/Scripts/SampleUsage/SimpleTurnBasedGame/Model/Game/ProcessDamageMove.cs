@@ -1,15 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 namespace SimpleTurnBasedGame
 {
     /// <summary>
     ///     Damage Logic Implementation
     /// </summary>
-    public class DoDamage : TurnStep
+    public class ProcessDamageMove : TurnStep
     {
-        private const int DamageAmount = 1;
-        public DoDamage(IPrimitiveGame game) : base(game)
+        public const int MaxDamage = 4;
+        public const int MinDamage = 1;
+        public ProcessDamageMove(IPrimitiveGame game) : base(game)
         {
 
         }
@@ -33,10 +36,19 @@ namespace SimpleTurnBasedGame
             var target = Game.Token.GetOpponent(source as IPrimitivePlayer) as IDamageable;
 
             //do attack
-            var damageDealt = source.DoAttack(target, DamageAmount);
+            var damageDealt = source.DoAttack(target, GetDamage());
 
             //dispatch damage
             OnDoneDamage(source, target, damageDealt);
+        }
+
+        /// <summary>
+        /// Generates the damage amount.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual int GetDamage()
+        {
+            return UnityEngine.Random.Range(MinDamage, MaxDamage);
         }
 
         /// <summary>

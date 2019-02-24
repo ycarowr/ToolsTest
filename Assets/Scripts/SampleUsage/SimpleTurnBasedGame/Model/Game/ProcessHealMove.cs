@@ -6,10 +6,11 @@ namespace SimpleTurnBasedGame
     /// <summary>
     ///     Damage Logic Implementation
     /// </summary>
-    public class DoHeal : TurnStep
+    public class ProcessHealMove : TurnStep
     {
-        private const int HealAmount = 1;
-        public DoHeal(IPrimitiveGame game) : base(game)
+        public const int MaxHeal = 4;
+        public const int MinHeal = 1;
+        public ProcessHealMove(IPrimitiveGame game) : base(game)
         {
 
         }
@@ -33,10 +34,19 @@ namespace SimpleTurnBasedGame
             var target = source as IHealable;
 
             //do heal
-            var healedAmount = source.DoHeal(target, HealAmount);
+            var healedAmount = source.DoHeal(target, GetHeal());
 
             //dispatch heal
             OnDoneHeal(source, target, healedAmount);
+        }
+
+        /// <summary>
+        /// Generates the heal amount.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual int GetHeal()
+        {
+            return UnityEngine.Random.Range(MinHeal, MaxHeal);
         }
 
         /// <summary>

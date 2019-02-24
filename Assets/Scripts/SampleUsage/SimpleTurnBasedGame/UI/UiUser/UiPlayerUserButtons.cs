@@ -16,24 +16,24 @@ namespace SimpleTurnBasedGame
                 button.SetHandler(this);
         }
 
-        void UiButtonRandom.IPressRandom.Random()
+        void UiButtonRandom.IPressRandom.DoRandomMove()
         {
             var player = Handler.GetPlayer();
-            if (player.TryRandom())
+            if (player.ProcessMove(MoveType.RandomMove))
                 DisableInput();
         }
 
-        void UiButtonHeal.IPressHeal.PressHeal()
+        void UiButtonHeal.IPressHeal.DoHealMove()
         {
             var player = Handler.GetPlayer();
-            if (player.TryHeal())
+            if (player.ProcessMove(MoveType.HealMove))
                 DisableInput();
         }
 
-        void UiButtonDamage.IPressDamage.PressDamage()
+        void UiButtonDamage.IPressDamage.DoDamageMove()
         {
             var player = Handler.GetPlayer();
-            if (player.TryDamage())
+            if (player.ProcessMove(MoveType.DamageMove))
                 DisableInput();
         }
 

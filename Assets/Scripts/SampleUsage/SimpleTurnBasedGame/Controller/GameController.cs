@@ -17,20 +17,13 @@ namespace SimpleTurnBasedGame
 
         private void Start()
         {
-            //create player seats
-            var userSeat = PlayerSeat.Bottom;
-            var secondSeat = PlayerSeat.Top;
-
             //create and connect players to their seats
-            var userPlayer = new Player(userSeat);
-            var player2 = new Player(secondSeat);
+            var player1 = new Player(PlayerSeat.Bottom);
+            var player2 = new Player(PlayerSeat.Top);
 
             //create game logic
-            RuntimeGame = new Game(new List<IPrimitivePlayer> { userPlayer, player2 });
-            //assign players to their state controllers
-            TurnBasedController.Instance.RegisterPlayer(userPlayer);
-            TurnBasedController.Instance.RegisterPlayer(player2);
-
+            RuntimeGame = new Game(new List<IPrimitivePlayer> { player1, player2 });
+            
             //Initialize State Machine this game the data
             TurnBasedController.Instance.Initialize(RuntimeGame);
 

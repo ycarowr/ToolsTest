@@ -5,7 +5,7 @@ namespace SimpleTurnBasedGame
 {
     public class UserTurnState : TurnState
     {
-        public override IEnumerator TimeOut(float time = TimeOutDelay)
+        protected override IEnumerator TimeOut(float time = TimeOutDelay)
         {
             if (TimeOutRoutine != null)
                 StopCoroutine(TimeOutRoutine);

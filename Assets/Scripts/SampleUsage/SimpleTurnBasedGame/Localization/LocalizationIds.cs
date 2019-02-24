@@ -5,5 +5,6 @@ public enum LocalizationIds
     Health,
     Random,
     Damage,
-    Heal
+    Heal,
+    Move
 }

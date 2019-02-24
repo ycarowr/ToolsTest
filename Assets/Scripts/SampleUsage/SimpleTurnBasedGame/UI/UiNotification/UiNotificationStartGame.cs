@@ -18,7 +18,6 @@ namespace SimpleTurnBasedGame
         void IStartGame.OnStartGame(IPrimitivePlayer player)
         {
             Text.text = player.Seat +" player starts!";
-
             StartCoroutine(Animate());
         }
 

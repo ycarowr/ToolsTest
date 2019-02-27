@@ -17,16 +17,16 @@
             }
         }
 
-        private class DecoratorProcessHeal : ProcessDamageMove
+        private class DecoratorProcessHeal : ProcessHealMove
         {
             public DecoratorProcessHeal(IPrimitiveGame game) : base(game)
             {
                 
             }
 
-            protected override int GetDamage()
+            protected override int GetHeal()
             {
-                return base.GetDamage() + BonusByPlayingRandom;
+                return base.GetHeal() + BonusByPlayingRandom;
             }
         }
 

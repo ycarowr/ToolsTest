@@ -30,6 +30,7 @@ namespace SimpleTurnBasedGame.AI
             subModules.Add(AiArchetype.VeryLucky, GetAi(AiArchetype.VeryLucky, player, game));
             subModules.Add(AiArchetype.Unlucky, GetAi(AiArchetype.Unlucky, player, game));
             subModules.Add(AiArchetype.SelfHeal, GetAi(AiArchetype.SelfHeal, player, game));
+            subModules.Add(AiArchetype.Good, GetAi(AiArchetype.Good, player, game));
 
             //define current ai randomly
             CurrentAi = subModules.Keys.ToList().RandomItem();
@@ -52,6 +53,7 @@ namespace SimpleTurnBasedGame.AI
                 case AiArchetype.VeryLucky: return new AiVeryLucky(player, game);
                 case AiArchetype.Unlucky: return new AiUnlucky(player, game);
                 case AiArchetype.SelfHeal: return new AiSelfHeal(player, game);
+                case AiArchetype.Good: return  new AiGood(player, game);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(archetype), archetype, null);
             }

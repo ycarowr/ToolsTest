@@ -7,13 +7,13 @@ namespace SimpleTurnBasedGame
     {
         public interface IPressHeal : IButtonHandler
         {
-            void DoHealMove();
+            void PressHealMove();
         }
 
-        public override void SetHandler(IButtonHandler handler)
+        protected override void OnSetHandler(IButtonHandler handler)
         {
             if (handler is IPressHeal passTurn)
-                AddListener(passTurn.DoHealMove);
+                AddListener(passTurn.PressHealMove);
         }
     }
 }

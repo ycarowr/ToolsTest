@@ -6,5 +6,6 @@ public enum LocalizationIds
     Random,
     Damage,
     Heal,
-    Move
+    Move,
+    Restart
 }

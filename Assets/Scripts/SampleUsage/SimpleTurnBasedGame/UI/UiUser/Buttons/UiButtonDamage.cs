@@ -7,13 +7,13 @@ namespace SimpleTurnBasedGame
     {
         public interface IPressDamage : IButtonHandler
         {
-            void DoDamageMove();
+            void PressDamageMove();
         }
 
-        public override void SetHandler(IButtonHandler handler)
+        protected override void OnSetHandler(IButtonHandler handler)
         {
             if (handler is IPressDamage passTurn)
-                AddListener(passTurn.DoDamageMove);
+                AddListener(passTurn.PressDamageMove);
         }
     }
 }

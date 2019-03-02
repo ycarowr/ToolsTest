@@ -2,10 +2,9 @@
 
 namespace SimpleTurnBasedGame
 {
-    public class UiPlayerElement : MonoBehaviour, IUiPlayer
+    public class UiPlayerElement : MonoBehaviour
     {
         private UiPlayerContainer Handler { get; set; }
-        public PlayerSeat Seat => Handler.Seat;
 
         private void Awake()
         {

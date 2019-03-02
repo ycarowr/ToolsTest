@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using SimpleTurnBasedGame;
 using UnityEngine;
 
-public class UiFinishUserTurn : UiListener, IFinishPlayerTurn
+public class UiPreStartGameUser : UiListener, IPreGameStart
 {
     private UiUserContainer UiUser;
 
@@ -12,7 +12,7 @@ public class UiFinishUserTurn : UiListener, IFinishPlayerTurn
         UiUser = GetComponent<UiUserContainer>();
     }
 
-    void IFinishPlayerTurn.OnFinishPlayerTurn(IPrimitivePlayer player)
+    void IPreGameStart.OnPreGameStart(List<IPrimitivePlayer> players)
     {
         if (UiUser.IsMyTurn())
             UiUser.UiUserHudInput.Disable();

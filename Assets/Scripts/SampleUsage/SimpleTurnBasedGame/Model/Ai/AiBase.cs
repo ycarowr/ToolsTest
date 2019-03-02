@@ -31,5 +31,16 @@ namespace SimpleTurnBasedGame.AI
             allMoves.Remove(move);
             return allMoves.RandomItem();
         }
+
+        protected bool IsFullHealth()
+        {
+            return Player.IsFullHealth;
+        }
+
+        protected bool CanKill()
+        {
+            var enemy = Game.Token.GetOpponent(Player);
+            return enemy.Health == 1;
+        }
     }
 }

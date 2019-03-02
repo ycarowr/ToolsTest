@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class UiStartUserTurn : UiListener, IStartPlayerTurn
 {
-    private UiPlayerUserContainer UiUser;
+    private UiUserContainer UiUser;
 
     private void Awake()
     {
-        UiUser = GetComponent<UiPlayerUserContainer>();
+        UiUser = GetComponent<UiUserContainer>();
     }
 
     void IStartPlayerTurn.OnStartPlayerTurn(IPrimitivePlayer player)
     {
         if (UiUser.IsMyTurn())
         {
-            UiUser.UiPlayerUserInput.EnableInput();
+            UiUser.UiUserHudInput.Enable();
         }
     }
 }

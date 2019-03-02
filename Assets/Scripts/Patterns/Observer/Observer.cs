@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Patterns
 {
     /// <summary>
-    /// All the classes that are listened by IListener.
+    /// All classes that are listened by IListener.
     /// </summary>
     public interface ISubject
     {
@@ -13,7 +13,7 @@ namespace Patterns
     }
 
     /// <summary>
-    /// All the classes that are listening ISubject.
+    /// All classes that are listening ISubject.
     /// </summary>
     public interface IListener
     {

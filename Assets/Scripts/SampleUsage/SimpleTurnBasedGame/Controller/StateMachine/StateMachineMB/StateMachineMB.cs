@@ -15,12 +15,12 @@ namespace SimpleTurnBasedGame
     public abstract class StateMachineMB<T> : SingletonMB<T> where T : MonoBehaviour
     {
         //This StatesRegister doesn't allowed you to have two states with the same Type
-        private readonly Dictionary<Type, StateMB<T>> statesRegister = new Dictionary<Type, StateMB<T>>();
+        protected readonly Dictionary<Type, StateMB<T>> statesRegister = new Dictionary<Type, StateMB<T>>();
 
         //Push-Pop stack of States of this Type of Finite state Machine
         private readonly Stack<StateMB<T>> stack = new Stack<StateMB<T>>();
         public bool EnableLogs = true;
-        public bool IsInitialized { get; private set; }
+        public bool IsInitialized { get;  private set; }
 
 
         /// <summary>
@@ -171,6 +171,13 @@ namespace SimpleTurnBasedGame
         }
 
         #endregion
+
+        public virtual void Restart()
+        {
+            statesRegister.Clear();
+            stack.Clear();
+            IsInitialized = false;
+        }
 
         private void Log(string log, string colorName = "black")
         {

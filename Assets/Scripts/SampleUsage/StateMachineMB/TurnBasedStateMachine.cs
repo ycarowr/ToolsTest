@@ -4,7 +4,7 @@ using UnityEngine;
 using Patterns;
 
 
-namespace SampleTurnBasedGame
+namespace ExampleStateMachine
 {
     public class TurnBasedStateMachine : StateMachineMB<TurnBasedStateMachine>
     {

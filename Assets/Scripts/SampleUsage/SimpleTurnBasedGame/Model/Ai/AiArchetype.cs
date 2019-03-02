@@ -7,6 +7,7 @@
         Aggressive,
         VeryLucky,
         Unlucky,
-        SelfHeal
+        SelfHeal,
+        Good
     }
 }

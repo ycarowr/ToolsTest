@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ExampleStateMachine;
+using SimpleTurnBasedGame;
 using UnityEngine;
 using UnityEditor;
 
-namespace SampleTurnBasedGame
+namespace SimpleTurnBasedGame
 { 
     [CustomEditor(typeof(TurnBasedStateMachine))]
     public class TestTurnBasedStateMachine : Editor

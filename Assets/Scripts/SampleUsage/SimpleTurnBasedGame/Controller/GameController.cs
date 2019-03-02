@@ -17,18 +17,33 @@ namespace SimpleTurnBasedGame
 
         private void Start()
         {
+           StartTheGame();
+        }
+
+        /// <summary>
+        /// Create the game state, players and Initialize the state machine.
+        /// </summary>
+        public void StartTheGame()
+        {
             //create and connect players to their seats
             var player1 = new Player(PlayerSeat.Bottom);
             var player2 = new Player(PlayerSeat.Top);
 
             //create game logic
             RuntimeGame = new Game(new List<IPrimitivePlayer> { player1, player2 });
-            
+
             //Initialize State Machine this game the data
             TurnBasedController.Instance.Initialize(RuntimeGame);
 
             //Push the start battle state
             TurnBasedController.Instance.StartBattle();
+        }
+
+        [Button]
+        public void RestartTheGame()
+        {
+            TurnBasedController.Instance.Restart();
+            StartTheGame();
         }
     }
 }

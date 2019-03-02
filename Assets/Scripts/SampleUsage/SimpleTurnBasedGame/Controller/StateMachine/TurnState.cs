@@ -191,7 +191,7 @@ namespace SimpleTurnBasedGame
         /// <summary>
         ///     Restart the state to the initial configuration and stops all the internal routines.
         /// </summary>
-        protected virtual void Restart()
+        public virtual void Restart()
         {
             if (TimeOutRoutine != null)
                 StopCoroutine(TimeOutRoutine);

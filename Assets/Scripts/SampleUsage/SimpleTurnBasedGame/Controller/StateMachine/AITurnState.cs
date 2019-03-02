@@ -7,8 +7,8 @@ namespace SimpleTurnBasedGame
 {
     public class AiTurnState : TurnState
     {
-        private const float AiDoTurnDelay = 1;
-        private const float AiFinishTurnDelay = 3;
+        private const float AiDoTurnDelay = 2.5f;
+        private const float AiFinishTurnDelay = 3.5f;
         private Coroutine AiFinishTurnRoutine { get; set; }
         private AiModule AiModule { get; set; }
 
@@ -38,7 +38,7 @@ namespace SimpleTurnBasedGame
             yield return new WaitForSeconds(AiDoTurnDelay);
             if (!IsMyTurn())
                 yield break;
-
+            
             var bestMove = AiModule.GetBestMove();
             ProcessMove(bestMove);
         }
@@ -52,7 +52,7 @@ namespace SimpleTurnBasedGame
             StartCoroutine(TimeOut());
         }
 
-        protected override void Restart()
+        public override void Restart()
         {
             base.Restart();
             ResetTurnRoutine();

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 
 namespace SimpleTurnBasedGame
@@ -42,7 +43,7 @@ namespace SimpleTurnBasedGame
 
         protected override void OnBeforeInitialize()
         {
-            //create StartGame and EndGame states
+            //create StartTheGame and EndGame states
             StartState = GetComponent<StartBattleState>();
             EndState = GetComponent<EndBattleState>();
         }
@@ -139,6 +140,21 @@ namespace SimpleTurnBasedGame
 
             PopState();
             PushState(EndState);
+        }
+
+        public override void Restart()
+        {
+            base.Restart();
+
+            //clear user state
+            UserState = null;
+
+            //reset states
+            foreach (var turnState in actorsRegister.Values)
+                turnState.Restart();
+
+            //clear turn state register
+            actorsRegister.Clear();
         }
     }
 }

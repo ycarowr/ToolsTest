@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDontDestroyOnLoad: 0
-  isSilent: 0
+  isSilent: 1
   EnableLogs: 1
 --- !u!114 &5346473994719191512
 MonoBehaviour:

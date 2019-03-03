@@ -4,12 +4,12 @@ using UnityEngine;
 namespace Patterns
 {
     /// <summary>
-    /// Singleton Monobehavior Implementation. Refs below:
-    /// 1. https://gist.github.com/rickyah/271e3aa31ff8079365bc
-    /// 2. https://gamedev.stackexchange.com/questions/116009/in-unity-how-do-i-correctly-implement-the-singleton-pattern
-    /// 3. https://gist.github.com/mstevenson/4325117
-    /// 4. https://stackoverflow.com/questions/46438184/how-to-create-a-generic-singleton-class-in-unity
-    /// 5. http://wiki.unity3d.com/index.php/Singleton
+    ///     Singleton Monobehavior Implementation. Refs below:
+    ///     1. https://gist.github.com/rickyah/271e3aa31ff8079365bc
+    ///     2. https://gamedev.stackexchange.com/questions/116009/in-unity-how-do-i-correctly-implement-the-singleton-pattern
+    ///     3. https://gist.github.com/mstevenson/4325117
+    ///     4. https://stackoverflow.com/questions/46438184/how-to-create-a-generic-singleton-class-in-unity
+    ///     5. http://wiki.unity3d.com/index.php/Singleton
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class SingletonMB<T> : MonoBehaviour where T : class
@@ -23,12 +23,12 @@ namespace Patterns
         [Tooltip(
             "Mark it whether the script raises an exception when another singleton like this is present in the scene")]
         [SerializeField]
-        private bool isSilent = false;
+        private bool isSilent = true;
 
         //singleton generic instance
         public static T Instance { get; private set; }
 
-        protected virtual void Awake() 
+        protected virtual void Awake()
         {
             //multi thread lock
             lock (locker)
@@ -60,7 +60,6 @@ namespace Patterns
         /// </summary>
         protected virtual void OnAwake()
         {
-            
         }
 
         private void HandleDuplication()

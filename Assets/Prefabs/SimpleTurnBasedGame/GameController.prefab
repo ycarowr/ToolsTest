@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5346473994719191512}
   - component: {fileID: 5346473994719191515}
   - component: {fileID: 5346473994719191514}
-  - component: {fileID: 5346473994719191493}
+  - component: {fileID: 4052332186063525328}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -102,8 +102,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599384e9422d09c41a64222184fcf4d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIPlayer: {fileID: 0}
---- !u!114 &5346473994719191493
+  isAi: 1
+  aiArchetype: 2
+--- !u!114 &4052332186063525328
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,7 +113,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5346473994719191489}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b33836db6e34fdb46a6e00fb34a8db4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 84c04b0fce1ace84195e1e138e629792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIPlayer: {fileID: 0}
+  isAi: 1
+  aiArchetype: 2

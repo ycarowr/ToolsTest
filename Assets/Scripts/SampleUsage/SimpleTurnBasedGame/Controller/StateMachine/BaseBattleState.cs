@@ -7,11 +7,16 @@ namespace SimpleTurnBasedGame
     /// <summary>
     ///     The base of all the Game States. It provides access to the Game implementation.
     /// </summary>
-    public abstract class BaseBattleState : StateMB<TurnBasedController>, IListener
+    public abstract class BaseBattleState : StateMB<GameController>, IListener
     {
         protected IPrimitiveGame RuntimeGame { get; set; }
 
         public override void OnInitialize()
+        {
+            InjectDependency(GameData.Instance.RuntimeGame);
+        }
+
+        private void Start()
         {
             GameEvents.Instance.AddListener(this);
         }

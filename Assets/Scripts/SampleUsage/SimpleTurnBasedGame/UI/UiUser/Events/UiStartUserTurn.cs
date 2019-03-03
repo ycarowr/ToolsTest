@@ -14,9 +14,7 @@ public class UiStartUserTurn : UiListener, IStartPlayerTurn
 
     void IStartPlayerTurn.OnStartPlayerTurn(IPrimitivePlayer player)
     {
-        if (UiUser.IsMyTurn())
-        {
+        if (UiUser.IsMyTurn() && !UiUser.IsAi())
             UiUser.UiUserHudInput.Enable();
-        }
     }
 }

@@ -8,10 +8,12 @@ namespace SimpleTurnBasedGame
         IFinishPlayerTurn
     {
         public IPrimitivePlayer Player { get; protected set; }
+        public virtual PlayerSeat Seat { get; }
+        public virtual bool IsAi => false;
 
         //Timers
         protected const float StartTurnDelay = 1;
-        protected const float TimeOutDelay = 5;
+        protected const float TimeOutDelay = 10;
 
         //Turn Steps
         protected StartPlayerTurn StartPlayerTurnStep { get; set; }
@@ -25,17 +27,18 @@ namespace SimpleTurnBasedGame
         //timeout 
         protected Coroutine TimeOutRoutine { get; set; }
 
-
         #region Dependencies
-        
-        public virtual void InjectDependencies(IPrimitivePlayer player, IPrimitiveGame game)
+
+        public override void OnInitialize()
         {
-            //set player
-            Player = player;
-            
-            //set game
-            base.InjectDependency(game);
-            
+            base.OnInitialize();
+
+            var game = GameData.Instance.RuntimeGame;
+            Player = game.Token.GetPlayer(Seat);
+
+            //register turn state
+            GameController.Instance.RegisterPlayerState(Player, this);
+
             //Turn steps
             StartPlayerTurnStep = new StartPlayerTurn(game);
             FinishPlayerTurnStep = new FinishPlayerTurn(game);

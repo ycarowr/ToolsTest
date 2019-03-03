@@ -24,7 +24,8 @@ namespace SimpleTurnBasedGame
 
 
         /// <summary>
-        ///     Register all the states
+        ///     Register and Initialize all the states. It is done on Start callback
+        /// because the states and the fsm have GameData as dependency, which is done on Awake.
         /// </summary>
         public void Initialize()
         {
@@ -67,27 +68,30 @@ namespace SimpleTurnBasedGame
         }
 
         #region Unity Callbacks
-        /*
-
+        
         /// <summary>
-        ///     Initialize the StateMachine and Awake all registered states
+        ///     Initialize the StateMachine
         /// </summary>
         protected override void OnAwake()
         {
-        
+            
         }
 
+        
         /// <summary>
         ///     Start all registered states
         /// </summary>
         protected virtual void Start()
         {
+            Initialize();
+
             foreach (var state in statesRegister.Values)
                 state.OnStart();
 
             Log("States Started", "blue");
         }
         
+        /*
         /// <summary>
         /// Update all registered states (uncomment it if you need this callback).
         /// TODO: Consider to replace 'foreach' by 'for' to minimize the garbage collection.

@@ -10,7 +10,7 @@ namespace SimpleTurnBasedGame
         public T Fsm { get; private set; }
 
         /// <summary>
-        ///     Called by the TurnBasedController's Awake
+        ///     Called by the GameController's Awake
         /// </summary>
         public virtual void OnInitialize()
         {
@@ -18,7 +18,7 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        ///     Called by the TurnBasedController's Start
+        ///     Called by the GameController's Start
         /// </summary>
         public virtual void OnStart()
         {
@@ -26,7 +26,7 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        ///     Called by the TurnBasedController's Update
+        ///     Called by the GameController's Update
         /// </summary>
         public virtual void OnUpdate()
         {

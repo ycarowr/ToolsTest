@@ -11,16 +11,17 @@ namespace SimpleTurnBasedGame
         private const float AiFinishTurnDelay = 3.5f;
         private Coroutine AiFinishTurnRoutine { get; set; }
         private AiModule AiModule { get; set; }
+        public override bool IsAi => isAi;
+        [Tooltip("Whether this player is AI or not.")]
+        [SerializeField] private bool isAi = false;
+        [SerializeField] private AiArchetype aiArchetype;
 
-        [SerializeField] private bool isTesting = false;
-        [SerializeField] private AiArchetype testAi;
-
-        public override void InjectDependencies(IPrimitivePlayer player, IPrimitiveGame game)
-        {
-            base.InjectDependencies(player, game);
-            AiModule = new AiModule(player, game);
-            if(isTesting)
-                AiModule.SwapAiToArchetype(testAi);
+        public override void OnInitialize()
+        { 
+            base.OnInitialize();
+            //create ai
+            AiModule = new AiModule(Player, RuntimeGame);
+            AiModule.SwapAiToArchetype(aiArchetype);
         }
 
         protected override IEnumerator StartTurn()
@@ -38,7 +39,10 @@ namespace SimpleTurnBasedGame
             yield return new WaitForSeconds(AiDoTurnDelay);
             if (!IsMyTurn())
                 yield break;
-            
+
+            if (!isAi)
+                yield return 0;
+
             var bestMove = AiModule.GetBestMove();
             ProcessMove(bestMove);
         }
@@ -48,6 +52,9 @@ namespace SimpleTurnBasedGame
             yield return new WaitForSeconds(delay);
             if (!IsMyTurn())
                 yield break;
+
+            if (!isAi)
+                yield return 0;
 
             StartCoroutine(TimeOut());
         }

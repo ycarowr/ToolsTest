@@ -14,12 +14,17 @@ namespace SimpleTurnBasedGame
 
         public bool IsMyTurn()
         {
-            return TurnBasedController.Instance.IsCurrentPlayerOnSeat(seat);
+            return GameController.Instance.IsCurrentPlayerOnSeat(seat);
         }
 
         public TurnState GetPlayer()
         {
-            return TurnBasedController.Instance.GetPlayer(seat);
+            return GameController.Instance.GetPlayer(seat);
+        }
+
+        public bool IsAi()
+        {
+            return GetPlayer().IsAi;
         }
     }
 }

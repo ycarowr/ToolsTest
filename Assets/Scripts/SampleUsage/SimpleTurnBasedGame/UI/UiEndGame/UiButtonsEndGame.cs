@@ -19,7 +19,7 @@ namespace SimpleTurnBasedGame
 
         void UiButtonRestart.IPressRestart.PressRestart()
         {
-            GameController.Instance.RestartTheGame();
+            GameController.Instance.RestartTheGameImmediately();
         }
 
         public void SetHandlers()

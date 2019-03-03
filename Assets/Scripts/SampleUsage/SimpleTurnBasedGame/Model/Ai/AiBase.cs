@@ -5,18 +5,18 @@ using Extensions;
 namespace SimpleTurnBasedGame.AI
 {
     /// <summary>
-    /// Base for all the Artificial Intelligence of the game.
+    ///     Base for all the Artificial Intelligence of the game.
     /// </summary>
     public abstract class AiBase
     {
-        protected IPrimitiveGame Game { get; }
-        protected IPrimitivePlayer Player { get; }
-
         protected AiBase(IPrimitivePlayer player, IPrimitiveGame game)
         {
             Game = game;
             Player = player;
         }
+
+        protected IPrimitiveGame Game { get; }
+        protected IPrimitivePlayer Player { get; }
 
         public abstract MoveType GetBestMove();
 

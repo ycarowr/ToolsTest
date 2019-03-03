@@ -12,8 +12,8 @@ namespace SimpleTurnBasedGame
     public class TokenTurnLogic : ITokenTurnLogic
     {
         public TokenTurnLogic(
-            List<IPrimitivePlayer> players, 
-            PlayerSeat start = PlayerSeat.Bottom, 
+            List<IPrimitivePlayer> players,
+            PlayerSeat start = PlayerSeat.Bottom,
             PlayerSeat current = PlayerSeat.Bottom)
         {
             if (players == null)
@@ -26,12 +26,16 @@ namespace SimpleTurnBasedGame
             StarterPlayerSeat = start;
             CurrentPlayerSeat = current;
         }
-        
+
+        public PlayerSeat CurrentPlayerSeat { get; private set; }
+
+        public PlayerSeat NextPlayerSeat =>
+            CurrentPlayer.Seat == PlayerSeat.Bottom ? PlayerSeat.Top : PlayerSeat.Bottom;
+
+        public PlayerSeat StarterPlayerSeat { get; private set; }
+
         public List<IPrimitivePlayer> Players { get; }
         public int TurnCount { get; private set; }
-        public PlayerSeat CurrentPlayerSeat { get; private set; }
-        public PlayerSeat NextPlayerSeat => CurrentPlayer.Seat == PlayerSeat.Bottom ? PlayerSeat.Top : PlayerSeat.Bottom;
-        public PlayerSeat StarterPlayerSeat { get; private set; }
 
         public IPrimitivePlayer CurrentPlayer => GetPlayer(CurrentPlayerSeat);
         public IPrimitivePlayer NextPlayer => GetPlayer(NextPlayerSeat);
@@ -71,11 +75,6 @@ namespace SimpleTurnBasedGame
             CurrentPlayerSeat = StarterPlayerSeat;
         }
 
-        public void Restart()
-        {
-            TurnCount = 0;
-        }
-
         public IPrimitivePlayer GetOpponent(IPrimitivePlayer player)
         {
             return NextPlayer;
@@ -83,11 +82,16 @@ namespace SimpleTurnBasedGame
 
         public IPrimitivePlayer GetPlayer(PlayerSeat seat)
         {
-            foreach(var player in Players)
+            foreach (var player in Players)
                 if (player.Seat == seat)
                     return player;
 
             return null;
+        }
+
+        public void Restart()
+        {
+            TurnCount = 0;
         }
 
         public void SetCurrentSeat(PlayerSeat current)

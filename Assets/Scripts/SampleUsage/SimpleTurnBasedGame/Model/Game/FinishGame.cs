@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
     /// <inheritdoc />
     /// <summary>
@@ -12,7 +8,6 @@ namespace SimpleTurnBasedGame
     {
         public FinishGame(IPrimitiveGame game) : base(game)
         {
-
         }
 
         public void Execute(IPrimitivePlayer winner)
@@ -28,7 +23,7 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        /// Dispatch end game to the listeners.
+        ///     Dispatch end game to the listeners.
         /// </summary>
         /// <param name="winner"></param>
         private void OnGameFinished(IPrimitivePlayer winner)

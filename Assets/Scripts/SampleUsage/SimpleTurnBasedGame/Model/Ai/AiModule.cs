@@ -6,20 +6,15 @@ using Extensions;
 namespace SimpleTurnBasedGame.AI
 {
     /// <summary>
-    /// This class holds ai submodules that interact with 
-    /// a game and player to accomplish its own goals
+    ///     This class holds ai submodules that interact with
+    ///     a game and player to accomplish its own goals
     /// </summary>
     public class AiModule
     {
         /// <summary>
-        /// Register with all the Ai submodules.
+        ///     Register with all the Ai submodules.
         /// </summary>
         private readonly Dictionary<AiArchetype, AiBase> subModules = new Dictionary<AiArchetype, AiBase>();
-
-        /// <summary>
-        /// Ai that is current operating.
-        /// </summary>
-        private AiArchetype CurrentAi { get; set; }
 
         public AiModule(IPrimitivePlayer player, IPrimitiveGame game)
         {
@@ -37,7 +32,12 @@ namespace SimpleTurnBasedGame.AI
         }
 
         /// <summary>
-        /// Small factory to create sub ai modules.
+        ///     Ai that is current operating.
+        /// </summary>
+        private AiArchetype CurrentAi { get; set; }
+
+        /// <summary>
+        ///     Small factory to create sub ai modules.
         /// </summary>
         /// <param name="archetype"></param>
         /// <param name="player"></param>
@@ -53,26 +53,27 @@ namespace SimpleTurnBasedGame.AI
                 case AiArchetype.VeryLucky: return new AiVeryLucky(player, game);
                 case AiArchetype.Unlucky: return new AiUnlucky(player, game);
                 case AiArchetype.SelfHeal: return new AiSelfHeal(player, game);
-                case AiArchetype.Good: return  new AiGood(player, game);
+                case AiArchetype.Good: return new AiGood(player, game);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(archetype), archetype, null);
             }
         }
 
         /// <summary>
-        /// Returns the best move according to the current ai submodule.
+        ///     Returns the best move according to the current ai submodule.
         /// </summary>
         /// <returns></returns>
         public MoveType GetBestMove()
         {
             if (!subModules.ContainsKey(CurrentAi))
-                throw new ArgumentOutOfRangeException(CurrentAi + " is not registered as a valid archetype in this module.");
+                throw new ArgumentOutOfRangeException(
+                    CurrentAi + " is not registered as a valid archetype in this module.");
 
             return subModules[CurrentAi].GetBestMove();
         }
 
         /// <summary>
-        /// Change the current archetype.
+        ///     Change the current archetype.
         /// </summary>
         /// <param name="archetype"></param>
         public void SwapAiToArchetype(AiArchetype archetype)

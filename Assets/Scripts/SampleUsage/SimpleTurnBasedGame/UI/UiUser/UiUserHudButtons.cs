@@ -1,16 +1,11 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
-    public class UiUserHudButtons : 
+    public class UiUserHudButtons :
         IUiUserContainerHandler,
-        UiButtonRandom.IPressRandom, 
-        UiButtonDamage.IPressDamage, 
+        UiButtonRandom.IPressRandom,
+        UiButtonDamage.IPressDamage,
         UiButtonHeal.IPressHeal
     {
-        public UiUserContainer Container { get; }
-
         public UiUserHudButtons(IUiUserContainerHandler handler)
         {
             Container = handler.Container;
@@ -23,10 +18,10 @@ namespace SimpleTurnBasedGame
                 button.SetHandler(this);
         }
 
-        void UiButtonRandom.IPressRandom.PressRandomMove()
+        void UiButtonDamage.IPressDamage.PressDamageMove()
         {
             var player = Container.GetPlayer();
-            if (player.ProcessMove(MoveType.RandomMove))
+            if (player.ProcessMove(MoveType.DamageMove))
                 DisableInput();
         }
 
@@ -37,12 +32,14 @@ namespace SimpleTurnBasedGame
                 DisableInput();
         }
 
-        void UiButtonDamage.IPressDamage.PressDamageMove()
+        void UiButtonRandom.IPressRandom.PressRandomMove()
         {
             var player = Container.GetPlayer();
-            if (player.ProcessMove(MoveType.DamageMove))
+            if (player.ProcessMove(MoveType.RandomMove))
                 DisableInput();
         }
+
+        public UiUserContainer Container { get; }
 
         private void DisableInput()
         {

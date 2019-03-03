@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 namespace SimpleTurnBasedGame
 {
@@ -12,11 +10,10 @@ namespace SimpleTurnBasedGame
     {
         public StartGame(IPrimitiveGame game) : base(game)
         {
-            
         }
 
         /// <summary>
-        /// Execution of start game 
+        ///     Execution of start game
         /// </summary>
         public void Execute()
         {
@@ -30,7 +27,7 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        /// Dispatch pre start game event to the listeners
+        ///     Dispatch pre start game event to the listeners
         /// </summary>
         /// <param name="players"></param>
         private void OnGamePreStarted(List<IPrimitivePlayer> players)
@@ -39,7 +36,7 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        /// Dispatch start game event to the listeners.
+        ///     Dispatch start game event to the listeners.
         /// </summary>
         /// <param name="starterPlayer"></param>
         private void OnGameStarted(IPrimitivePlayer starterPlayer)

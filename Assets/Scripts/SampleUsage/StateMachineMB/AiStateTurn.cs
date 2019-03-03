@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Patterns;
-using UnityEngine;
+﻿using Patterns;
 
 namespace ExampleStateMachine
 {
     public class AiStateTurn : StateMB<TurnBasedStateMachine>
     {
-
     }
 }

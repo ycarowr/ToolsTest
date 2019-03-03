@@ -1,19 +1,16 @@
-﻿
-using UnityEngine;
-
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
-    public class UiButtonDamage: UiButton
+    public class UiButtonDamage : UiButton
     {
-        public interface IPressDamage : IButtonHandler
-        {
-            void PressDamageMove();
-        }
-
         protected override void OnSetHandler(IButtonHandler handler)
         {
             if (handler is IPressDamage passTurn)
                 AddListener(passTurn.PressDamageMove);
+        }
+
+        public interface IPressDamage : IButtonHandler
+        {
+            void PressDamageMove();
         }
     }
 }

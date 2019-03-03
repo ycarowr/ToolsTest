@@ -8,22 +8,6 @@ namespace SimpleTurnBasedGame
         private const float TimeUntilFirstTurn = 3;
         private StartGame StartGameStep { get; set; }
 
-        #region FSM
-
-        public override void OnInitialize()
-        {
-            base.OnInitialize();
-            StartGameStep = new StartGame(GameData.RuntimeGame);
-        }
-
-        public override void OnEnterState()
-        {
-            base.OnEnterState();
-            StartGameStep.Execute();
-        }
-
-        #endregion
-
         #region Model --> Controller
 
         void IStartGame.OnStartGame(IPrimitivePlayer starter)
@@ -40,5 +24,21 @@ namespace SimpleTurnBasedGame
             yield return new WaitForSeconds(TimeUntilFirstTurn);
             OnNextState(next);
         }
+
+        #region FSM
+
+        public override void OnInitialize()
+        {
+            base.OnInitialize();
+            StartGameStep = new StartGame(GameData.RuntimeGame);
+        }
+
+        public override void OnEnterState()
+        {
+            base.OnEnterState();
+            StartGameStep.Execute();
+        }
+
+        #endregion
     }
 }

@@ -1,18 +1,14 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
     /// <summary>
-    /// Simple concrete player class.
+    ///     Simple concrete player class.
     /// </summary>
-    public class Player : IPrimitivePlayer, 
+    public class Player : IPrimitivePlayer,
         IDamageable, IAttackable,
         IHealable, IHealer
     {
-        public PlayerSeat Seat { get; }
-        public int Health { get; private set; }
-        public bool IsFullHealth => Health == DefaultMaxHealth;
         private const int DefaultMaxHealth = 6;
 
         public Player(PlayerSeat seat)
@@ -21,16 +17,18 @@ namespace SimpleTurnBasedGame
             Health = DefaultMaxHealth;
         }
 
+        public PlayerSeat Seat { get; }
+        public int Health { get; private set; }
+        public bool IsFullHealth => Health == DefaultMaxHealth;
+
         #region Turn
 
         void IPrimitivePlayer.FinishTurn()
         {
-
         }
 
         void IPrimitivePlayer.StartTurn()
         {
-
         }
 
         #endregion
@@ -52,7 +50,7 @@ namespace SimpleTurnBasedGame
             var current = Health;
             var total = Health - damage;
             Health = Mathf.Max(total, 0);
-            return (Health - current);
+            return Health - current;
         }
 
         #endregion
@@ -74,7 +72,7 @@ namespace SimpleTurnBasedGame
             var current = Health;
             var total = Health + heal;
             Health = Mathf.Min(total, DefaultMaxHealth);
-            return (Health - current);
+            return Health - current;
         }
 
         #endregion

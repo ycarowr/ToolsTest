@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
     public class UiTextButtonRestartGame : UiText
     {

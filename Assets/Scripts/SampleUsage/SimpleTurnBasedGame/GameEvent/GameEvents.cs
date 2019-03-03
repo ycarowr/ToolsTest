@@ -5,11 +5,10 @@ namespace SimpleTurnBasedGame
 {
     public class GameEvents : Observer<GameEvents>
     {
-        
     }
 
     /// <summary>
-    /// Broadcast of the players right before the game start.
+    ///     Broadcast of the players right before the game start.
     /// </summary>
     public interface IPreGameStart : ISubject
     {
@@ -17,7 +16,7 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Broadcast of the starter player to the Listeners.
+    ///     Broadcast of the starter player to the Listeners.
     /// </summary>
     public interface IStartGame : ISubject
     {
@@ -25,7 +24,7 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Broadcast of the winner after a game is finished to the Listeners.
+    ///     Broadcast of the winner after a game is finished to the Listeners.
     /// </summary>
     public interface IFinishGame : ISubject
     {
@@ -33,7 +32,7 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Broadcast of a player when it starts the turn to the Listeners.
+    ///     Broadcast of a player when it starts the turn to the Listeners.
     /// </summary>
     public interface IStartPlayerTurn : ISubject
     {
@@ -41,7 +40,7 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Broadcast of a player when it finishes the turn to the Listeners.
+    ///     Broadcast of a player when it finishes the turn to the Listeners.
     /// </summary>
     public interface IFinishPlayerTurn : ISubject
     {
@@ -49,7 +48,7 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Broadcast of a damage to the Listeners.
+    ///     Broadcast of a damage to the Listeners.
     /// </summary>
     public interface IDoDamage : ISubject
     {
@@ -57,9 +56,9 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Broadcast of a heal to the Listeners.
+    ///     Broadcast of a heal to the Listeners.
     /// </summary>
-    public interface IDoHeal: ISubject
+    public interface IDoHeal : ISubject
     {
         void OnHeal(IHealer source, IHealable target, int amount);
     }

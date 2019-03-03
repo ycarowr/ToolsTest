@@ -7,7 +7,7 @@ namespace SimpleTurnBasedGame
     public class UiNotificationEndGame : UiNotification, IFinishGame
     {
         [SerializeField] private PlayerSeat seat;
-        [SerializeField] private string text;
+        [SerializeField] private string text = string.Empty;
         private const float DelayToNotify = 0.75f;
         private TMP_Text Text;
 

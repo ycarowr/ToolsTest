@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
     /// <summary>
-    /// This interface request the client to return a CanvasGroup.
+    ///     This interface request the client to return a CanvasGroup.
     /// </summary>
     public interface IUiCanvasGroupHandler
     {
@@ -12,7 +11,7 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Enable and Disable a CanvasGroup.
+    ///     Enable and Disable a CanvasGroup.
     /// </summary>
     public interface IUiCanvasGroupInput
     {
@@ -21,17 +20,17 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Class used to manage the Input upon a CanvasGroup.
+    ///     Class used to manage the Input upon a CanvasGroup.
     /// </summary>
     public class UiCanvasGroupInput : IUiCanvasGroupInput, IUiCanvasGroupHandler
     {
-        public CanvasGroup CanvasGroup { get; }
-
         public UiCanvasGroupInput(IUiCanvasGroupHandler handler)
         {
             CanvasGroup = handler.CanvasGroup;
         }
-        
+
+        public CanvasGroup CanvasGroup { get; }
+
         public void Disable()
         {
             CanvasGroup.interactable = false;

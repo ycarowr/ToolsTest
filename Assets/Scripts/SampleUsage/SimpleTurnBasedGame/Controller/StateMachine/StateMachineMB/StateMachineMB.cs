@@ -14,18 +14,18 @@ namespace SimpleTurnBasedGame
     /// <typeparam name="T"></typeparam>
     public abstract class StateMachineMB<T> : SingletonMB<T> where T : MonoBehaviour
     {
-        //This StatesRegister doesn't allowed you to have two states with the same Type
-        protected readonly Dictionary<Type, StateMB<T>> statesRegister = new Dictionary<Type, StateMB<T>>();
-
         //Push-Pop stack of States of this Type of Finite state Machine
         private readonly Stack<StateMB<T>> stack = new Stack<StateMB<T>>();
+
+        //This StatesRegister doesn't allowed you to have two states with the same Type
+        protected readonly Dictionary<Type, StateMB<T>> statesRegister = new Dictionary<Type, StateMB<T>>();
         public bool EnableLogs = true;
-        public bool IsInitialized { get;  private set; }
+        public bool IsInitialized { get; private set; }
 
 
         /// <summary>
         ///     Register and Initialize all the states. It is done on Start callback
-        /// because the states and the fsm have GameData as dependency, which is done on Awake.
+        ///     because the states and the fsm have GameData as dependency, which is done on Awake.
         /// </summary>
         public void Initialize()
         {
@@ -67,17 +67,32 @@ namespace SimpleTurnBasedGame
             Log("States Initialized", "blue");
         }
 
+        public virtual void Restart()
+        {
+            statesRegister.Clear();
+            stack.Clear();
+            IsInitialized = false;
+        }
+
+        private void Log(string log, string colorName = "black")
+        {
+            if (EnableLogs)
+            {
+                log = string.Format("[" + GetType() + "]: <color={0}><b>" + log + "</b></color>", colorName);
+                Debug.Log(log);
+            }
+        }
+
         #region Unity Callbacks
-        
+
         /// <summary>
         ///     Initialize the StateMachine
         /// </summary>
         protected override void OnAwake()
         {
-            
         }
 
-        
+
         /// <summary>
         ///     Start all registered states
         /// </summary>
@@ -90,7 +105,7 @@ namespace SimpleTurnBasedGame
 
             Log("States Started", "blue");
         }
-        
+
         /*
         /// <summary>
         /// Update all registered states (uncomment it if you need this callback).
@@ -104,6 +119,7 @@ namespace SimpleTurnBasedGame
         }
 
         */
+
         #endregion
 
         # region Operations
@@ -175,21 +191,5 @@ namespace SimpleTurnBasedGame
         }
 
         #endregion
-
-        public virtual void Restart()
-        {
-            statesRegister.Clear();
-            stack.Clear();
-            IsInitialized = false;
-        }
-
-        private void Log(string log, string colorName = "black")
-        {
-            if (EnableLogs)
-            {
-                log = string.Format("[" + GetType() + "]: <color={0}><b>" + log + "</b></color>", colorName);
-                Debug.Log(log);
-            }
-        }
     }
 }

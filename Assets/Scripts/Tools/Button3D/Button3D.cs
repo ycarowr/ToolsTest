@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
 namespace Tools
 {
     [RequireComponent(typeof(SpriteRenderer))]
@@ -14,6 +13,26 @@ namespace Tools
         IPointerUpHandler,
         IPointerExitHandler
     {
+        public virtual void OnPointerClick(PointerEventData eventData)
+        {
+        }
+
+        public virtual void OnPointerDown(PointerEventData eventData)
+        {
+        }
+
+        public virtual void OnPointerEnter(PointerEventData eventData)
+        {
+        }
+
+        public virtual void OnPointerExit(PointerEventData eventData)
+        {
+        }
+
+        public virtual void OnPointerUp(PointerEventData eventData)
+        {
+        }
+
         private void Awake()
         {
             CheckEngineDependencies();
@@ -25,7 +44,6 @@ namespace Tools
         {
             public Button3DException(string message) : base(message)
             {
-
             }
         }
 
@@ -35,7 +53,7 @@ namespace Tools
             CheckEventSystem();
             CheckStandaloneInputModule();
         }
-        
+
         private static void CheckPhysicsRayCaster()
         {
             var physicsRayCaster = FindObjectOfType<Physics2DRaycaster>();
@@ -58,30 +76,5 @@ namespace Tools
         }
 
         #endregion
-
-        public virtual void OnPointerClick(PointerEventData eventData)
-        {
-
-        }
-
-        public virtual void OnPointerDown(PointerEventData eventData)
-        {
-
-        }
-
-        public virtual void OnPointerEnter(PointerEventData eventData)
-        {
-
-        }
-
-        public virtual void OnPointerUp(PointerEventData eventData)
-        {
-
-        }
-
-        public virtual void OnPointerExit(PointerEventData eventData)
-        {
-
-        }
     }
 }

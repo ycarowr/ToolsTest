@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
     public class UiTextButtonDamage : UiText
     {
@@ -13,7 +8,7 @@ namespace SimpleTurnBasedGame
             var damageText = Localization.Instance.Get(LocalizationIds.Damage);
             var moveText = Localization.Instance.Get(LocalizationIds.Move);
 
-            SetText($"[{ProcessDamageMove.MinDamage}-{(ProcessDamageMove.MaxDamage - 1)}] {damageText} {moveText}");
+            SetText($"[{ProcessDamageMove.MinDamage}-{ProcessDamageMove.MaxDamage - 1}] {damageText} {moveText}");
         }
     }
 }

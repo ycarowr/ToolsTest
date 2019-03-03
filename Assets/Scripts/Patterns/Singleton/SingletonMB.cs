@@ -72,7 +72,7 @@ namespace Patterns
             {
                 foreach (var duplicated in allSingletonsOfThis)
                     //if the singleton is silent, just destroy the sparing objects
-                    if (duplicated != Instance)
+                    if (!ReferenceEquals(duplicated, Instance))
                         Destroy(duplicated);
             }
             else

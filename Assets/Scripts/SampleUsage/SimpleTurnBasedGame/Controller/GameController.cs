@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using UnityEngine;
 
 namespace SimpleTurnBasedGame
@@ -16,9 +15,8 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// GameController is responsible to execute the game flow and provide access to the game model through
-    /// each Battle State. For obvious 
-    /// 
+    ///     GameController is responsible to execute the game flow and provide access to the game model through
+    ///     each Battle State. For obvious
     /// </summary>
     //Game Data
     [RequireComponent(typeof(IGameData))]
@@ -32,7 +30,8 @@ namespace SimpleTurnBasedGame
     {
         //Register with all States of the Players that are in the Match. Each state controls
         //the flow of the game 
-        private readonly Dictionary<IPrimitivePlayer, TurnState> actorsRegister = new Dictionary<IPrimitivePlayer, TurnState>();
+        private readonly Dictionary<IPrimitivePlayer, TurnState> actorsRegister =
+            new Dictionary<IPrimitivePlayer, TurnState>();
 
         //It holds the flow of the start game state
         private StartBattleState StartState { get; set; }
@@ -42,35 +41,18 @@ namespace SimpleTurnBasedGame
 
         public IGameData GameData { get; private set; }
 
-        /// <inheritdoc />
-        /// <summary>
-        /// Initializes the state machine after game data is ready. And kicks the start battle.
-        /// </summary>
-        protected override void Start()
-        {
-            base.Start();
-            StartBattle();
-        }
-
-        protected override void OnBeforeInitialize()
-        {
-            GameData = GetComponent<IGameData>();
-            StartState = GetComponent<StartBattleState>();
-            EndState = GetComponent<EndBattleState>();
-        }
-
         /// <summary>
         ///     Register the dependencies to its respective turn state.
         /// </summary>
         /// <param name="player"></param>
         /// <param name="state"></param>
         public void RegisterPlayerState(IPrimitivePlayer player, TurnState state)
-        { 
+        {
             actorsRegister.Add(player, state);
         }
 
         /// <summary>
-        /// Returns whether the current player is sitting on a specified seat.
+        ///     Returns whether the current player is sitting on a specified seat.
         /// </summary>
         /// <param name="seat"></param>
         /// <returns></returns>
@@ -84,7 +66,7 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        /// Returns a Turn according to its registered player.
+        ///     Returns a Turn according to its registered player.
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
@@ -94,17 +76,15 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        /// Returns a the player turn according to the position. Null if there isn't player registered with the argument.
+        ///     Returns a the player turn according to the position. Null if there isn't player registered with the argument.
         /// </summary>
         /// <param name="seat"></param>
         /// <returns></returns>
         public TurnState GetPlayer(PlayerSeat seat)
         {
             foreach (var player in actorsRegister.Keys)
-            {
                 if (player.Seat == seat)
                     return actorsRegister[player];
-            }
 
             return null;
         }
@@ -134,7 +114,7 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        /// Deletes current game data and restarts the state machine with a new game data. 
+        ///     Deletes current game data and restarts the state machine with a new game data.
         /// </summary>
         [Button("Restart Immediately")]
         public void RestartGameImmediately()
@@ -150,6 +130,23 @@ namespace SimpleTurnBasedGame
             Initialize();
 
             StartBattle();
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Initializes the state machine after game data is ready. And kicks the start battle.
+        /// </summary>
+        protected override void Start()
+        {
+            base.Start();
+            StartBattle();
+        }
+
+        protected override void OnBeforeInitialize()
+        {
+            GameData = GetComponent<IGameData>();
+            StartState = GetComponent<StartBattleState>();
+            EndState = GetComponent<EndBattleState>();
         }
 
         public override void Restart()

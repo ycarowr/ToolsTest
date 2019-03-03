@@ -1,25 +1,16 @@
 ﻿using System.Collections.Generic;
-using Patterns;
-using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
     //TODO: Replace "string.Format(...)" calls by StringBuilder.Append(..)
-    public class UiPlayerHealthView: UiListener,
-        IPreGameStart, 
-        IDoDamage, 
+    public class UiPlayerHealthView : UiListener,
+        IPreGameStart,
+        IDoDamage,
         IDoHeal
     {
+        private string healthText;
         private UiPlayerContainer UiParent;
         private UiText UiText;
-        private string healthText;
-        
-        private void Awake()
-        {
-            UiParent = GetComponentInParent<UiPlayerContainer>();
-            UiText = GetComponent<UiText>();
-            healthText = Localization.Instance.Get(LocalizationIds.Health);
-        }
 
         void IDoDamage.OnDamage(IAttackable source, IDamageable target, int amount)
         {
@@ -34,6 +25,13 @@ namespace SimpleTurnBasedGame
         void IPreGameStart.OnPreGameStart(List<IPrimitivePlayer> players)
         {
             UpdateText();
+        }
+
+        private void Awake()
+        {
+            UiParent = GetComponentInParent<UiPlayerContainer>();
+            UiText = GetComponent<UiText>();
+            healthText = Localization.Instance.Get(LocalizationIds.Health);
         }
 
         private void UpdateText()

@@ -3,14 +3,14 @@
 namespace Extensions
 {
     /// <summary>
-    /// Extension methods for UnityEngine.GameObject.
-    /// Ref: https://github.com/mminer/unity-extensions/blob/master/GameObjectExtensions.cs
+    ///     Extension methods for UnityEngine.GameObject.
+    ///     Ref: https://github.com/mminer/unity-extensions/blob/master/GameObjectExtensions.cs
     /// </summary>
     public static class GameObjectExtensions
     {
         /// <summary>
-        /// Gets a component attached to the given game object.
-        /// If one isn't found, a new one is attached and returned.
+        ///     Gets a component attached to the given game object.
+        ///     If one isn't found, a new one is attached and returned.
         /// </summary>
         /// <param name="gameObject">Game object.</param>
         /// <returns>Previously or newly attached component.</returns>
@@ -20,7 +20,7 @@ namespace Extensions
         }
 
         /// <summary>
-        /// Checks whether a game object has a component of type T attached.
+        ///     Checks whether a game object has a component of type T attached.
         /// </summary>
         /// <param name="gameObject">Game object.</param>
         /// <returns>True when component is attached.</returns>

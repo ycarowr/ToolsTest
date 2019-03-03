@@ -21,7 +21,7 @@ public class ShakeAnimationEditor : Editor
             if (GUILayout.Button("Shake!"))
                 Target.Shake();
 
-            if (Target.isShaking && GUILayout.Button("Stop!"))
+            if (Target.IsShaking && GUILayout.Button("Stop!"))
                 Target.StopShaking();
         }
     }

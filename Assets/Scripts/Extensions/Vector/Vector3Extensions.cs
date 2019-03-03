@@ -4,15 +4,15 @@ using UnityEngine;
 namespace Extensions
 {
     /// <summary>
-    /// Vectors extensions.
-    /// Refs:
-    /// 1. https://gist.github.com/omgwtfgames/f917ca28581761b8100f
-    /// 2. https://github.com/mminer/unity-extensions/blob/master/Vector3Extensions.cs
+    ///     Vectors extensions.
+    ///     Refs:
+    ///     1. https://gist.github.com/omgwtfgames/f917ca28581761b8100f
+    ///     2. https://github.com/mminer/unity-extensions/blob/master/Vector3Extensions.cs
     /// </summary>
     public static class VectorExtensions
     {
         /// <summary>
-        /// Finds the position closest to the given one.
+        ///     Finds the position closest to the given one.
         /// </summary>
         /// <param name="position">World position.</param>
         /// <param name="otherPositions">Other world positions.</param>

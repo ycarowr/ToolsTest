@@ -1,19 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Patterns;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace SimpleTurnBasedGame
 {
-    public class UiButtonRestart : UiButton, 
-        IListener, 
+    public class UiButtonRestart : UiButton,
+        IListener,
         IPreGameStart,
         IFinishGame
     {
-        public interface IPressRestart
+        void IFinishGame.OnFinishGame(IPrimitivePlayer winner)
         {
-            void PressRestart();
+            gameObject.SetActive(true);
+        }
+
+        void IPreGameStart.OnPreGameStart(List<IPrimitivePlayer> players)
+        {
+            gameObject.SetActive(false);
         }
 
         private void Start()
@@ -23,24 +25,19 @@ namespace SimpleTurnBasedGame
 
         private void OnDestroy()
         {
-            if(GameEvents.Instance)
+            if (GameEvents.Instance)
                 GameEvents.Instance.RemoveListener(this);
         }
 
         protected override void OnSetHandler(IButtonHandler handler)
         {
-            if(handler is IPressRestart restart)
+            if (handler is IPressRestart restart)
                 AddListener(restart.PressRestart);
         }
 
-        void IPreGameStart.OnPreGameStart(List<IPrimitivePlayer> players)
+        public interface IPressRestart
         {
-            gameObject.SetActive(false);
-        }
-
-        void IFinishGame.OnFinishGame(IPrimitivePlayer winner)
-        {
-            gameObject.SetActive(true);
+            void PressRestart();
         }
     }
 }

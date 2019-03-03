@@ -3,9 +3,9 @@
 namespace SimpleTurnBasedGame
 {
     /// <summary>
-    /// User HUD 
+    ///     User HUD
     /// </summary>
-    public class UiUserContainer : UiPlayerContainer, 
+    public class UiUserContainer : UiPlayerContainer,
         IUiCanvasGroupHandler,
         IUiUserContainerHandler
     {

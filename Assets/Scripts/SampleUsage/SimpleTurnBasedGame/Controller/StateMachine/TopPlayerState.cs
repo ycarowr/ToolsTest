@@ -5,4 +5,3 @@
         public override PlayerSeat Seat => PlayerSeat.Top;
     }
 }
-

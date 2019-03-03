@@ -10,12 +10,12 @@ namespace SimpleTurnBasedGame
         public const int MaxDamage = 4;
         public const int MinDamage = 1;
 
-        private FinishGame FinishGameStep { get; }
-
         public ProcessDamageMove(IPrimitiveGame game) : base(game)
         {
             FinishGameStep = new FinishGame(game);
         }
+
+        private FinishGame FinishGameStep { get; }
 
         /// <summary>
         ///     Execution of the damage logic.

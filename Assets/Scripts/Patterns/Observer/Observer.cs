@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Patterns
 {
     /// <summary>
-    /// All classes that are listened by IListener.
+    ///     All classes that are listened by IListener.
     /// </summary>
     public interface ISubject
     {
-
     }
 
     /// <summary>
-    /// All classes that are listening ISubject.
+    ///     All classes that are listening ISubject.
     /// </summary>
     public interface IListener
     {
-
     }
 
     //TODO: Consider a refactor to adapt the implementation using an Attribute instead only 
@@ -26,23 +23,22 @@ namespace Patterns
     /// <summary>
     ///     This class contains a register that contains Subjects and their respective Listeners.
     ///     Every time a Subject value is updated and notified, this pattern broadcast the modification to the Listeners.
-    /// Refs:
-    /// 1. https://forum.unity.com/threads/observer-pattern-hell.219749/
-    /// 2. https://www.youtube.com/watch?v=Yy7Dt2usGy0
-    /// 3. https://www.habrador.com/tutorials/programming-patterns/3-observer-pattern/
-    /// 4. https://forum.unity.com/threads/observer-design-pattern-with-game-objects.388713/
-    /// 5. https://jacekrojek.github.io/JacekRojek/2016/c-observer-design-pattern/
-    /// 6. https://docs.microsoft.com/en-us/dotnet/standard/events/how-to-implement-a-provider
+    ///     Refs:
+    ///     1. https://forum.unity.com/threads/observer-pattern-hell.219749/
+    ///     2. https://www.youtube.com/watch?v=Yy7Dt2usGy0
+    ///     3. https://www.habrador.com/tutorials/programming-patterns/3-observer-pattern/
+    ///     4. https://forum.unity.com/threads/observer-design-pattern-with-game-objects.388713/
+    ///     5. https://jacekrojek.github.io/JacekRojek/2016/c-observer-design-pattern/
+    ///     6. https://docs.microsoft.com/en-us/dotnet/standard/events/how-to-implement-a-provider
     /// </summary>
     public class Observer<T> : SingletonMB<Observer<T>>
     {
         /// <summary>
-        ///     This is the Subject-Listener register. It supports both, Monobehaviors and 
+        ///     This is the Subject-Listener register. It supports both, Monobehaviors and
         ///     Pure C# classes that implement ISubject and IListener interfaces.
         /// </summary>
         private readonly Dictionary<Type, List<IListener>>
             register = new Dictionary<Type, List<IListener>>();
-
 
 
         /// <summary>
@@ -53,13 +49,13 @@ namespace Patterns
         {
             if (listener == null)
                 throw new ArgumentNullException("Can't register Null as a Listener");
-            
+
             //find the type of object
             var type = listener.GetType();
 
             //get all implemented interfaces by the type class
             var interfaces = type.GetInterfaces();
-            
+
             //iterate on all implemented interfaces
             for (var i = 0; i < interfaces.Length; i++)
             {
@@ -91,7 +87,7 @@ namespace Patterns
         /// <param name="subject"></param>
         public void RemoveSubject(Type subject)
         {
-            if(register.ContainsKey(subject))
+            if (register.ContainsKey(subject))
                 register.Remove(subject);
         }
 
@@ -110,14 +106,14 @@ namespace Patterns
             var isSubject = register.ContainsKey(subjectType);
             if (!isSubject)
                 return;
-            
+
             //if there are register for this subject move forward
             var listeners = register[subjectType];
             if (listeners.Count == 0) return;
 
             //broadcast for all gotten register
             for (var i = 0; i < listeners.Count; i++)
-            {    
+            {
                 var obj = listeners[i];
                 if (obj != null)
                     subject(obj as T1);

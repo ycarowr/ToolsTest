@@ -1,7 +1,7 @@
 ﻿namespace SimpleTurnBasedGame.AI
 {
     /// <summary>
-    /// This Ai tries to survive if the life total reaches an determined threshold.
+    ///     This Ai tries to survive if the life total reaches an determined threshold.
     /// </summary>
     public class AiSurvive : AiBase
     {
@@ -9,11 +9,10 @@
 
         public AiSurvive(IPrimitivePlayer player, IPrimitiveGame game) : base(player, game)
         {
-
         }
 
         /// <summary>
-        /// If the live total is fewer than the threshold the move is always Heal and survive.
+        ///     If the live total is fewer than the threshold the move is always Heal and survive.
         /// </summary>
         /// <returns></returns>
         public override MoveType GetBestMove()

@@ -1,4 +1,3 @@
-using System.Collections;
 using Patterns;
 using UnityEngine;
 
@@ -22,7 +21,7 @@ namespace SimpleTurnBasedGame
 
         private void Start()
         {
-            if(GameEvents.Instance)
+            if (GameEvents.Instance)
                 GameEvents.Instance.AddListener(this);
         }
 

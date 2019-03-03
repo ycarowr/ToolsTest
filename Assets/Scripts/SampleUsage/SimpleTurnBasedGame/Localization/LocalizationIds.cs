@@ -1,5 +1,4 @@
-﻿
-public enum LocalizationIds
+﻿public enum LocalizationIds
 {
     Player,
     Health,

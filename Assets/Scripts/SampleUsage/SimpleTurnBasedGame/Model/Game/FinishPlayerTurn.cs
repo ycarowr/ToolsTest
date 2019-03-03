@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
     /// <inheritdoc />
     /// <summary>
@@ -12,12 +8,11 @@ namespace SimpleTurnBasedGame
     {
         public FinishPlayerTurn(IPrimitiveGame game) : base(game)
         {
-
         }
 
 
         /// <summary>
-        /// Finish player turn logic.
+        ///     Finish player turn logic.
         /// </summary>
         public void Execute()
         {
@@ -31,7 +26,7 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        /// Dispatch to the listeners.
+        ///     Dispatch to the listeners.
         /// </summary>
         /// <param name="currentPlayer"></param>
         private void OnFinishedCurrentPlayerTurn(IPrimitivePlayer currentPlayer)

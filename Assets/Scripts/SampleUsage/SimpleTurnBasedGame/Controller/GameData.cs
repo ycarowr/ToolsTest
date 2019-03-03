@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Patterns;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace SimpleTurnBasedGame
@@ -8,8 +6,8 @@ namespace SimpleTurnBasedGame
     public interface IGameData
     {
         IPrimitiveGame RuntimeGame { get; }
-        void Clear();
         void CreateGame();
+        void Clear();
     }
 
     [RequireComponent(typeof(GameController))]
@@ -19,14 +17,6 @@ namespace SimpleTurnBasedGame
         ///     All the game logic implementation and game data.
         /// </summary>
         public IPrimitiveGame RuntimeGame { get; private set; }
-
-        /// <summary>
-        /// Initialize game data OnAwake.
-        /// </summary>
-        private void Awake()
-        {
-            CreateGame();
-        }
 
         public void Clear()
         {
@@ -40,7 +30,15 @@ namespace SimpleTurnBasedGame
             var player2 = new Player(PlayerSeat.Top);
 
             //create game logic
-            RuntimeGame = new Game(new List<IPrimitivePlayer> { player1, player2 });
+            RuntimeGame = new Game(new List<IPrimitivePlayer> {player1, player2});
+        }
+
+        /// <summary>
+        ///     Initialize game data OnAwake.
+        /// </summary>
+        private void Awake()
+        {
+            CreateGame();
         }
     }
 }

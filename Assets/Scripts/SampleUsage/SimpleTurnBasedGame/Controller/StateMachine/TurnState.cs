@@ -5,16 +5,15 @@ using UnityEngine;
 namespace SimpleTurnBasedGame
 {
     [RequireComponent(typeof(GameController))]
-    public abstract class TurnState : BaseBattleState, 
+    public abstract class TurnState : BaseBattleState,
         IFinishPlayerTurn
     {
-        public IPrimitivePlayer Player { get; protected set; }
-        public virtual PlayerSeat Seat { get; }
-        public virtual bool IsAi => false;
-
         //Timers
         protected const float StartTurnDelay = 1;
         protected const float TimeOutDelay = 10;
+        public IPrimitivePlayer Player { get; protected set; }
+        public virtual PlayerSeat Seat { get; }
+        public virtual bool IsAi => false;
 
         //Turn Steps
         protected StartPlayerTurn StartPlayerTurnStep { get; set; }
@@ -27,6 +26,16 @@ namespace SimpleTurnBasedGame
 
         //timeout 
         protected Coroutine TimeOutRoutine { get; set; }
+
+        #region Controller, Player <-- Model
+
+        void IFinishPlayerTurn.OnFinishPlayerTurn(IPrimitivePlayer player)
+        {
+            if (IsMyTurn())
+                NextTurn();
+        }
+
+        #endregion
 
         #region Dependencies
 
@@ -54,6 +63,62 @@ namespace SimpleTurnBasedGame
 
         #endregion
 
+
+        /// <summary>
+        ///     Processes a move based on its Type.
+        /// </summary>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        public bool ProcessMove(MoveType move)
+        {
+            switch (move)
+            {
+                case MoveType.RandomMove:
+                    return TryRandom();
+                case MoveType.DamageMove:
+                    return TryDamage();
+                case MoveType.HealMove:
+                    return TryHeal();
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(move), move, null);
+            }
+        }
+
+        /// <summary>
+        ///     Finishes the player turn.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IEnumerator TimeOut(float time = TimeOutDelay)
+        {
+            if (TimeOutRoutine != null)
+                StopCoroutine(TimeOutRoutine);
+            else
+                yield return new WaitForSeconds(time);
+
+            TryPassTurn();
+        }
+
+        /// <summary>
+        ///     Restart the state to the initial configuration and stops all the internal routines.
+        /// </summary>
+        public virtual void Restart()
+        {
+            if (TimeOutRoutine != null)
+                StopCoroutine(TimeOutRoutine);
+            TimeOutRoutine = null;
+        }
+
+        /// <summary>
+        ///     Switches the turn according to the next player.
+        /// </summary>
+        private void NextTurn()
+        {
+            var game = GameData.RuntimeGame;
+            var nextPlayer = game.Token.NextPlayer;
+            var nextState = Fsm.GetPlayer(nextPlayer);
+            OnNextState(nextState);
+        }
+
         #region FSM Controller
 
         public override void OnEnterState()
@@ -71,16 +136,6 @@ namespace SimpleTurnBasedGame
         {
             base.OnExitState();
             Restart();
-        }
-
-        #endregion
-
-        #region Controller, Player <-- Model
-
-        void IFinishPlayerTurn.OnFinishPlayerTurn(IPrimitivePlayer player)
-        {
-            if (IsMyTurn())
-                NextTurn();
         }
 
         #endregion
@@ -149,7 +204,7 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        /// Return the Opponent of this player.
+        ///     Return the Opponent of this player.
         /// </summary>
         /// <returns></returns>
         public IPrimitivePlayer GetOpponent()
@@ -158,61 +213,5 @@ namespace SimpleTurnBasedGame
         }
 
         #endregion
-
-
-        /// <summary>
-        /// Processes a move based on its Type.
-        /// </summary>
-        /// <param name="move"></param>
-        /// <returns></returns>
-        public bool ProcessMove(MoveType move)
-        {
-            switch (move)
-            {
-                case MoveType.RandomMove:
-                    return TryRandom();
-                case MoveType.DamageMove:
-                    return TryDamage();
-                case MoveType.HealMove:
-                    return TryHeal();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(move), move, null);
-            }
-        }
-
-        /// <summary>
-        ///     Finishes the player turn.
-        /// </summary>
-        /// <returns></returns>
-        protected virtual IEnumerator TimeOut(float time = TimeOutDelay)
-        {
-            if (TimeOutRoutine != null)
-                StopCoroutine(TimeOutRoutine);
-            else
-                yield return new WaitForSeconds(time);
-
-            TryPassTurn();
-        }
-
-        /// <summary>
-        ///     Restart the state to the initial configuration and stops all the internal routines.
-        /// </summary>
-        public virtual void Restart()
-        {
-            if (TimeOutRoutine != null)
-                StopCoroutine(TimeOutRoutine);
-            TimeOutRoutine = null;
-        }
-
-        /// <summary>
-        /// Switches the turn according to the next player. 
-        /// </summary>
-        private void NextTurn()
-        {
-            var game = GameData.RuntimeGame;
-            var nextPlayer = game.Token.NextPlayer;
-            var nextState = Fsm.GetPlayer(nextPlayer);
-            OnNextState(nextState);
-        }
     }
 }

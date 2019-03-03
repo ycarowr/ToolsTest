@@ -1,11 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Extensions;
 
 namespace SimpleTurnBasedGame.AI
 {
     /// <summary>
-    /// This AI module never heals on full life and Kills the enemy is its possible.
+    ///     This AI module never heals on full life and Kills the enemy is its possible.
     /// </summary>
     public class AiGood : AiBase
     {

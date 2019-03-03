@@ -1,10 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Patterns;
-using SimpleTurnBasedGame;
-using UnityEngine;
-
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
     public interface IUiPlayer
     {

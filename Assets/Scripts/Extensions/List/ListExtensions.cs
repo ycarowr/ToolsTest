@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-
 namespace Extensions
 {
     /// <summary>
-    ///     Extension methods for the class List<T>.
+    ///     Extension methods for the class List
+    ///     <T>
+    ///         .
     ///         Some Refs:
     ///         https://gist.github.com/omgwtfgames/f917ca28581761b8100f
     ///         https://github.com/mminer/unity-extensions

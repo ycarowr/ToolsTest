@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Patterns;
-using UnityEngine;
+﻿using Patterns;
 
 public class SimpleSingletonMB : SingletonMB<SimpleSingletonMB>
 {
-   
 }

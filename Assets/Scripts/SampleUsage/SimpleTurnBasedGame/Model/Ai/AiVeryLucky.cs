@@ -1,7 +1,7 @@
 ﻿namespace SimpleTurnBasedGame.AI
 {
     /// <summary>
-    /// This AI module always tries the random option.
+    ///     This AI module always tries the random option.
     /// </summary>
     public class AiVeryLucky : AiBase
     {

@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
     public class UiTextButtonHeal : UiText
     {
@@ -13,7 +8,7 @@ namespace SimpleTurnBasedGame
             var healText = Localization.Instance.Get(LocalizationIds.Heal);
             var moveText = Localization.Instance.Get(LocalizationIds.Move);
 
-            SetText($"[{ProcessHealMove.MinHeal}-{(ProcessHealMove.MaxHeal - 1)}] {healText} {moveText}");
+            SetText($"[{ProcessHealMove.MinHeal}-{ProcessHealMove.MaxHeal - 1}] {healText} {moveText}");
         }
     }
 }

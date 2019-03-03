@@ -1,5 +1,4 @@
-﻿using Patterns;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {

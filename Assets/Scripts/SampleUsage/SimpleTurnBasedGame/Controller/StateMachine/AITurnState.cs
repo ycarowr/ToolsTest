@@ -1,7 +1,6 @@
-﻿using SimpleTurnBasedGame.AI;
-using System.Collections;
+﻿using System.Collections;
+using SimpleTurnBasedGame.AI;
 using UnityEngine;
-using Random = System.Random;
 
 namespace SimpleTurnBasedGame
 {
@@ -9,15 +8,18 @@ namespace SimpleTurnBasedGame
     {
         private const float AiDoTurnDelay = 2.5f;
         private const float AiFinishTurnDelay = 3.5f;
+
+        [Tooltip("Whether this player is AI or not.")] [SerializeField]
+        private bool isAi = false;
+
+        [SerializeField] private AiArchetype aiArchetype;
+
         private Coroutine AiFinishTurnRoutine { get; set; }
         private AiModule AiModule { get; set; }
         public override bool IsAi => isAi;
-        [Tooltip("Whether this player is AI or not.")]
-        [SerializeField] private bool isAi = false;
-        [SerializeField] private AiArchetype aiArchetype;
 
         public override void OnInitialize()
-        { 
+        {
             base.OnInitialize();
             //create ai
             AiModule = new AiModule(Player, GameData.RuntimeGame);

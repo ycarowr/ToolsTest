@@ -9,16 +9,16 @@ namespace SimpleTurnBasedGame
         private const float DelayToNotify = 0.75f;
         private TMP_Text Text;
 
+        void IStartGame.OnStartGame(IPrimitivePlayer player)
+        {
+            Text.text = player.Seat + " player starts!";
+            StartCoroutine(Animate());
+        }
+
         protected override void Awake()
         {
             base.Awake();
             Text = GetComponent<TMP_Text>();
-        }
-
-        void IStartGame.OnStartGame(IPrimitivePlayer player)
-        {
-            Text.text = player.Seat +" player starts!";
-            StartCoroutine(Animate());
         }
 
         private IEnumerator Animate()

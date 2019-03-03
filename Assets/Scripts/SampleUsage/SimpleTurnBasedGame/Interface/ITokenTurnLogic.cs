@@ -52,14 +52,14 @@ namespace SimpleTurnBasedGame
         bool IsMyTurn(IPrimitivePlayer player);
 
         /// <summary>
-        /// Returns a player opponent.
+        ///     Returns a player opponent.
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
         IPrimitivePlayer GetOpponent(IPrimitivePlayer player);
 
         /// <summary>
-        /// Returns a player based on its seat.
+        ///     Returns a player based on its seat.
         /// </summary>
         /// <param name="seat"></param>
         /// <returns></returns>

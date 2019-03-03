@@ -1,15 +1,9 @@
-﻿using System.Collections.Generic;
-using Extensions;
-using Patterns;
-using UnityEngine;
-using UnityEngine.UI;
-
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
     /// <summary>
-    /// This interface enforces the client to return a UiUserContainer
+    ///     This interface enforces the client to return a UiUserContainer
     /// </summary>
-    public interface IUiUserContainerHandler 
+    public interface IUiUserContainerHandler
     {
         UiUserContainer Container { get; }
     }

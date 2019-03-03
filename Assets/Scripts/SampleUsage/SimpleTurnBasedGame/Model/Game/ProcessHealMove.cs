@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
@@ -10,13 +9,13 @@ namespace SimpleTurnBasedGame
     {
         public const int MaxHeal = 4;
         public const int MinHeal = 1;
+
         public ProcessHealMove(IPrimitiveGame game) : base(game)
         {
-
         }
 
         /// <summary>
-        /// Execution of the heal logic.
+        ///     Execution of the heal logic.
         /// </summary>
         public void Execute()
         {
@@ -41,16 +40,16 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        /// Generates the heal amount.
+        ///     Generates the heal amount.
         /// </summary>
         /// <returns></returns>
         protected virtual int GetHeal()
         {
-            return UnityEngine.Random.Range(MinHeal, MaxHeal);
+            return Random.Range(MinHeal, MaxHeal);
         }
 
         /// <summary>
-        /// Dispatch heal to the listeners.
+        ///     Dispatch heal to the listeners.
         /// </summary>
         /// <param name="source"></param>
         /// <param name="target"></param>

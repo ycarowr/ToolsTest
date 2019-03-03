@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
-using Patterns;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
     public class UiPlayerNameView : MonoBehaviour
     {
+        private string playerText;
         private UiPlayerContainer UiParent;
         private UiText UiText;
-        private string playerText;
 
         private void Awake()
         {
@@ -19,7 +17,7 @@ namespace SimpleTurnBasedGame
 
         private void Start()
         {
-            UiText.SetText(playerText +": "+UiParent.Seat);
+            UiText.SetText(playerText + ": " + UiParent.Seat);
         }
     }
 }

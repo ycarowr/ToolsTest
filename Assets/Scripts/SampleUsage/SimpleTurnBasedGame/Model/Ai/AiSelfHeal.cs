@@ -1,7 +1,7 @@
 ﻿namespace SimpleTurnBasedGame.AI
 {
     /// <summary>
-    /// This AI always heals itself... and never wins.
+    ///     This AI always heals itself... and never wins.
     /// </summary>
     public class AiSelfHeal : AiBase
     {

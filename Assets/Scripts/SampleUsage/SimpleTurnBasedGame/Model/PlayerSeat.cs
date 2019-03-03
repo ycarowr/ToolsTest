@@ -1,8 +1,7 @@
-﻿
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
     /// <summary>
-    /// Position where a player can take seat in the game.
+    ///     Position where a player can take seat in the game.
     /// </summary>
     public enum PlayerSeat
     {

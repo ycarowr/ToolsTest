@@ -4,29 +4,29 @@ namespace Tools
 {
     /// <summary>
     ///     Ref:https://gist.github.com/ftvs/5822103
-    ///     Monobehavior used to shake an GameObject throught it's Transform. All the variables are set with the Editor.
+    ///     Monobehavior used to shake an GameObject through it's Transform. All the variables are set with the Editor.
     ///     If you need global access to this class you can just inherit it from a SingletonMB instead.
     /// </summary>
     public class ShakeAnimation : MonoBehaviour
     {
         [Tooltip("How big are the width and height of the shake.")] [SerializeField]
-        private float amplitude;
+        private readonly float amplitude = 0;
+
+        [Tooltip("Duration of the shake in seconds")] [SerializeField]
+        private readonly float duration = 0;
+
+        [Tooltip("How often the shake happens during its own duration. Value has to be smaller than the duration.")]
+        [SerializeField]
+        private readonly float frequency = 0;
 
         [Tooltip("Transform that has to be shaken")] [SerializeField]
         private Transform cachedTransform;
 
-        [Tooltip("Duration of the shake in seconds")] [SerializeField]
-        private float duration;
-
-        [Tooltip("How often the shake happens during its own duration. Value has to be smaller than the duration.")]
-        [SerializeField]
-        private float frequency;
-
-        [Tooltip("whether the object is shaking or not.")]
-        public bool isShaking;
-
         //initial position
         private Vector3 originalPosition;
+
+        [field: Tooltip("whether the object is shaking or not.")]
+        public bool IsShaking { get; private set; }
 
         private float CounterFrequency { get; set; }
         private float CounterDuration { get; set; }
@@ -41,11 +41,11 @@ namespace Tools
         /// </summary>
         public void Shake()
         {
-            if (isShaking)
+            if (IsShaking)
                 return;
 
             originalPosition = cachedTransform.position;
-            isShaking = true;
+            IsShaking = true;
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Tools
         /// </summary>
         public void StopShaking()
         {
-            isShaking = false;
+            IsShaking = false;
             cachedTransform.localPosition = originalPosition;
             ResetCounters();
         }
@@ -72,7 +72,7 @@ namespace Tools
         /// </summary>
         private void Update()
         {
-            if (!isShaking) return;
+            if (!IsShaking) return;
 
             var deltaTime = Time.deltaTime;
 

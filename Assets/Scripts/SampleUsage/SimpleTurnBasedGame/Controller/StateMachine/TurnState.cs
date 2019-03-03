@@ -8,12 +8,13 @@ namespace SimpleTurnBasedGame
     public abstract class TurnState : BaseBattleState,
         IFinishPlayerTurn
     {
-        //Timers
-        protected const float StartTurnDelay = 1;
-        protected const float TimeOutDelay = 10;
         public IPrimitivePlayer Player { get; protected set; }
         public virtual PlayerSeat Seat { get; }
         public virtual bool IsAi => false;
+        protected Coroutine TimeOutRoutine { get; set; }
+
+        protected Coroutine TickRoutine { get; set; }
+        protected ProcessTick ProcessTick { get; set; }
 
         //Turn Steps
         protected StartPlayerTurn StartPlayerTurnStep { get; set; }
@@ -23,9 +24,6 @@ namespace SimpleTurnBasedGame
         protected ProcessDamageMove ProcessDamageMove { get; set; }
         protected ProcessHealMove ProcessHealMove { get; set; }
         protected ProcessRandomMove ProcessRandomMove { get; set; }
-
-        //timeout 
-        protected Coroutine TimeOutRoutine { get; set; }
 
         #region Controller, Player <-- Model
 
@@ -59,10 +57,22 @@ namespace SimpleTurnBasedGame
             ProcessDamageMove = new ProcessDamageMove(game);
             ProcessHealMove = new ProcessHealMove(game);
             ProcessRandomMove = new ProcessRandomMove(game);
+            ProcessTick = new ProcessTick(game);
         }
 
         #endregion
 
+        private IEnumerator TickRoutineAsync()
+        {
+            var seconds = 0;
+            while (true)
+            {
+                //every second
+                yield return new WaitForSeconds(1);
+                ProcessTick.Execute();
+                seconds++;
+            }
+        }
 
         /// <summary>
         ///     Processes a move based on its Type.
@@ -88,12 +98,12 @@ namespace SimpleTurnBasedGame
         ///     Finishes the player turn.
         /// </summary>
         /// <returns></returns>
-        protected virtual IEnumerator TimeOut(float time = TimeOutDelay)
+        protected virtual IEnumerator TimeOut()
         {
             if (TimeOutRoutine != null)
                 StopCoroutine(TimeOutRoutine);
             else
-                yield return new WaitForSeconds(time);
+                yield return new WaitForSeconds(ProcessTick.TimeOut);
 
             TryPassTurn();
         }
@@ -106,6 +116,10 @@ namespace SimpleTurnBasedGame
             if (TimeOutRoutine != null)
                 StopCoroutine(TimeOutRoutine);
             TimeOutRoutine = null;
+
+            if (TickRoutine != null)
+                StopCoroutine(TickRoutine);
+            TickRoutine = null;
         }
 
         /// <summary>
@@ -148,8 +162,11 @@ namespace SimpleTurnBasedGame
         /// <returns></returns>
         protected virtual IEnumerator StartTurn()
         {
-            yield return new WaitForSeconds(StartTurnDelay);
+            yield return new WaitForSeconds(ProcessTick.StartTurnDelay);
             StartPlayerTurnStep.Execute();
+
+            //setup tick routine
+            TickRoutine = StartCoroutine(TickRoutineAsync());
         }
 
         /// <summary>

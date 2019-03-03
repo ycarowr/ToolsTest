@@ -43,7 +43,7 @@ namespace SimpleTurnBasedGame
                 yield break;
 
             if (!isAi)
-                yield return 0;
+                yield break;
 
             var bestMove = AiModule.GetBestMove();
             ProcessMove(bestMove);
@@ -56,7 +56,7 @@ namespace SimpleTurnBasedGame
                 yield break;
 
             if (!isAi)
-                yield return 0;
+                yield break;
 
             StartCoroutine(TimeOut());
         }

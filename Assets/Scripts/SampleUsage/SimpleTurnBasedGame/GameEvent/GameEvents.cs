@@ -62,4 +62,12 @@ namespace SimpleTurnBasedGame
     {
         void OnHeal(IHealer source, IHealable target, int amount);
     }
+
+    /// <summary>
+    ///     Broadcast of the time to the Listeners.
+    /// </summary>
+    public interface IDoTick : ISubject
+    {
+        void OnTickTime(int time, IPrimitivePlayer player);
+    }
 }

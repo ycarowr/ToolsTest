@@ -12,11 +12,11 @@ public class PrefabPooler : SingletonMB<PrefabPooler>
     private readonly Dictionary<GameObject, List<GameObject>> poolAbleObjects =
         new Dictionary<GameObject, List<GameObject>>();
 
-    [Tooltip("All pooled models have to be inside this array before the initialization")] [SerializeField]
-    private GameObject[] modelsPooled;
-
     [Tooltip("How many objects will be created as soon as the game loads")] [SerializeField]
     private readonly int startSize = 10;
+
+    [Tooltip("All pooled models have to be inside this array before the initialization")] [SerializeField]
+    private GameObject[] modelsPooled;
 
 
     /// <summary>

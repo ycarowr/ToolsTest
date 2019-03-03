@@ -19,6 +19,8 @@ namespace SimpleTurnBasedGame
         public bool IsGameStarted { get; set; }
         public bool IsGameFinished { get; set; }
         public bool IsTurnInProgress { get; set; }
+        public int TurnTime { get; set; }
+        public int TotalTime { get; set; }
 
         private void Log(string log, string colorName = "black")
         {

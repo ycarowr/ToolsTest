@@ -9,5 +9,9 @@
         bool IsGameFinished { get; set; }
 
         bool IsTurnInProgress { get; set; }
+
+        int TurnTime { get; set; }
+
+        int TotalTime { get; set; }
     }
 }

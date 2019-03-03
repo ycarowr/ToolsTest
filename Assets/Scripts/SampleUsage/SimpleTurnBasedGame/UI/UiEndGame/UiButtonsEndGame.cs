@@ -1,16 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
-    public class UiButtonsEndGame: 
+    public class UiButtonsEndGame :
         IUiEndGame,
         IButtonHandler,
         UiButtonRestart.IPressRestart
     {
-        public UiEndGameContainer Container { get; }
-
-
         public UiButtonsEndGame(UiEndGameContainer buttonsContainer)
         {
             Container = buttonsContainer;
@@ -21,6 +15,8 @@ namespace SimpleTurnBasedGame
         {
             GameController.Instance.RestartGameImmediately();
         }
+
+        public UiEndGameContainer Container { get; }
 
         public void SetHandlers()
         {

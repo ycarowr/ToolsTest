@@ -22,6 +22,7 @@
 
             Game.IsTurnInProgress = false;
             Game.Token.CurrentPlayer.FinishTurn();
+            Game.TurnTime = 0;
             OnFinishedCurrentPlayerTurn(Game.Token.CurrentPlayer);
         }
 

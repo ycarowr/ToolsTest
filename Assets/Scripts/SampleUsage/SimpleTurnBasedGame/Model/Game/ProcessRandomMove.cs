@@ -8,12 +8,12 @@ namespace SimpleTurnBasedGame
 
         public ProcessRandomMove(IPrimitiveGame game) : base(game)
         {
-            ProcessDamageMove = new DecoratorProcessDamageMove(game);
-            ProcessHeal = new DecoratorProcessHeal(game);
+            DamagePlus = new ProcessDamagePlus(game);
+            HealPlus = new ProcessHealPlus(game);
         }
 
-        private DecoratorProcessDamageMove ProcessDamageMove { get; }
-        private DecoratorProcessHeal ProcessHeal { get; }
+        private ProcessDamagePlus DamagePlus { get; }
+        private ProcessHealPlus HealPlus { get; }
 
         public void Execute()
         {
@@ -21,16 +21,16 @@ namespace SimpleTurnBasedGame
 
             //Heads or Tails?
             if (rdn == 0)
-                ProcessDamageMove.Execute();
+                DamagePlus.Execute();
             else
-                ProcessHeal.Execute();
+                HealPlus.Execute();
         }
 
         #region Decorators
 
-        private class DecoratorProcessDamageMove : ProcessDamageMove
+        private class ProcessDamagePlus : ProcessDamageMove
         {
-            public DecoratorProcessDamageMove(IPrimitiveGame game) : base(game)
+            public ProcessDamagePlus(IPrimitiveGame game) : base(game)
             {
             }
 
@@ -40,9 +40,9 @@ namespace SimpleTurnBasedGame
             }
         }
 
-        private class DecoratorProcessHeal : ProcessHealMove
+        private class ProcessHealPlus : ProcessHealMove
         {
-            public DecoratorProcessHeal(IPrimitiveGame game) : base(game)
+            public ProcessHealPlus(IPrimitiveGame game) : base(game)
             {
             }
 

@@ -1,0 +1,25 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace SimpleTurnBasedGame
+{
+    public class UiAnimation : UiListener
+    {
+        protected static readonly int HashName = Animator.StringToHash("Animation");
+        protected Animator Animator { get; set; }
+
+        protected virtual void Awake()
+        {
+            Animator = GetComponent<Animator>();
+        }
+
+        public virtual IEnumerator Animate(float delay = 0)
+        {
+            yield return new WaitForSeconds(delay);
+
+            if(Animator != null)
+                Animator.Play(HashName);
+        }
+    }
+}

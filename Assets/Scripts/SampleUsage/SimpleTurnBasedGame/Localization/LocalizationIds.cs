@@ -1,10 +1,13 @@
 ﻿public enum LocalizationIds
 {
+    Damage,
     Player,
     Health,
     Random,
-    Damage,
+    Time,
     Heal,
     Move,
-    Restart
+    Restart,
+    Win,
+    Lose
 }

@@ -1,25 +1,21 @@
-﻿using System.Collections.Generic;
-using Extensions;
-using Patterns;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
     public class UiPlayerContainer : MonoBehaviour, IUiPlayer
     {
-        [Tooltip("Position of the UI on the Screen. Assigned by the Editor.")]
-        [SerializeField] private PlayerSeat seat;
+        [Tooltip("Position of the UI on the Screen. Assigned by the Editor.")] [SerializeField]
+        private PlayerSeat seat;
         public PlayerSeat Seat => seat;
-
+        
         public bool IsMyTurn()
         {
-            return GameController.Instance.IsCurrentPlayerOnSeat(seat);
+            return GameController.Instance.IsCurrentPlayerOnSeat(Seat);
         }
 
         public TurnState GetPlayer()
         {
-            return GameController.Instance.GetPlayer(seat);
+            return GameController.Instance.GetPlayer(Seat);
         }
 
         public bool IsAi()

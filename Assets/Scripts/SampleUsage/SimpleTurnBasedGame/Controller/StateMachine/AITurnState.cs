@@ -20,7 +20,7 @@ namespace SimpleTurnBasedGame
         { 
             base.OnInitialize();
             //create ai
-            AiModule = new AiModule(Player, RuntimeGame);
+            AiModule = new AiModule(Player, GameData.RuntimeGame);
             AiModule.SwapAiToArchetype(aiArchetype);
         }
 

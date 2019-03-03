@@ -7,18 +7,23 @@ namespace SimpleTurnBasedGame
     /// <summary>
     ///     The base of all the Game States. It provides access to the Game implementation.
     /// </summary>
+    [RequireComponent(typeof(IGameData))]
+    [RequireComponent(typeof(IGameController))]
     public abstract class BaseBattleState : StateMB<GameController>, IListener
     {
-        protected IPrimitiveGame RuntimeGame { get; set; }
+        protected IGameController GameController { get; private set; }
+        protected IGameData GameData { get; private set; }
 
         public override void OnInitialize()
         {
-            InjectDependency(GameData.Instance.RuntimeGame);
+            GameData = GetComponent<IGameData>();
+            GameController = GetComponent<IGameController>();
         }
 
         private void Start()
         {
-            GameEvents.Instance.AddListener(this);
+            if(GameEvents.Instance)
+                GameEvents.Instance.AddListener(this);
         }
 
         public void OnDestroy()
@@ -26,11 +31,6 @@ namespace SimpleTurnBasedGame
             var gameEvents = GameEvents.Instance;
             if (gameEvents)
                 gameEvents.RemoveListener(this);
-        }
-
-        public virtual void InjectDependency(IPrimitiveGame game)
-        {
-            RuntimeGame = game;
         }
 
         protected virtual void OnNextState(BaseBattleState nextState)

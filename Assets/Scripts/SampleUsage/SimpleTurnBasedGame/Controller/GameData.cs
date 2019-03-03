@@ -5,7 +5,15 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
-    public class GameData : SingletonMB<GameData>
+    public interface IGameData
+    {
+        IPrimitiveGame RuntimeGame { get; }
+        void Clear();
+        void CreateGame();
+    }
+
+    [RequireComponent(typeof(GameController))]
+    public class GameData : MonoBehaviour, IGameData
     {
         /// <summary>
         ///     All the game logic implementation and game data.
@@ -15,12 +23,17 @@ namespace SimpleTurnBasedGame
         /// <summary>
         /// Initialize game data OnAwake.
         /// </summary>
-        protected override void OnAwake()
+        private void Awake()
         {
-            CreateGameState();
+            CreateGame();
         }
 
-        public void CreateGameState()
+        public void Clear()
+        {
+            RuntimeGame = null;
+        }
+
+        public void CreateGame()
         {
             //create and connect players to their seats
             var player1 = new Player(PlayerSeat.Bottom);

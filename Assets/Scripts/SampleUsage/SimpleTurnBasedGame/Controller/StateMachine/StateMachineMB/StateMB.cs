@@ -50,7 +50,7 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        ///     Setter for Internal StateMB Machine
+        ///     Setter for Internal State Machine
         /// </summary>
         /// <param name="stateMachine"></param>
         public void InjectStateMachine(StateMachineMB<T> stateMachine)

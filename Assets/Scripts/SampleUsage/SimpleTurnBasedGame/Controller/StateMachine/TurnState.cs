@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
+    [RequireComponent(typeof(GameController))]
     public abstract class TurnState : BaseBattleState, 
         IFinishPlayerTurn
     {
@@ -33,11 +34,13 @@ namespace SimpleTurnBasedGame
         {
             base.OnInitialize();
 
-            var game = GameData.Instance.RuntimeGame;
+            var game = GameData.RuntimeGame;
+
+            //get player according to the seat
             Player = game.Token.GetPlayer(Seat);
 
             //register turn state
-            GameController.Instance.RegisterPlayerState(Player, this);
+            GameController.RegisterPlayerState(Player, this);
 
             //Turn steps
             StartPlayerTurnStep = new StartPlayerTurn(game);
@@ -142,7 +145,7 @@ namespace SimpleTurnBasedGame
         /// <returns></returns>
         public bool IsMyTurn()
         {
-            return RuntimeGame.Token.IsMyTurn(Player);
+            return GameData.RuntimeGame.Token.IsMyTurn(Player);
         }
 
         /// <summary>
@@ -151,7 +154,7 @@ namespace SimpleTurnBasedGame
         /// <returns></returns>
         public IPrimitivePlayer GetOpponent()
         {
-            return RuntimeGame.Token.GetOpponent(Player);
+            return GameData.RuntimeGame.Token.GetOpponent(Player);
         }
 
         #endregion
@@ -206,7 +209,8 @@ namespace SimpleTurnBasedGame
         /// </summary>
         private void NextTurn()
         {
-            var nextPlayer = RuntimeGame.Token.NextPlayer;
+            var game = GameData.RuntimeGame;
+            var nextPlayer = game.Token.NextPlayer;
             var nextState = Fsm.GetPlayer(nextPlayer);
             OnNextState(nextState);
         }

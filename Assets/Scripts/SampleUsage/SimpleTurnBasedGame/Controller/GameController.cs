@@ -4,13 +4,31 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
+    public interface IGameController
+    {
+        void RegisterPlayerState(IPrimitivePlayer player, TurnState state);
+        bool IsCurrentPlayerOnSeat(PlayerSeat seat);
+        TurnState GetPlayer(IPrimitivePlayer player);
+        TurnState GetPlayer(PlayerSeat seat);
+        void StartBattle();
+        void EndBattle();
+        void RestartGameImmediately();
+    }
+
     /// <summary>
-    ///     This class is responsible to hold the game states which
-    ///     control the game flow through a state machine where the states
-    ///     act as controllers for each respective player.
+    /// GameController is responsible to execute the game flow and provide access to the game model through
+    /// each Battle State. For obvious 
+    /// 
     /// </summary>
-    
-    public class GameController : StateMachineMB<GameController>
+    //Game Data
+    [RequireComponent(typeof(IGameData))]
+    //Players States
+    [RequireComponent(typeof(TopPlayerState))]
+    [RequireComponent(typeof(BottomPlayerState))]
+    //Start and End States
+    [RequireComponent(typeof(StartBattleState))]
+    [RequireComponent(typeof(EndBattleState))]
+    public class GameController : StateMachineMB<GameController>, IGameController
     {
         //Register with all States of the Players that are in the Match. Each state controls
         //the flow of the game 
@@ -22,7 +40,9 @@ namespace SimpleTurnBasedGame
         //It holds the flow of the end game state
         private EndBattleState EndState { get; set; }
 
+        public IGameData GameData { get; private set; }
 
+        /// <inheritdoc />
         /// <summary>
         /// Initializes the state machine after game data is ready. And kicks the start battle.
         /// </summary>
@@ -34,6 +54,7 @@ namespace SimpleTurnBasedGame
 
         protected override void OnBeforeInitialize()
         {
+            GameData = GetComponent<IGameData>();
             StartState = GetComponent<StartBattleState>();
             EndState = GetComponent<EndBattleState>();
         }
@@ -116,13 +137,14 @@ namespace SimpleTurnBasedGame
         /// Deletes current game data and restarts the state machine with a new game data. 
         /// </summary>
         [Button("Restart Immediately")]
-        public void RestartTheGameImmediately()
+        public void RestartGameImmediately()
         {
             //restart fsm 
             Restart();
 
             //overrides game data
-            GameData.Instance.CreateGameState();
+            GameData.Clear();
+            GameData.CreateGame();
 
             //reinitialize the fsm
             Initialize();

@@ -6,7 +6,7 @@ namespace SimpleTurnBasedGame
     public class StartBattleState : BaseBattleState, IStartGame
     {
         private const float TimeUntilFirstTurn = 3;
-        private StartGame StartGameStep { get; set; }
+        private ProcessStartGame ProcessStartGameStep { get; set; }
 
         #region Model --> Controller
 
@@ -30,13 +30,13 @@ namespace SimpleTurnBasedGame
         public override void OnInitialize()
         {
             base.OnInitialize();
-            StartGameStep = new StartGame(GameData.RuntimeGame);
+            ProcessStartGameStep = new ProcessStartGame(GameData.RuntimeGame);
         }
 
         public override void OnEnterState()
         {
             base.OnEnterState();
-            StartGameStep.Execute();
+            ProcessStartGameStep.Execute();
         }
 
         #endregion

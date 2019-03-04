@@ -4,9 +4,9 @@
     /// <summary>
     ///     Finish Game Step Implementation.
     /// </summary>
-    public class FinishGame : TurnStep
+    public class ProcessFinishGame : ProcessBase
     {
-        public FinishGame(IPrimitiveGame game) : base(game)
+        public ProcessFinishGame(IPrimitiveGame game) : base(game)
         {
         }
 

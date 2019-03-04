@@ -5,7 +5,7 @@ namespace SimpleTurnBasedGame
     /// <summary>
     ///     TimeOut Logic Implementation
     /// </summary>
-    public class ProcessTick: TurnStep
+    public class ProcessTick: ProcessBase
     {
         public const int TimeOut = 8;
         public const int StartTurnDelay = 1;

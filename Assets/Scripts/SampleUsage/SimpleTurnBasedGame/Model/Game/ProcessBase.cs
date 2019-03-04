@@ -3,9 +3,9 @@
     /// <summary>
     ///     Small Part of a Turn.
     /// </summary>
-    public abstract class TurnStep
+    public abstract class ProcessBase
     {
-        protected TurnStep(IPrimitiveGame game)
+        protected ProcessBase(IPrimitiveGame game)
         {
             Game = game;
         }

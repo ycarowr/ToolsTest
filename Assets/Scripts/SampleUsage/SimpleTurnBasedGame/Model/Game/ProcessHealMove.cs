@@ -5,7 +5,7 @@ namespace SimpleTurnBasedGame
     /// <summary>
     ///     Damage Logic Implementation
     /// </summary>
-    public class ProcessHealMove : TurnStep
+    public class ProcessHealMove : ProcessBase
     {
         public const int MaxHeal = 4;
         public const int MinHeal = 1;

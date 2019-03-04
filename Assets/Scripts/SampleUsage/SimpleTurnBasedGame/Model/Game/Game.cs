@@ -5,6 +5,7 @@ namespace SimpleTurnBasedGame
 {
     /// <summary>
     ///     Simple concrete Game Implementation.
+    /// TODO: Consider to break this class down into small partial classes.
     /// </summary>
     public class Game : IPrimitiveGame
     {
@@ -12,7 +13,23 @@ namespace SimpleTurnBasedGame
         {
             Token = new TokenTurnLogic(players);
             Log("Game Created");
+            //Turn steps
+            ProcessStartPlayerTurn = new ProcessStartPlayer(this);
+            ProcessFinishPlayerTurn = new ProcessFinishPlayer(this);
+            ProcessDamageMove = new ProcessDamageMove(this);
+            ProcessHealMove = new ProcessHealMove(this);
+            ProcessRandomMove = new ProcessRandomMove(this);
+            ProcessTick = new ProcessTick(this);
         }
+
+
+        private void Log(string log, string colorName = "black")
+        {
+            log = string.Format("[" + GetType() + "]: <color={0}><b>" + log + "</b></color>", colorName);
+            Debug.Log(log);
+        }
+
+        #region Properties
 
         public TokenTurnLogic Token { get; }
         ITokenTurnLogic IPrimitiveGame.Token => Token;
@@ -22,10 +39,51 @@ namespace SimpleTurnBasedGame
         public int TurnTime { get; set; }
         public int TotalTime { get; set; }
 
-        private void Log(string log, string colorName = "black")
+        #endregion
+
+        #region Processes
+
+        private ProcessTick ProcessTick { get; }
+        private ProcessStartPlayer ProcessStartPlayerTurn { get; }
+        private ProcessFinishPlayer ProcessFinishPlayerTurn { get; }
+        private ProcessDamageMove ProcessDamageMove { get; }
+        private ProcessHealMove ProcessHealMove { get; }
+        private ProcessRandomMove ProcessRandomMove { get; }
+
+        #endregion
+
+        #region Execution
+
+        public void StartCurrentPlayerTurn()
         {
-            log = string.Format("[" + GetType() + "]: <color={0}><b>" + log + "</b></color>", colorName);
-            Debug.Log(log);
+            ProcessStartPlayerTurn.Execute();
         }
+
+        public void FinishCurrentPlayerTurn()
+        {
+            ProcessFinishPlayerTurn.Execute();
+        }
+
+        public void Heal()
+        {
+            ProcessHealMove.Execute();
+        }
+
+        public void Damage()
+        {
+            ProcessDamageMove.Execute();
+        }
+
+        public void Random()
+        {
+            ProcessRandomMove.Execute();
+        }
+
+        public void Tick()
+        {
+            ProcessTick.Execute();
+        }
+
+        #endregion
     }
 }

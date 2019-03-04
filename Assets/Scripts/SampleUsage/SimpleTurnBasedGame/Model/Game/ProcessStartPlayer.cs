@@ -3,9 +3,9 @@
     /// <summary>
     ///     Start Current Player Turn Implementation.
     /// </summary>
-    public class StartPlayerTurn : TurnStep
+    public class ProcessStartPlayer : ProcessBase
     {
-        public StartPlayerTurn(IPrimitiveGame game) : base(game)
+        public ProcessStartPlayer(IPrimitiveGame game) : base(game)
         {
         }
 

@@ -2,7 +2,7 @@
 
 namespace SimpleTurnBasedGame
 {
-    public class ProcessRandomMove : TurnStep
+    public class ProcessRandomMove : ProcessBase
     {
         private const int BonusByPlayingRandom = 2;
 

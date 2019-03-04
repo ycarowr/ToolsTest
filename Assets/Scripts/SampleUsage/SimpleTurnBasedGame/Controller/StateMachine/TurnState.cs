@@ -12,18 +12,7 @@ namespace SimpleTurnBasedGame
         public virtual PlayerSeat Seat { get; }
         public virtual bool IsAi => false;
         protected Coroutine TimeOutRoutine { get; set; }
-
         protected Coroutine TickRoutine { get; set; }
-        protected ProcessTick ProcessTick { get; set; }
-
-        //Turn Steps
-        protected StartPlayerTurn StartPlayerTurnStep { get; set; }
-        protected FinishPlayerTurn FinishPlayerTurnStep { get; set; }
-
-        //Player Moves
-        protected ProcessDamageMove ProcessDamageMove { get; set; }
-        protected ProcessHealMove ProcessHealMove { get; set; }
-        protected ProcessRandomMove ProcessRandomMove { get; set; }
 
         #region Controller, Player <-- Model
 
@@ -48,29 +37,17 @@ namespace SimpleTurnBasedGame
 
             //register turn state
             GameController.RegisterPlayerState(Player, this);
-
-            //Turn steps
-            StartPlayerTurnStep = new StartPlayerTurn(game);
-            FinishPlayerTurnStep = new FinishPlayerTurn(game);
-
-            //Moves
-            ProcessDamageMove = new ProcessDamageMove(game);
-            ProcessHealMove = new ProcessHealMove(game);
-            ProcessRandomMove = new ProcessRandomMove(game);
-            ProcessTick = new ProcessTick(game);
         }
 
         #endregion
 
         private IEnumerator TickRoutineAsync()
         {
-            var seconds = 0;
             while (true)
             {
                 //every second
                 yield return new WaitForSeconds(1);
-                ProcessTick.Execute();
-                seconds++;
+                GameData.RuntimeGame.Tick();
             }
         }
 
@@ -163,7 +140,7 @@ namespace SimpleTurnBasedGame
         protected virtual IEnumerator StartTurn()
         {
             yield return new WaitForSeconds(ProcessTick.StartTurnDelay);
-            StartPlayerTurnStep.Execute();
+            GameData.RuntimeGame.StartCurrentPlayerTurn();
 
             //setup tick routine
             TickRoutine = StartCoroutine(TickRoutineAsync());
@@ -177,7 +154,7 @@ namespace SimpleTurnBasedGame
             if (!IsMyTurn())
                 return false;
 
-            FinishPlayerTurnStep.Execute();
+            GameData.RuntimeGame.FinishCurrentPlayerTurn();
             return true;
         }
 
@@ -186,7 +163,7 @@ namespace SimpleTurnBasedGame
             if (!IsMyTurn())
                 return false;
 
-            ProcessRandomMove.Execute();
+            GameData.RuntimeGame.Random();
             TryPassTurn();
             return true;
         }
@@ -196,7 +173,7 @@ namespace SimpleTurnBasedGame
             if (!IsMyTurn())
                 return false;
 
-            ProcessHealMove.Execute();
+            GameData.RuntimeGame.Heal();
             TryPassTurn();
             return true;
         }
@@ -206,7 +183,7 @@ namespace SimpleTurnBasedGame
             if (!IsMyTurn())
                 return false;
 
-            ProcessDamageMove.Execute();
+            GameData.RuntimeGame.Damage();
             TryPassTurn();
             return true;
         }

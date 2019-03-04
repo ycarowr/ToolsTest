@@ -4,9 +4,9 @@
     /// <summary>
     ///     Finish Current Player Turn Implementation.
     /// </summary>
-    public class FinishPlayerTurn : TurnStep
+    public class ProcessFinishPlayer : ProcessBase
     {
-        public FinishPlayerTurn(IPrimitiveGame game) : base(game)
+        public ProcessFinishPlayer(IPrimitiveGame game) : base(game)
         {
         }
 

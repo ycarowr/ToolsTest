@@ -7,9 +7,9 @@ namespace SimpleTurnBasedGame
     /// <summary>
     ///     Start Game Step Implementation.
     /// </summary>
-    public class StartGame : TurnStep
+    public class ProcessStartGame : ProcessBase
     {
-        public StartGame(IPrimitiveGame game) : base(game)
+        public ProcessStartGame(IPrimitiveGame game) : base(game)
         {
         }
 

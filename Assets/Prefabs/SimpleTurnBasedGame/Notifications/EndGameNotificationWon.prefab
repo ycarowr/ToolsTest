@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seat: 0
-  id: 7
+  id: 8
 --- !u!33 &4189502200243926938
 MeshFilter:
   m_ObjectHideFlags: 0

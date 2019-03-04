@@ -5,17 +5,17 @@ namespace SimpleTurnBasedGame
     /// <summary>
     ///     Damage Logic Implementation
     /// </summary>
-    public class ProcessDamageMove : TurnStep
+    public class ProcessDamageMove : ProcessBase
     {
         public const int MaxDamage = 4;
         public const int MinDamage = 1;
 
         public ProcessDamageMove(IPrimitiveGame game) : base(game)
         {
-            FinishGameStep = new FinishGame(game);
+            ProcessFinishGameStep = new ProcessFinishGame(game);
         }
 
-        private FinishGame FinishGameStep { get; }
+        private ProcessFinishGame ProcessFinishGameStep { get; }
 
         /// <summary>
         ///     Execution of the damage logic.
@@ -43,7 +43,7 @@ namespace SimpleTurnBasedGame
 
             //check health
             if (IsTargetDead(target))
-                FinishGameStep.Execute(source as IPrimitivePlayer);
+                ProcessFinishGameStep.Execute(source as IPrimitivePlayer);
         }
 
         private bool IsTargetDead(IDamageable target)

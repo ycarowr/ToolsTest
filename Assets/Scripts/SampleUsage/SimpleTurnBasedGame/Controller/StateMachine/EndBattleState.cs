@@ -1,7 +1,7 @@
 ﻿namespace SimpleTurnBasedGame
 {
     /// <summary>
-    ///     Holds the Gameflow when a match is Finished.
+    ///     Holds the Game flow when a match is Finished.
     /// </summary>
     public class EndBattleState : BaseBattleState, IFinishGame
     {

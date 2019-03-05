@@ -1,19 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using ExampleStateMachine;
-using SimpleTurnBasedGame;
-using UnityEngine;
+﻿using ExampleStateMachine;
 using UnityEditor;
+using UnityEngine;
 
 namespace SimpleTurnBasedGame
-{ 
+{
     [CustomEditor(typeof(TurnBasedStateMachine))]
     public class TestTurnBasedStateMachine : Editor
     {
-        private TurnBasedStateMachine Target
-        {
-            get { return target as TurnBasedStateMachine; }
-        }
+        private TurnBasedStateMachine Target => target as TurnBasedStateMachine;
 
         public override void OnInspectorGUI()
         {

@@ -24,5 +24,4 @@ public class UiStartUserTurn : UiListener, IStartPlayerTurn
         yield return new WaitForSeconds(DelayToEnableInput);
         UiUser.UiUserHudInput.Enable();
     }
-
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace SimpleTurnBasedGame
@@ -7,8 +6,8 @@ namespace SimpleTurnBasedGame
     public class UiAnimationEndGame : UiAnimation, IFinishGame
     {
         private const float DelayToNotify = 1f;
-        [SerializeField] private PlayerSeat seat;
         [SerializeField] private LocalizationIds id;
+        [SerializeField] private PlayerSeat seat;
         private TMP_Text Text;
 
         void IFinishGame.OnFinishGame(IPrimitivePlayer winner)

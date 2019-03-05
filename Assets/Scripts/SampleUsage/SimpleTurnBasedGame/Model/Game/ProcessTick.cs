@@ -1,18 +1,15 @@
-﻿using UnityEngine;
-
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
     /// <summary>
     ///     TimeOut Logic Implementation
     /// </summary>
-    public class ProcessTick: ProcessBase
+    public class ProcessTick : ProcessBase
     {
         public const int TimeOut = 8;
         public const int StartTurnDelay = 1;
 
         public ProcessTick(IPrimitiveGame game) : base(game)
         {
-            
         }
 
         /// <summary>
@@ -25,7 +22,7 @@ namespace SimpleTurnBasedGame
 
             if (!Game.IsGameStarted)
                 return;
-            
+
             if (Game.IsGameFinished)
                 return;
 

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using TMPro;
-using UnityEngine;
-
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
     public class UiParticlesStartGame : UiParticles, IStartGame
     {

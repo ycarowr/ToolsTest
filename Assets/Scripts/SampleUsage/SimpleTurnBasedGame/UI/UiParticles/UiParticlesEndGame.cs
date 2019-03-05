@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
@@ -11,10 +9,7 @@ namespace SimpleTurnBasedGame
 
         void IFinishGame.OnFinishGame(IPrimitivePlayer winner)
         {
-            if (winner.Seat == seat)
-            {
-                StartCoroutine(Play(DelayToNotify));
-            }
+            if (winner.Seat == seat) StartCoroutine(Play(DelayToNotify));
         }
     }
 }

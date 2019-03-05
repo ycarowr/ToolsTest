@@ -1,5 +1,4 @@
 ﻿using Patterns;
-using SimpleTurnBasedGame;
 
 namespace SimpleTurnBasedGame.Infrastructure
 {

@@ -1,16 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Tools;
 using UnityEditor;
-using Tools;
+using UnityEngine;
 
 [CustomEditor(typeof(ShakeAnimation))]
 public class ShakeAnimationEditor : Editor
 {
-    private ShakeAnimation Target
-    {
-        get { return target as ShakeAnimation; }
-    }
+    private ShakeAnimation Target => target as ShakeAnimation;
 
     public override void OnInspectorGUI()
     {
@@ -25,5 +20,4 @@ public class ShakeAnimationEditor : Editor
                 Target.StopShaking();
         }
     }
-
 }

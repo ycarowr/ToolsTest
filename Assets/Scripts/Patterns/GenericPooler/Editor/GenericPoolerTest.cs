@@ -1,10 +1,6 @@
-﻿using NUnit.Framework;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using Patterns;
-using UnityEditorInternal.VersionControl;
-using UnityEngine;
-
 
 namespace Test
 {
@@ -13,7 +9,6 @@ namespace Test
     {
         public void Restart()
         {
-
         }
     }
 
@@ -24,7 +19,6 @@ namespace Test
 
         public PoolTest() : base(Size)
         {
-
         }
     }
 
@@ -56,7 +50,7 @@ namespace Test
             var obj = pool.Get();
 
             //assert the free objects list after pool
-            Assert.True(pool.SizeFreeObjects == PoolTest.Size -1);
+            Assert.True(pool.SizeFreeObjects == PoolTest.Size - 1);
 
             //assert the busy objects list after pool
             Assert.True(pool.SizeBusyObjects == 1);
@@ -111,7 +105,6 @@ namespace Test
 
             //assert the busy objects list after pool
             Assert.True(pool.SizeBusyObjects == 0);
-
         }
 
         [Test]
@@ -119,10 +112,12 @@ namespace Test
         {
             var pool = new PoolTest();
 
-            void releaseNull() { pool.Release(null); }
+            void releaseNull()
+            {
+                pool.Release(null);
+            }
 
             Assert.Throws<GenericPooler<PoolableObjectTest>.GenericPoolerArgumentException>(releaseNull);
         }
-       
     }
 }

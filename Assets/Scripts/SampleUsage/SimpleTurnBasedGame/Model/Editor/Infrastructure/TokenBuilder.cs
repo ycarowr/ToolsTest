@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Patterns;
-using SimpleTurnBasedGame;
 
 namespace SimpleTurnBasedGame.Infrastructure
 {
@@ -27,13 +26,13 @@ namespace SimpleTurnBasedGame.Infrastructure
 
         public TokenBuilder WithStartSeat(PlayerSeat start)
         {
-            this.startIndex = start;
+            startIndex = start;
             return this;
         }
 
         public TokenBuilder WithCurrentSeat(PlayerSeat current)
         {
-            this.currentIndex = current;
+            currentIndex = current;
             return this;
         }
 

@@ -5,7 +5,7 @@ namespace SimpleTurnBasedGame
 {
     /// <summary>
     ///     Simple concrete Game Implementation.
-    /// TODO: Consider to break this class down into small partial classes.
+    ///     TODO: Consider to break this class down into small partial classes.
     /// </summary>
     public class Game : IPrimitiveGame
     {

@@ -12,7 +12,6 @@ namespace SimpleTurnBasedGame
         IStartGame
     {
         private const float DelayToEnable = 1f;
-        CanvasGroup IUiCanvasGroupHandler.CanvasGroup => GetComponent<CanvasGroup>();
         public UiButtonsEndGame UiEndGameButtons { get; private set; }
         public UiCanvasGroupInput UiEndGameInput { get; private set; }
 
@@ -25,7 +24,9 @@ namespace SimpleTurnBasedGame
         {
             UiEndGameInput.Disable();
         }
-        
+
+        CanvasGroup IUiCanvasGroupHandler.CanvasGroup => GetComponent<CanvasGroup>();
+
         private void Awake()
         {
             UiEndGameInput = new UiCanvasGroupInput(this);

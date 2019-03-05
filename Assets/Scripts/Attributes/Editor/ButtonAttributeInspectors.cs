@@ -1,22 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-
 
 namespace Attributes.Editor
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(UnityEngine.Object), true)]
+    [CustomEditor(typeof(Object), true)]
     public class ButtonAttributeInspectors : UnityEditor.Editor
     {
         private MethodInfo[] Methods => target.GetType()
-                .GetMethods(BindingFlags.Instance |
-                            BindingFlags.Static |
-                            BindingFlags.NonPublic |
-                            BindingFlags.Public);
-        
+            .GetMethods(BindingFlags.Instance |
+                        BindingFlags.Static |
+                        BindingFlags.NonPublic |
+                        BindingFlags.Public);
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -32,8 +29,8 @@ namespace Attributes.Editor
             {
                 var buttonAttribute = (ButtonAttribute) method
                     .GetCustomAttribute(typeof(ButtonAttribute));
-                
-                if(buttonAttribute != null)
+
+                if (buttonAttribute != null)
                     DrawButton(buttonAttribute, method);
             }
         }

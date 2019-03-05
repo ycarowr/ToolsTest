@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace SimpleTurnBasedGame.Infrastructure
+﻿namespace SimpleTurnBasedGame.Infrastructure
 {
     public static class A
     {

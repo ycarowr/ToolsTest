@@ -1,7 +1,4 @@
 ﻿using NUnit.Framework;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Patterns;
 
 namespace Test
@@ -29,7 +26,7 @@ namespace Test
             singleton1.SomeProperty = someString1;
 
             //assert if the instances point to the same adress
-            Assert.False(object.ReferenceEquals(TestableSingleton.Instance, singleton1));
+            Assert.False(ReferenceEquals(TestableSingleton.Instance, singleton1));
 
             //assert if the instances are equal
             Assert.AreNotEqual(TestableSingleton.Instance, singleton1);
@@ -41,7 +38,7 @@ namespace Test
             TestableSingleton.Instance.InjectInstance(singleton1);
 
             //assert if the instances point to the same adress
-            Assert.True(object.ReferenceEquals(TestableSingleton.Instance, singleton1));
+            Assert.True(ReferenceEquals(TestableSingleton.Instance, singleton1));
 
             //assert if the instances are equal
             Assert.AreEqual(TestableSingleton.Instance, singleton1);

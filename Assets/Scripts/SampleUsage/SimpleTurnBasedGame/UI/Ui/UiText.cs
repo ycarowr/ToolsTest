@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class UiText : MonoBehaviour
 {
+    [SerializeField] private readonly string defaultText = string.Empty;
+
     [Tooltip("Color of the text.")] [SerializeField]
     protected Color color = Color.black;
-
-    [SerializeField] private readonly string defaultText = string.Empty;
 
     [Tooltip("TMPro Component assigned by the Editor or Automatically on Awake.")]
     protected TextMeshProUGUI TmProText;

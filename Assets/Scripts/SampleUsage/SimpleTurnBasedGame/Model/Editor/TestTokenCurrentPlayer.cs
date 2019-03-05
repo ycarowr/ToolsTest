@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using SimpleTurnBasedGame.Infrastructure;
 using NUnit.Framework;
+using SimpleTurnBasedGame.Infrastructure;
 
 namespace SimpleTurnBasedGame.Tests
 {

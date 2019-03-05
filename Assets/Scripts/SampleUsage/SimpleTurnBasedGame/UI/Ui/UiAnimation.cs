@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SimpleTurnBasedGame
@@ -18,7 +17,7 @@ namespace SimpleTurnBasedGame
         {
             yield return new WaitForSeconds(delay);
 
-            if(Animator != null)
+            if (Animator != null)
                 Animator.Play(HashName);
         }
     }

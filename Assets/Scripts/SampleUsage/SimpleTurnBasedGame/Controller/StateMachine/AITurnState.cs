@@ -9,10 +9,10 @@ namespace SimpleTurnBasedGame
         private const float AiDoTurnDelay = 2.5f;
         private const float AiFinishTurnDelay = 3.5f;
 
+        [SerializeField] private AiArchetype aiArchetype;
+
         [Tooltip("Whether this player is AI or not.")] [SerializeField]
         private bool isAi = false;
-
-        [SerializeField] private AiArchetype aiArchetype;
 
         private Coroutine AiFinishTurnRoutine { get; set; }
         private AiModule AiModule { get; set; }

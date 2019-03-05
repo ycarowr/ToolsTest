@@ -7,7 +7,7 @@ public class UiListener : MonoBehaviour, IListener
     protected virtual void Start()
     {
         //subscribe
-        if(GameEvents.Instance)
+        if (GameEvents.Instance)
             GameEvents.Instance.AddListener(this);
     }
 

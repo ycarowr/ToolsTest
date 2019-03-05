@@ -4,10 +4,10 @@ namespace SimpleTurnBasedGame
 {
     public class UiPlayerContainer : MonoBehaviour, IUiPlayer
     {
-        [Tooltip("Position of the UI on the Screen. Assigned by the Editor.")] [SerializeField]
-        private PlayerSeat seat;
-        public PlayerSeat Seat => seat;
-        
+        [field: Tooltip("Position of the UI on the Screen. Assigned by the Editor.")]
+        [field: SerializeField]
+        public PlayerSeat Seat { get; }
+
         public bool IsMyTurn()
         {
             return GameController.Instance.IsCurrentPlayerOnSeat(Seat);

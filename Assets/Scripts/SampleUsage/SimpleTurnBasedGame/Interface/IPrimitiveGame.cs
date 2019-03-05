@@ -1,8 +1,8 @@
 ﻿namespace SimpleTurnBasedGame
 {
     /// <summary>
-    /// Very simple game implementation.
-    /// TODO: Consider to break down this interface in smaller interfaces.
+    ///     Very simple game implementation.
+    ///     TODO: Consider to break down this interface in smaller interfaces.
     /// </summary>
     public interface IPrimitiveGame
     {

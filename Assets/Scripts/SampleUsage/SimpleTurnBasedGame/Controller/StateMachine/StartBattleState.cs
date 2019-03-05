@@ -22,7 +22,7 @@ namespace SimpleTurnBasedGame
         public override void OnEnterState()
         {
             base.OnEnterState();
-            GameData.RuntimeGame.StartCurrentPlayerTurn();
+            GameData.RuntimeGame.StartGame();
         }
 
         #endregion

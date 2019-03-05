@@ -13,7 +13,9 @@ namespace SimpleTurnBasedGame
         {
             Token = new TokenTurnLogic(players);
             Log("Game Created");
-            //Turn steps
+            
+            //Processes
+            ProcessStartGame = new ProcessStartGame(this);
             ProcessStartPlayerTurn = new ProcessStartPlayer(this);
             ProcessFinishPlayerTurn = new ProcessFinishPlayer(this);
             ProcessDamageMove = new ProcessDamageMove(this);
@@ -43,6 +45,7 @@ namespace SimpleTurnBasedGame
 
         #region Processes
 
+        private ProcessStartGame ProcessStartGame { get; }
         private ProcessTick ProcessTick { get; }
         private ProcessStartPlayer ProcessStartPlayerTurn { get; }
         private ProcessFinishPlayer ProcessFinishPlayerTurn { get; }
@@ -53,6 +56,11 @@ namespace SimpleTurnBasedGame
         #endregion
 
         #region Execution
+
+        public void StartGame()
+        {
+            ProcessStartGame.Execute();
+        }
 
         public void StartCurrentPlayerTurn()
         {

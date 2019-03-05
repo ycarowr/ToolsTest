@@ -18,6 +18,8 @@
 
         int TotalTime { get; set; }
 
+        void StartGame();
+
         void StartCurrentPlayerTurn();
 
         void FinishCurrentPlayerTurn();

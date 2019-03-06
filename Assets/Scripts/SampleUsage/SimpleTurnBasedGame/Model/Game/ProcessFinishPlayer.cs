@@ -2,7 +2,7 @@
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Finish Current Player Turn Implementation.
+    ///     Finish Current PlayerController Turn Implementation.
     /// </summary>
     public class ProcessFinishPlayer : ProcessBase
     {

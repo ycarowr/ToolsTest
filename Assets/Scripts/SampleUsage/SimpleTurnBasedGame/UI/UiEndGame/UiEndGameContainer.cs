@@ -3,17 +3,23 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
+    public interface IUiEndGameController
+    {
+        void RestartGame();
+    }
+
     /// <summary>
     ///     End game HUD.
     /// </summary>
-    public class UiEndGameContainer : UiListener,
-        IUiCanvasGroupHandler,
+    [RequireComponent(typeof(IUiUserInput))]
+    public class UiEndGameContainer : UiListener, IUiEndGameController,
         IFinishGame,
         IStartGame
     {
         private const float DelayToEnable = 1f;
-        public UiButtonsEndGame UiEndGameButtons { get; private set; }
-        public UiCanvasGroupInput UiEndGameInput { get; private set; }
+        private IUiUserInput UserInput { get; set; }
+
+        void IUiEndGameController.RestartGame() => GameController.Instance.RestartGameImmediately();
 
         void IFinishGame.OnFinishGame(IPrimitivePlayer winner)
         {
@@ -22,21 +28,22 @@ namespace SimpleTurnBasedGame
 
         void IStartGame.OnStartGame(IPrimitivePlayer starter)
         {
-            UiEndGameInput.Disable();
+            UserInput.Disable();
         }
-
-        CanvasGroup IUiCanvasGroupHandler.CanvasGroup => GetComponent<CanvasGroup>();
 
         private void Awake()
         {
-            UiEndGameInput = new UiCanvasGroupInput(this);
-            UiEndGameButtons = new UiButtonsEndGame(this);
+            //user input
+            UserInput = gameObject.AddComponent<UiUserInput>();
+
+            //HUD end game
+            gameObject.AddComponent<UiButtonsEndGame>();
         }
 
         private IEnumerator EnableInput()
         {
             yield return new WaitForSeconds(DelayToEnable);
-            UiEndGameInput.Enable();
+            UserInput.Enable();
         }
     }
 }

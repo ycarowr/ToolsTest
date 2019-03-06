@@ -1,26 +1,24 @@
-﻿namespace SimpleTurnBasedGame
+﻿using UnityEngine;
+
+namespace SimpleTurnBasedGame
 {
-    public class UiButtonsEndGame :
-        IUiEndGame,
+    [RequireComponent(typeof(IUiEndGameController))]
+    public class UiButtonsEndGame : MonoBehaviour,
         IButtonHandler,
         UiButtonRestart.IPressRestart
     {
-        public UiButtonsEndGame(UiEndGameContainer buttonsContainer)
-        {
-            Container = buttonsContainer;
-            SetHandlers();
-        }
-
         void UiButtonRestart.IPressRestart.PressRestart()
         {
-            GameController.Instance.RestartGameImmediately();
+            PlayerController.RestartGame();
         }
 
-        public UiEndGameContainer Container { get; }
+        private IUiEndGameController PlayerController { get; set; }
 
-        public void SetHandlers()
+        private void Awake()
         {
-            var buttons = Container.GetComponentsInChildren<UiButton>();
+            PlayerController = GetComponent<IUiEndGameController>();
+
+            var buttons = gameObject.GetComponentsInChildren<UiButton>();
             foreach (var button in buttons)
                 button.SetHandler(this);
         }

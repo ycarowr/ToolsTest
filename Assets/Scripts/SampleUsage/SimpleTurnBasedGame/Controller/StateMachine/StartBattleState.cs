@@ -7,7 +7,7 @@ namespace SimpleTurnBasedGame
     {
         private const float TimeUntilFirstTurn = 3;
 
-        #region Model --> Controller
+        #region Model --> PlayerController
 
         void IStartGame.OnStartGame(IPrimitivePlayer starter)
         {

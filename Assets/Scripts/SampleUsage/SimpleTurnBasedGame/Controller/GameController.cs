@@ -6,7 +6,7 @@ namespace SimpleTurnBasedGame
     public interface IGameController
     {
         void RegisterPlayerState(IPrimitivePlayer player, TurnState state);
-        bool IsCurrentPlayerOnSeat(PlayerSeat seat);
+        bool IsMyTurn(PlayerSeat seat);
         TurnState GetPlayer(IPrimitivePlayer player);
         TurnState GetPlayer(PlayerSeat seat);
         void StartBattle();
@@ -56,13 +56,26 @@ namespace SimpleTurnBasedGame
         /// </summary>
         /// <param name="seat"></param>
         /// <returns></returns>
-        public bool IsCurrentPlayerOnSeat(PlayerSeat seat)
+        public bool IsMyTurn(PlayerSeat seat)
         {
             if (!IsInitialized)
                 return false;
 
             var currentState = PeekState();
             return currentState != null && GetPlayer(seat).IsMyTurn();
+        }
+
+        /// <summary>
+        /// Checks whether the current state is Bottom or not.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsUser()
+        {
+            if (!IsInitialized)
+                return false;
+
+            var currentState = PeekState();
+            return currentState is BottomPlayerState;
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿namespace SimpleTurnBasedGame
 {
     /// <summary>
-    ///     Start Current Player Turn Implementation.
+    ///     Start Current PlayerController Turn Implementation.
     /// </summary>
     public class ProcessStartPlayer : ProcessBase
     {

@@ -1,49 +1,52 @@
-﻿namespace SimpleTurnBasedGame
+﻿using UnityEngine;
+
+namespace SimpleTurnBasedGame
 {
-    public class UiUserHudButtons :
-        IUiUserContainerHandler,
+    [RequireComponent(typeof(IUiUserInput))]
+    [RequireComponent(typeof(IUiPlayerController))]
+    public class UiUserHudButtons : MonoBehaviour,
         UiButtonRandom.IPressRandom,
         UiButtonDamage.IPressDamage,
         UiButtonHeal.IPressHeal
     {
-        public UiUserHudButtons(IUiUserContainerHandler handler)
+        private IUiPlayerController PlayerController { get; set; }
+        private IUiUserInput UserInput { get; set; }
+
+        private void Awake()
         {
-            Container = handler.Container;
+            PlayerController = GetComponent<IUiPlayerController>();
+            UserInput = GetComponent<IUiUserInput>();
 
-            //find all buttons
-            var buttons = Container.GetComponentsInChildren<UiButton>();
-
-            //set this as a handler
+            var buttons = gameObject.GetComponentsInChildren<UiButton>();
             foreach (var button in buttons)
                 button.SetHandler(this);
         }
 
+        
         void UiButtonDamage.IPressDamage.PressDamageMove()
         {
-            var player = Container.GetPlayer();
+            var player = PlayerController.Player;
             if (player.ProcessMove(MoveType.DamageMove))
                 DisableInput();
         }
 
         void UiButtonHeal.IPressHeal.PressHealMove()
         {
-            var player = Container.GetPlayer();
+            var player = PlayerController.Player;
             if (player.ProcessMove(MoveType.HealMove))
                 DisableInput();
         }
 
         void UiButtonRandom.IPressRandom.PressRandomMove()
         {
-            var player = Container.GetPlayer();
+            var player = PlayerController.Player;
             if (player.ProcessMove(MoveType.RandomMove))
                 DisableInput();
         }
 
-        public UiUserContainer Container { get; }
-
         private void DisableInput()
         {
-            Container.UiUserHudInput.Disable();
+            UserInput.Disable();
         }
     }
 }

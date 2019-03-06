@@ -5,17 +5,13 @@ namespace SimpleTurnBasedGame
     /// <summary>
     ///     User HUD
     /// </summary>
-    public class UiUserContainer : UiPlayerContainer,
-        IUiCanvasGroupHandler,
-        IUiUserContainerHandler
+    public class UiUserContainer : UiPlayerContainer
     {
-        public UiUserHudButtons UiUserHudButtons { get; private set; }
-        public UiCanvasGroupInput UiUserHudInput { get; private set; }
-        CanvasGroup IUiCanvasGroupHandler.CanvasGroup => GetComponent<CanvasGroup>();
-        UiUserContainer IUiUserContainerHandler.Container => this;
-
-        protected void Awake()
+        private void Awake()
         {
+            //HUD input
+            gameObject.AddComponent<UiUserInput>();
+
             //Ui elements for pre start game
             gameObject.AddComponent<UiPreStartGameUser>();
 
@@ -26,10 +22,7 @@ namespace SimpleTurnBasedGame
             gameObject.AddComponent<UiFinishUserTurn>();
 
             //HUD buttons
-            UiUserHudButtons = new UiUserHudButtons(this);
-
-            //HUD input
-            UiUserHudInput = new UiCanvasGroupInput(this);
+            gameObject.AddComponent<UiUserHudButtons>();
         }
     }
 }

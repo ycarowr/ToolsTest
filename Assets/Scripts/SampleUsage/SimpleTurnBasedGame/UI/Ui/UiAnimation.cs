@@ -13,7 +13,7 @@ namespace SimpleTurnBasedGame
             Animator = GetComponent<Animator>();
         }
 
-        public virtual IEnumerator Animate(float delay = 0)
+        protected virtual IEnumerator Animate(float delay = 0)
         {
             yield return new WaitForSeconds(delay);
 

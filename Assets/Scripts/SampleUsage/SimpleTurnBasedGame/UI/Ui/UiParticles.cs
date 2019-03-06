@@ -12,7 +12,7 @@ namespace SimpleTurnBasedGame
             Particles = GetComponentsInChildren<ParticleSystem>();
         }
 
-        public virtual IEnumerator Play(float delay = 0)
+        protected virtual IEnumerator Play(float delay = 0)
         {
             yield return new WaitForSeconds(delay);
 

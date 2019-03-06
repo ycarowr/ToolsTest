@@ -2,25 +2,35 @@
 
 namespace SimpleTurnBasedGame
 {
-    public class UiPlayerContainer : MonoBehaviour, IUiPlayer
+    /// <summary>
+    /// All UI components that depend of a specific PlayerController.
+    /// </summary>
+    public interface IUiPlayerSeat
     {
-        [field: Tooltip("Position of the UI on the Screen. Assigned by the Editor.")]
-        [field: SerializeField]
-        public PlayerSeat Seat { get; }
+        PlayerSeat Seat { get; }
+    }
 
-        public bool IsMyTurn()
-        {
-            return GameController.Instance.IsCurrentPlayerOnSeat(Seat);
-        }
+    public interface IUiPlayerController
+    {
+        bool IsAi { get; }
+        bool IsUser { get; }
+        bool IsMyTurn { get; }
+        TurnState Player { get; }
+    }
 
-        public TurnState GetPlayer()
-        {
-            return GameController.Instance.GetPlayer(Seat);
-        }
+    public class UiPlayerContainer : MonoBehaviour, IUiPlayerSeat, IUiPlayerController
+    {
+        [Tooltip("Position of the UI on the Screen. Assigned by the Editor.")] [SerializeField]
+        private PlayerSeat seat;
 
-        public bool IsAi()
-        {
-            return GetPlayer().IsAi;
-        }
+        #region Properties
+
+        PlayerSeat IUiPlayerSeat.Seat => seat;
+        bool IUiPlayerController.IsUser => GameController.Instance.IsUser();
+        bool IUiPlayerController.IsMyTurn => GameController.Instance.IsMyTurn(seat);
+        bool IUiPlayerController.IsAi => GameController.Instance.GetPlayer(seat).IsAi;
+        TurnState IUiPlayerController.Player => GameController.Instance.GetPlayer(seat);
+        
+        #endregion
     }
 }

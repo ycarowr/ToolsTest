@@ -25,7 +25,7 @@ namespace SimpleTurnBasedGame
         IPrimitivePlayer CurrentPlayer { get; }
 
         /// <summary>
-        ///     Player that started the match.
+        ///     PlayerController that started the match.
         /// </summary>
         IPrimitivePlayer StarterPlayer { get; }
 

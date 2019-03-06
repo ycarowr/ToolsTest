@@ -14,7 +14,7 @@ namespace SimpleTurnBasedGame
         protected Coroutine TimeOutRoutine { get; set; }
         protected Coroutine TickRoutine { get; set; }
 
-        #region Controller, Player <-- Model
+        #region PlayerController, PlayerController <-- Model
 
         void IFinishPlayerTurn.OnFinishPlayerTurn(IPrimitivePlayer player)
         {
@@ -110,7 +110,7 @@ namespace SimpleTurnBasedGame
             OnNextState(nextState);
         }
 
-        #region FSM Controller
+        #region FSM PlayerController
 
         public override void OnEnterState()
         {
@@ -131,7 +131,7 @@ namespace SimpleTurnBasedGame
 
         #endregion
 
-        #region Controller, Player --> Model
+        #region PlayerController, PlayerController --> Model
 
         /// <summary>
         ///     Starts the player turn.

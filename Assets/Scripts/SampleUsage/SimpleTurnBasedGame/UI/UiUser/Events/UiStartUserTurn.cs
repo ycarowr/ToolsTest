@@ -2,26 +2,32 @@
 using SimpleTurnBasedGame;
 using UnityEngine;
 
-public class UiStartUserTurn : UiListener, IStartPlayerTurn
+namespace SimpleTurnBasedGame
 {
-    private const float DelayToEnableInput = 2;
-    private UiUserContainer UiUser;
-
-    void IStartPlayerTurn.OnStartPlayerTurn(IPrimitivePlayer player)
+    [RequireComponent(typeof(IUiUserInput))]
+    [RequireComponent(typeof(IUiPlayerController))]
+    public class UiStartUserTurn : UiListener, IStartPlayerTurn
     {
-        if (UiUser.IsMyTurn() && !UiUser.IsAi())
-            StartCoroutine(EnableInput());
-    }
+        private const float DelayToEnableInput = 2;
+        private IUiUserInput UserInput { get; set; }
+        private IUiPlayerController Player { get; set; }
 
-    private void Awake()
-    {
-        UiUser = GetComponent<UiUserContainer>();
-    }
+        void IStartPlayerTurn.OnStartPlayerTurn(IPrimitivePlayer player)
+        {
+            if (Player.IsUser && !Player.IsAi)
+                StartCoroutine(EnableInput());
+        }
 
+        private IEnumerator EnableInput()
+        {
+            yield return new WaitForSeconds(DelayToEnableInput);
+            UserInput.Enable();
+        }
 
-    private IEnumerator EnableInput()
-    {
-        yield return new WaitForSeconds(DelayToEnableInput);
-        UiUser.UiUserHudInput.Enable();
+        private void Awake()
+        {
+            UserInput = GetComponent<IUiUserInput>();
+            Player = GetComponent<IUiPlayerController>();
+        }
     }
 }

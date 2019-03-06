@@ -8,9 +8,10 @@ namespace SimpleTurnBasedGame
         IDoDamage,
         IDoHeal
     {
-        private string healthText;
-        private UiPlayerContainer UiParent;
-        private UiText UiText;
+        private IUiPlayerSeat Player { get; set; }
+        private IUiPlayerController PlayerController { get; set; }
+        private string HealthText { get; set; }
+        private UiText UiText { get; set; }
 
         void IDoDamage.OnDamage(IAttackable source, IDamageable target, int amount)
         {
@@ -29,15 +30,16 @@ namespace SimpleTurnBasedGame
 
         private void Awake()
         {
-            UiParent = GetComponentInParent<UiPlayerContainer>();
             UiText = GetComponent<UiText>();
-            healthText = Localization.Instance.Get(LocalizationIds.Health);
+            Player = GetComponentInParent<IUiPlayerSeat>();
+            PlayerController = GetComponentInParent<IUiPlayerController>();
+            HealthText = Localization.Instance.Get(LocalizationIds.Health);
         }
 
         private void UpdateText()
         {
-            var health = UiParent.GetPlayer().Player.Health;
-            UiText.SetText(healthText + ": " + health);
+            var health = PlayerController.Player.Player.Health;
+            UiText.SetText(HealthText + ": " + health);
         }
     }
 }

@@ -14462,7 +14462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ea43117b887854eba20a8349f850fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seat: 0
 --- !u!1 &1231154622
 GameObject:
   m_ObjectHideFlags: 0
@@ -14513,7 +14512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ea43117b887854eba20a8349f850fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seat: 2
 --- !u!1 &1838751068
 GameObject:
   m_ObjectHideFlags: 0
@@ -19544,7 +19542,6 @@ GameObject:
   - component: {fileID: 9099685514325436951}
   - component: {fileID: 6165631200342736492}
   - component: {fileID: 7265341742951711407}
-  - component: {fileID: 3842098008806854873}
   m_Layer: 0
   m_Name: HealthView
   m_TagString: Untagged
@@ -19722,19 +19719,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.754717, b: 0.113451794, a: 1}
---- !u!114 &3842098008806854873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392754154943195671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7980ca04e9186742ae9de45cfe5fcfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seat: 2
 --- !u!1 &1967782614645765197
 GameObject:
   m_ObjectHideFlags: 0
@@ -25823,7 +25807,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7980ca04e9186742ae9de45cfe5fcfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seat: 2
 --- !u!1 &7134780613237116962
 GameObject:
   m_ObjectHideFlags: 0
@@ -25874,7 +25857,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7980ca04e9186742ae9de45cfe5fcfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seat: 0
 --- !u!1 &7300241998866916610
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,17 +1,24 @@
-﻿using SimpleTurnBasedGame;
+﻿using UnityEngine;
 
-public class UiFinishUserTurn : UiListener, IFinishPlayerTurn
+namespace SimpleTurnBasedGame
 {
-    private UiUserContainer UiUser;
-
-    void IFinishPlayerTurn.OnFinishPlayerTurn(IPrimitivePlayer player)
+    [RequireComponent(typeof(IUiUserInput))]
+    [RequireComponent(typeof(IUiPlayerController))]
+    public class UiFinishUserTurn : UiListener, IFinishPlayerTurn
     {
-        if (UiUser.IsMyTurn())
-            UiUser.UiUserHudInput.Disable();
-    }
+        private IUiUserInput UserInput { get; set; }
+        private IUiPlayerController Player { get; set; }
 
-    private void Awake()
-    {
-        UiUser = GetComponent<UiUserContainer>();
+        void IFinishPlayerTurn.OnFinishPlayerTurn(IPrimitivePlayer player)
+        {
+            if (Player.IsUser)
+                UserInput.Disable();
+        }
+
+        private void Awake()
+        {
+            UserInput = GetComponent<IUiUserInput>();
+            Player = GetComponent<IUiPlayerController>();
+        }
     }
 }

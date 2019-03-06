@@ -1,23 +1,24 @@
-﻿using UnityEngine;
+﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
     public class UiPlayerNameView : MonoBehaviour
     {
-        private string playerText;
-        private UiPlayerContainer UiParent;
-        private UiText UiText;
+        private IUiPlayerSeat Player { get; set; }
+        private string PlayerText { get; set; }
+        private UiText UiText { get; set; }
 
         private void Awake()
         {
-            UiParent = GetComponentInParent<UiPlayerContainer>();
             UiText = GetComponent<UiText>();
-            playerText = Localization.Instance.Get(LocalizationIds.Player);
+            Player = GetComponentInParent<IUiPlayerSeat>();
+            PlayerText = Localization.Instance.Get(LocalizationIds.Player);
         }
 
         private void Start()
         {
-            UiText.SetText(playerText + ": " + UiParent.Seat);
+            UiText.SetText(PlayerText + ": " + Player.Seat);
         }
     }
 }

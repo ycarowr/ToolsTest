@@ -66,19 +66,6 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        /// Checks whether the current state is Bottom or not.
-        /// </summary>
-        /// <returns></returns>
-        public bool IsUser()
-        {
-            if (!IsInitialized)
-                return false;
-
-            var currentState = PeekState();
-            return currentState is BottomPlayerState;
-        }
-
-        /// <summary>
         ///     Returns a Turn according to its registered player.
         /// </summary>
         /// <param name="player"></param>
@@ -143,6 +130,19 @@ namespace SimpleTurnBasedGame
             Initialize();
 
             StartBattle();
+        }
+
+        /// <summary>
+        ///     Checks whether the current state is Bottom or not.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsUser()
+        {
+            if (!IsInitialized)
+                return false;
+
+            var currentState = PeekState();
+            return currentState is BottomPlayerState;
         }
 
         /// <inheritdoc />

@@ -1,32 +1,30 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using Patterns;
 using UnityEngine;
 
 namespace Tools.UI.Card
-{ 
+{
     /// <summary>
-    /// Card Selector holds a register of UI Cards of a player.
+    ///     Card Selector holds a register of UI Cards of a player.
     /// </summary>
     public class UiCardSelector : MonoBehaviour
     {
-        /// <summary>
-        /// Event raised when add or remove a card.
-        /// </summary>
-        public event Action<UiCardHand[]> OnHandChanged = (hand) => { };
-        
-        /// <summary>
-        /// Event raised when a card is selected.
-        /// </summary>
-        public event Action<UiCardHand> OnCardSelected = (card) => { };
-
         //UI Cards of the player
         private List<UiCardHand> Cards { get; set; }
-        
+
         //UI Card currently selected by the player
         public UiCardHand SelectedCard { get; private set; }
-        
+
+        /// <summary>
+        ///     Event raised when add or remove a card.
+        /// </summary>
+        public event Action<UiCardHand[]> OnHandChanged = hand => { };
+
+        /// <summary>
+        ///     Event raised when a card is selected.
+        /// </summary>
+        public event Action<UiCardHand> OnCardSelected = card => { };
+
 
         private void Awake()
         {
@@ -37,8 +35,9 @@ namespace Tools.UI.Card
         }
 
         #region Operations
+
         /// <summary>
-        /// Select UI Card implementation.
+        ///     Select UI Card implementation.
         /// </summary>
         /// <param name="card"></param>
         public void SelectCard(UiCardHand card)
@@ -55,7 +54,7 @@ namespace Tools.UI.Card
         }
 
         /// <summary>
-        /// Play UI Card implementation.
+        ///     Play UI Card implementation.
         /// </summary>
         /// <param name="card"></param>
         public void PlayCard(UiCardHand card)
@@ -69,7 +68,7 @@ namespace Tools.UI.Card
         }
 
         /// <summary>
-        /// Unselect UI Card implementation.
+        ///     Unselect UI Card implementation.
         /// </summary>
         /// <param name="card"></param>
         public void UnselectCard(UiCardHand card)
@@ -81,13 +80,13 @@ namespace Tools.UI.Card
         }
 
         /// <summary>
-        /// Add an UI Card to the player hand.
+        ///     Add an UI Card to the player hand.
         /// </summary>
         /// <param name="card"></param>
         public void AddCard(UiCardHand card)
         {
-            if(card == null)
-                throw  new ArgumentNullException("Null is not a valid argument.");
+            if (card == null)
+                throw new ArgumentNullException("Null is not a valid argument.");
 
             Cards.Add(card);
             card.transform.SetParent(transform);
@@ -96,10 +95,9 @@ namespace Tools.UI.Card
             NotifyHandChange();
         }
 
-       
 
         /// <summary>
-        /// Remove an UI Card to the player hand.
+        ///     Remove an UI Card to the player hand.
         /// </summary>
         /// <param name="card"></param>
         public void RemoveCard(UiCardHand card)
@@ -108,7 +106,7 @@ namespace Tools.UI.Card
                 throw new ArgumentNullException("Null is not a valid argument.");
 
             Cards.Remove(card);
-        
+
             NotifyHandChange();
         }
 
@@ -118,7 +116,7 @@ namespace Tools.UI.Card
         #region Extra
 
         /// <summary>
-        /// Disable input for all cards.
+        ///     Disable input for all cards.
         /// </summary>
         public void DisableCards()
         {
@@ -127,7 +125,7 @@ namespace Tools.UI.Card
         }
 
         /// <summary>
-        /// Enable input for all cards.
+        ///     Enable input for all cards.
         /// </summary>
         public void EnableCards()
         {
@@ -157,9 +155,6 @@ namespace Tools.UI.Card
             OnCardSelected.Invoke(SelectedCard);
         }
 
-
-
         #endregion
     }
 }
-

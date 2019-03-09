@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Patterns;
+﻿using Patterns;
 using UnityEngine;
 
 namespace Tools.UI.Card
 {
     /// <summary>
-    /// Base UI Card State.
+    ///     Base UI Card State.
     /// </summary>
     [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(Rigidbody))]

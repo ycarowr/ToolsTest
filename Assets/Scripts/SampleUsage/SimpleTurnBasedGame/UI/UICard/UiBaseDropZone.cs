@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Tools.UI.Card
 {
     /// <summary>
-    /// Base zones where the user can drop a UI Card.
+    ///     Base zones where the user can drop a UI Card.
     /// </summary>
     [RequireComponent(typeof(IMouseInput))]
     public abstract class UiBaseDropZone : MonoBehaviour
@@ -23,7 +21,6 @@ namespace Tools.UI.Card
 
         protected virtual void OnPointerUp(PointerEventData eventData)
         {
-            
         }
     }
 }

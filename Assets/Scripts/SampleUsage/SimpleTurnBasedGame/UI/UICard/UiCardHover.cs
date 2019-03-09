@@ -1,8 +1,4 @@
-﻿using System;
-using System.Net.NetworkInformation;
-using Patterns;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine.EventSystems;
 
 namespace Tools.UI.Card
 {
@@ -23,7 +19,7 @@ namespace Tools.UI.Card
 
         private void OnPointerExit(PointerEventData obj)
         {
-            if(Fsm.IsCurrent(this))
+            if (Fsm.IsCurrent(this))
                 Fsm.PushState<UiCardIdle>();
         }
 

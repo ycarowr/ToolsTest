@@ -1,8 +1,6 @@
 ﻿using System;
 using Extensions;
-using Patterns;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Tools.UI.Card
 {

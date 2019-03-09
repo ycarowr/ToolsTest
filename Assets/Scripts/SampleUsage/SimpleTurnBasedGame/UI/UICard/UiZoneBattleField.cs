@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine.EventSystems;
 
 namespace Tools.UI.Card
 {
     /// <summary>
-    /// Battlefield Zone.
+    ///     Battlefield Zone.
     /// </summary>
     public class UiZoneBattleField : UiBaseDropZone
     {

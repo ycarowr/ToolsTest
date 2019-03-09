@@ -96,18 +96,17 @@ namespace Patterns
             Log("States Started", "blue");
         }
 
-        
+
         /// <summary>
-        /// Update all registered states (uncomment it if you need this callback).
-        /// TODO: Consider to replace 'foreach' by 'for' to minimize the garbage collection.
+        ///     Update all registered states (uncomment it if you need this callback).
+        ///     TODO: Consider to replace 'foreach' by 'for' to minimize the garbage collection.
         /// </summary>
         protected virtual void Update()
         {
-            var current = this.PeekState();
+            var current = PeekState();
             if (current != null)
                 current.OnUpdate();
         }
-        
 
         #endregion
 
@@ -122,8 +121,7 @@ namespace Patterns
             var current = PeekState();
             if (current == null)
                 return false;
-            else
-                return current.GetType() == typeof(T1);
+            return current.GetType() == typeof(T1);
         }
 
         /// <summary>
@@ -131,14 +129,13 @@ namespace Patterns
         /// </summary>
         public bool IsCurrent(StateMB<T> state)
         {
-            if(state == null)
+            if (state == null)
                 throw new ArgumentNullException();
 
             var current = PeekState();
             if (current == null)
                 return false;
-            else
-                return current.GetType() == state.GetType();
+            return current.GetType() == state.GetType();
         }
 
 
@@ -162,8 +159,8 @@ namespace Patterns
         /// <param name="isSilent"></param>
         public void PushState(StateMB<T> state, bool isSilent = false)
         {
-            if(!statesRegister.ContainsKey(state.GetType()))
-                throw new ArgumentException("State "+state+" not registered yet.");
+            if (!statesRegister.ContainsKey(state.GetType()))
+                throw new ArgumentException("State " + state + " not registered yet.");
 
             Log("Operation: Push, state: " + state.GetType(), "purple");
             if (stack.Count > 0 && !isSilent)

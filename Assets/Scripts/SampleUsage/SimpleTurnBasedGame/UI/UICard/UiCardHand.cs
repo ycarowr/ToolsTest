@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Patterns;
-using UnityEngine;
+﻿using Patterns;
 
 namespace Tools.UI.Card
 {
     /// <summary>
-    /// State Machine that holds all states of a UI Card.
+    ///     State Machine that holds all states of a UI Card.
     /// </summary>
     public class UiCardHand : StateMachineMB<UiCardHand>
     {
@@ -20,7 +16,7 @@ namespace Tools.UI.Card
         }
 
         /// <summary>
-        /// Notifies the card selector that a card has been selected.
+        ///     Notifies the card selector that a card has been selected.
         /// </summary>
         public void SelectThisCard()
         {
@@ -28,7 +24,7 @@ namespace Tools.UI.Card
         }
 
         /// <summary>
-        /// Notifies the card selector that a card has been unselected.
+        ///     Notifies the card selector that a card has been unselected.
         /// </summary>
         public void UnselectThisCard()
         {
@@ -36,7 +32,7 @@ namespace Tools.UI.Card
         }
 
         /// <summary>
-        /// Notifies the card selector that a card has been played.
+        ///     Notifies the card selector that a card has been played.
         /// </summary>
         public void PlayThisCard()
         {

@@ -13,7 +13,7 @@ namespace SimpleTurnBasedGame
         {
             Token = new TokenTurnLogic(players);
             Log("Game Created");
-            
+
             //Processes
             ProcessStartGame = new ProcessStartGame(this);
             ProcessStartPlayerTurn = new ProcessStartPlayer(this);

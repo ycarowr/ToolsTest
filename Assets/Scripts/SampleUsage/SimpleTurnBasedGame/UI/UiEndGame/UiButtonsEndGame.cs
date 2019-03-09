@@ -7,12 +7,12 @@ namespace SimpleTurnBasedGame
         IButtonHandler,
         UiButtonRestart.IPressRestart
     {
+        private IUiEndGameController PlayerController { get; set; }
+
         void UiButtonRestart.IPressRestart.PressRestart()
         {
             PlayerController.RestartGame();
         }
-
-        private IUiEndGameController PlayerController { get; set; }
 
         private void Awake()
         {

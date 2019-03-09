@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine.EventSystems;
 
 namespace Tools.UI.Card
 {
     /// <summary>
-    /// Player hand zone.
+    ///     Player hand zone.
     /// </summary>
     public class UiZoneHand : UiBaseDropZone
     {
@@ -12,7 +11,7 @@ namespace Tools.UI.Card
         {
             var selectedCard = CardSelector.SelectedCard;
 
-            if(selectedCard)
+            if (selectedCard)
                 selectedCard.UnselectThisCard();
         }
     }

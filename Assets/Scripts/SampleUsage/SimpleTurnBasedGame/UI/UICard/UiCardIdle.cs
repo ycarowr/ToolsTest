@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Patterns;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine.EventSystems;
 
 namespace Tools.UI.Card
 {
     /// <summary>
-    /// UI Card Idle behavior.
+    ///     UI Card Idle behavior.
     /// </summary>
     public class UiCardIdle : UiBaseCardState
     {
-        public void OnDestroy() => MyInput.OnPointerDown -= OnPointerDown;
+        public void OnDestroy()
+        {
+            MyInput.OnPointerDown -= OnPointerDown;
+        }
 
         public override void OnAwake()
         {
@@ -35,13 +33,13 @@ namespace Tools.UI.Card
 
         private void OnPointerEnter(PointerEventData obj)
         {
-            if(Fsm.IsCurrent(this))
+            if (Fsm.IsCurrent(this))
                 Fsm.PushState<UiCardHover>();
         }
 
         private void OnPointerDown(PointerEventData eventData)
         {
-            if(Fsm.IsCurrent(this))
+            if (Fsm.IsCurrent(this))
                 Fsm.SelectThisCard();
         }
     }

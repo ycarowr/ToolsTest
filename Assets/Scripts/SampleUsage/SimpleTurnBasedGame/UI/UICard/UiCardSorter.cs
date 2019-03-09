@@ -17,7 +17,7 @@ namespace Tools.UI.Card
 
         public void Sort(UiCardHand[] cards)
         {
-            if(cards == null)
+            if (cards == null)
                 throw new ArgumentException("Can't sort a card list null");
 
             var layerZ = 0;

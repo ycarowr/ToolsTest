@@ -19,11 +19,6 @@ namespace SimpleTurnBasedGame
     {
         private CanvasGroup CanvasGroup { get; set; }
 
-        private void Awake()
-        {
-            CanvasGroup = GetComponent<CanvasGroup>();
-        }
-
         void IUiUserInput.Disable()
         {
             CanvasGroup.interactable = false;
@@ -32,6 +27,11 @@ namespace SimpleTurnBasedGame
         void IUiUserInput.Enable()
         {
             CanvasGroup.interactable = true;
+        }
+
+        private void Awake()
+        {
+            CanvasGroup = GetComponent<CanvasGroup>();
         }
     }
 }

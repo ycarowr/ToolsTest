@@ -1,7 +1,7 @@
 ﻿namespace SimpleTurnBasedGame
 {
     /// <summary>
-    /// Bottom, where the User is always sitting.
+    ///     Bottom, where the User is always sitting.
     /// </summary>
     public class BottomPlayerState : AiTurnState
     {

@@ -19,8 +19,6 @@ namespace SimpleTurnBasedGame
         private const float DelayToEnable = 1f;
         private IUiUserInput UserInput { get; set; }
 
-        void IUiEndGameController.RestartGame() => GameController.Instance.RestartGameImmediately();
-
         void IFinishGame.OnFinishGame(IPrimitivePlayer winner)
         {
             StartCoroutine(EnableInput());
@@ -29,6 +27,11 @@ namespace SimpleTurnBasedGame
         void IStartGame.OnStartGame(IPrimitivePlayer starter)
         {
             UserInput.Disable();
+        }
+
+        void IUiEndGameController.RestartGame()
+        {
+            GameController.Instance.RestartGameImmediately();
         }
 
         private void Awake()

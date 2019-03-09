@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 namespace Tools.UI
 {
     /// <summary>
-    /// Interface for all the Unity Mouse Input System.
+    ///     Interface for all the Unity Mouse Input System.
     /// </summary>
     public interface IMouseInput :
         IPointerClickHandler,
@@ -38,7 +38,11 @@ namespace Tools.UI
 
     public enum DragDirection
     {
-        None, Down, Left, Top, Right
+        None,
+        Down,
+        Left,
+        Top,
+        Right
     }
 
     /// <summary>
@@ -47,6 +51,8 @@ namespace Tools.UI
     [RequireComponent(typeof(Collider))]
     public class UiMouseInputProvider : MonoBehaviour, IMouseInput
     {
+        private Vector3 oldDragPosition;
+
         //TODO: Consider to implement Safe Invokes.
         Action<PointerEventData> IMouseInput.OnPointerDown { get; set; } = eventData => { };
         Action<PointerEventData> IMouseInput.OnPointerUp { get; set; } = eventData => { };
@@ -61,9 +67,6 @@ namespace Tools.UI
         DragDirection IMouseInput.DragDirection => GetDragDirection();
         Vector2 IMouseInput.MousePosition => Input.mousePosition;
 
-        
-        private Vector3 oldDragPosition;
-
         #region Unity Event
 
         private void Awake()
@@ -71,6 +74,32 @@ namespace Tools.UI
             // Currently using PhysicsRaycaster, but can be also considered PhysicsRaycaster2D.
             if (Camera.main.GetComponent<PhysicsRaycaster>() == null)
                 throw new Exception(GetType() + " needs an " + typeof(PhysicsRaycaster) + " on the MainCamera");
+        }
+
+        #endregion
+
+        #region Extra
+
+        /// <summary>
+        ///     While dragging returns the direction of the movement.
+        /// </summary>
+        /// <returns></returns>
+        private DragDirection GetDragDirection()
+        {
+            var currentPosition = Input.mousePosition;
+            var normalized = (currentPosition - oldDragPosition).normalized;
+            oldDragPosition = currentPosition;
+
+            if (normalized.x > 0)
+                return DragDirection.Right;
+
+            if (normalized.x < 0)
+                return DragDirection.Left;
+
+            if (normalized.y > 0)
+                return DragDirection.Top;
+
+            return normalized.y < 0 ? DragDirection.Down : DragDirection.None;
         }
 
         #endregion
@@ -104,51 +133,23 @@ namespace Tools.UI
 
         void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
         {
-            ((IMouseInput)this).OnPointerDown.Invoke(eventData);
+            ((IMouseInput) this).OnPointerDown.Invoke(eventData);
         }
 
         void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
         {
-            ((IMouseInput)this).OnPointerUp.Invoke(eventData);
+            ((IMouseInput) this).OnPointerUp.Invoke(eventData);
         }
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
-            ((IMouseInput)this).OnPointerEnter.Invoke(eventData);
+            ((IMouseInput) this).OnPointerEnter.Invoke(eventData);
         }
 
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
-            ((IMouseInput)this).OnPointerExit.Invoke(eventData);
+            ((IMouseInput) this).OnPointerExit.Invoke(eventData);
         }
-
-        #endregion
-
-        #region Extra
-
-        /// <summary>
-        /// While dragging returns the direction of the movement.
-        /// </summary>
-        /// <returns></returns>
-        private DragDirection GetDragDirection()
-        {
-            var currentPosition = Input.mousePosition;
-            var normalized = (currentPosition - oldDragPosition).normalized;
-            oldDragPosition = currentPosition;
-
-            if (normalized.x > 0)
-                return DragDirection.Right;
-
-            if(normalized.x < 0)
-                return DragDirection.Left;
-
-            if (normalized.y > 0)
-                return DragDirection.Top;
-
-            return normalized.y < 0 ? DragDirection.Down : DragDirection.None;
-        }
-
-        
 
         #endregion
     }

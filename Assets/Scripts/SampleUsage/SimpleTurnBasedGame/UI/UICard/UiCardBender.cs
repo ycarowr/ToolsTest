@@ -6,22 +6,23 @@ namespace Tools.UI.Card
     [RequireComponent(typeof(UiCardSelector))]
     public class UiCardBender : MonoBehaviour
     {
-        [SerializeField] [Tooltip("Total amount in degrees that the cards will bend.")][Range(10, 40)]
-        private float totalAngleArk;
-
-        [SerializeField] [Tooltip("Height factor between two cards")] [Range(0.1f, 0.25f)]
-        private float stepHeight;
-
-        [SerializeField] [Tooltip("Transform used as anchor to position the cards.")]
-        private Transform pivot;
+        private const float Spacing = -1.0f;
 
         [SerializeField] [Tooltip("Renderer of the card.")]
         private SpriteRenderer cardRenderer;
 
+        [SerializeField] [Tooltip("Transform used as anchor to position the cards.")]
+        private Transform pivot;
+
+        [SerializeField] [Tooltip("Height factor between two cards")] [Range(0.1f, 0.25f)]
+        private float stepHeight;
+
+        [SerializeField] [Tooltip("Total amount in degrees that the cards will bend.")] [Range(10, 40)]
+        private float totalAngleArk;
+
         private UiCardSelector CardSelector { get; set; }
 
         private float CardWidth { get; set; }
-        private const float Spacing = -1.0f;
 
         private void Awake()
         {
@@ -45,22 +46,23 @@ namespace Tools.UI.Card
             for (var i = 0; i < cards.Length; i++)
             {
                 var card = cards[i];
-                
+
                 //set card angle
                 var angleTwist = firstAngle + i * anglePerCard;
                 card.transform.rotation = Quaternion.Euler(0, 0, angleTwist);
 
                 //set card position
                 var yDistance = Mathf.Abs(angleTwist) * stepHeight;
-                card.transform.position = new Vector2(pivotPosition.x - handWidth / 2 + CardWidth/2, pivotPosition.y - yDistance);
-                
+                card.transform.position = new Vector2(pivotPosition.x - handWidth / 2 + CardWidth / 2,
+                    pivotPosition.y - yDistance);
+
                 pivotPosition.x += handWidth / cards.Length;
             }
         }
 
         private static float CalcFirstAngle(float fullAngle)
         {
-            return -(fullAngle / 2) + (fullAngle * 0.1f);
+            return -(fullAngle / 2) + fullAngle * 0.1f;
         }
 
         private float CalcHandWidth(int length)

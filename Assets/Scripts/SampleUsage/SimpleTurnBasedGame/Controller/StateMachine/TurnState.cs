@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
-    [RequireComponent(typeof(GameController))]
     public abstract class TurnState : BaseBattleState,
         IFinishPlayerTurn
     {

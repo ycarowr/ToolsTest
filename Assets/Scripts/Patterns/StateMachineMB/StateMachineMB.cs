@@ -96,7 +96,7 @@ namespace Patterns
             Log("States Started", "blue");
         }
 
-        /*
+        
         /// <summary>
         /// Update all registered states (uncomment it if you need this callback).
         /// TODO: Consider to replace 'foreach' by 'for' to minimize the garbage collection.
@@ -107,11 +107,40 @@ namespace Patterns
             if (current != null)
                 current.OnUpdate();
         }
-        */
+        
 
         #endregion
 
         # region Operations
+
+        /// <summary>
+        ///     Checks if a an StateType is the current state.
+        /// </summary>
+        /// <typeparam name="T1"></typeparam>
+        public bool IsCurrent<T1>() where T1 : StateMB<T>
+        {
+            var current = PeekState();
+            if (current == null)
+                return false;
+            else
+                return current.GetType() == typeof(T1);
+        }
+
+        /// <summary>
+        ///     Checks if a an StateType is the current state.
+        /// </summary>
+        public bool IsCurrent(StateMB<T> state)
+        {
+            if(state == null)
+                throw new ArgumentNullException();
+
+            var current = PeekState();
+            if (current == null)
+                return false;
+            else
+                return current.GetType() == state.GetType();
+        }
+
 
         /// <summary>
         ///     Pushes a state by Type triggering OnEnterState for the pushed
@@ -133,6 +162,9 @@ namespace Patterns
         /// <param name="isSilent"></param>
         public void PushState(StateMB<T> state, bool isSilent = false)
         {
+            if(!statesRegister.ContainsKey(state.GetType()))
+                throw new ArgumentException("State "+state+" not registered yet.");
+
             Log("Operation: Push, state: " + state.GetType(), "purple");
             if (stack.Count > 0 && !isSilent)
             {

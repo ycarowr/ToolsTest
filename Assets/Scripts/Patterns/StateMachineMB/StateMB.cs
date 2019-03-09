@@ -14,7 +14,7 @@ namespace Patterns
         /// </summary>
         public virtual void OnAwake()
         {
-            Log("OnAwake!");
+//            Log("OnAwake!");
         }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Patterns
         /// </summary>
         public virtual void OnStart()
         {
-            Log("OnStart!");
+//            Log("OnStart!");
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Patterns
         /// </summary>
         public virtual void OnUpdate()
         {
-            Log("OnUpdate!");
+//            Log("OnUpdate! "+ name);
         }
 
         /// <summary>

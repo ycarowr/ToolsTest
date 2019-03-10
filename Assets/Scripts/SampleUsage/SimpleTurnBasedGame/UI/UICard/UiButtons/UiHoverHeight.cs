@@ -1,10 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Tools.UI.Card;
-using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.UI;
-
+﻿using UnityEngine.UI;
 
 namespace Tools.UI.Card
 {

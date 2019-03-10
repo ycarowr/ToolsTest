@@ -6,11 +6,11 @@ namespace SimpleTurnBasedGame
 {
     public class UiClock : UiListener, IDoTick, IPreGameStart, IFinishPlayerTurn
     {
-        [SerializeField] private PlayerSeat seat;
         private const float BlinkFactor = 0.1f;
         private const int BlinkStart = 3;
         private float currentBlinkTime;
         private float maxBlinkTime;
+        [SerializeField] private PlayerSeat seat;
         private TMP_Text Text { get; set; }
         private string TimeText { get; set; }
         private bool IsBlinking { get; set; }

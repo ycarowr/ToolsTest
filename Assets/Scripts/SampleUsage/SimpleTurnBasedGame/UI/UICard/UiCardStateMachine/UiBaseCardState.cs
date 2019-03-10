@@ -29,16 +29,41 @@ namespace Tools.UI.Card
             MyInput = GetComponent<IMouseInput>();
         }
 
-        public virtual void MakeRenderFirst()
+        /// <summary>
+        ///     Renders the textures in the first layer. Each card state is responsible to handle its own layer activity.
+        /// </summary>
+        protected virtual void MakeRenderFirst()
         {
             for (var i = 0; i < MyRenderers.Length; i++)
                 MyRenderers[i].sortingOrder = LayerToRenderFirst;
         }
 
-        public virtual void MakeRenderNormal()
+
+        /// <summary>
+        ///     Renders the textures in the regular layer. Each card state is responsible to handle its own layer activity.
+        /// </summary>
+        protected virtual void MakeRenderNormal()
         {
             for (var i = 0; i < MyRenderers.Length; i++)
                 MyRenderers[i].sortingOrder = LayerToRenderNormal;
+        }
+
+        protected void Enable()
+        {
+            MyCollider.enabled = true;
+            MyRigidbody.Sleep();
+            MakeRenderNormal();
+            NormalColor();
+        }
+
+        protected void NormalColor()
+        {
+            foreach (var renderer in MyRenderers)
+            {
+                var myColor = renderer.color;
+                myColor.a = 1;
+                renderer.color = myColor;
+            }
         }
     }
 }

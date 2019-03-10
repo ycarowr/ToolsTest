@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace SimpleTurnBasedGame
+﻿namespace SimpleTurnBasedGame
 {
     /// <summary>
     ///     User HUD

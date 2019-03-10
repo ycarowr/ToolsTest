@@ -11,39 +11,47 @@ namespace Tools.UI.Card
     // TotalAngleArk = 20
 
     /// <summary>
-    /// Class responsible to bend the cards in the player hand.
+    ///     Class responsible to bend the cards in the player hand.
     /// </summary>
     [RequireComponent(typeof(UiCardSelector))]
     public class UiCardBender : MonoBehaviour
     {
-        [SerializeField] [Tooltip("Amount of space between the cards on the X axis")][Range(0f, -5f)]
-        private float spacing;
-
-        [SerializeField] [Tooltip("Transform used as anchor to position the cards.")]
-        private Transform pivot;
+        [SerializeField] [Tooltip("The Card Prefab")]
+        private UiCardHand CardPrefab;
 
         [SerializeField] [Tooltip("Height factor between two cards.")] [Range(0f, 1f)]
         private float percTwistedAngleAddYPos;
 
-        [SerializeField] [Tooltip("Total angle in degrees the cards will bend.")] [Range(0, 40)]
+        [SerializeField] [Tooltip("Transform used as anchor to position the cards.")]
+        private Transform pivot;
+
+        [SerializeField] [Tooltip("Amount of space between the cards on the X axis")] [Range(0f, -5f)]
+        private float spacing;
+
+        [SerializeField] [Tooltip("Total angle in degrees the cards will bend.")] [Range(0, 60)]
         private float totalAngleArk;
 
-        [SerializeField]
-        [Tooltip("Renderer of the card.")]
-        private SpriteRenderer cardRenderer;
-        private float CardWidth => cardRenderer.bounds.size.x;
+        private SpriteRenderer CardRenderer { get; set; }
+
+        private float CardWidth => CardRenderer.bounds.size.x;
 
         private UiCardSelector CardSelector { get; set; }
+
 
         private void Awake()
         {
             CardSelector = GetComponent<UiCardSelector>();
+            CardRenderer = CardPrefab.GetComponent<SpriteRenderer>();
             CardSelector.OnHandChanged += Bend;
+        }
+
+        private void Update()
+        {
+            Bend(CardSelector.Cards.ToArray());
         }
 
         private void Bend(UiCardHand[] cards)
         {
-            Debug.Log("Bend");
             if (cards == null)
                 throw new ArgumentException("Can't bend a card list null");
 
@@ -53,7 +61,7 @@ namespace Tools.UI.Card
             var handWidth = CalcHandWidth(cards.Length);
 
             //calc first position of the offset on X axis
-            var offsetX = pivot.position.x - handWidth/2;
+            var offsetX = pivot.position.x - handWidth / 2;
 
             for (var i = 0; i < cards.Length; i++)
             {
@@ -61,7 +69,9 @@ namespace Tools.UI.Card
 
                 //set card Z angle
                 var angleTwist = firstAngle + i * anglePerCard;
-                card.transform.rotation = Quaternion.Euler(0, 0, angleTwist);
+
+                if (!card.IsCurrent<UiCardDrag>() && !card.IsCurrent<UiCardHover>())
+                    card.transform.rotation = Quaternion.Euler(0, 0, angleTwist);
 
                 //calc x position
                 var xPos = offsetX + CardWidth / 2;
@@ -71,15 +81,16 @@ namespace Tools.UI.Card
                 var yPos = pivot.position.y - yDistance;
 
                 //set position
-                card.transform.position = new Vector3(xPos, yPos, card.transform.position.z);
+                if (!card.IsCurrent<UiCardDrag>() && !card.IsCurrent<UiCardHover>())
+                    card.transform.position = new Vector3(xPos, yPos, card.transform.position.z);
 
                 //increment offset
-                offsetX += (CardWidth + spacing);
+                offsetX += CardWidth + spacing;
             }
         }
 
         /// <summary>
-        /// Calculus of the angle of the first card.
+        ///     Calculus of the angle of the first card.
         /// </summary>
         /// <param name="fullAngle"></param>
         /// <returns></returns>
@@ -90,7 +101,7 @@ namespace Tools.UI.Card
         }
 
         /// <summary>
-        /// Calculus of the width of the player's hand.
+        ///     Calculus of the width of the player's hand.
         /// </summary>
         /// <param name="quantityOfCards"></param>
         /// <returns></returns>
@@ -99,6 +110,21 @@ namespace Tools.UI.Card
             var widthCards = quantityOfCards * CardWidth;
             var widthSpacing = (quantityOfCards - 1) * spacing;
             return widthCards + widthSpacing;
+        }
+
+        public void SetSpacing(float spacing)
+        {
+            this.spacing = -spacing;
+        }
+
+        public void SetAngle(float angle)
+        {
+            totalAngleArk = angle;
+        }
+
+        public void SetHeight(float height)
+        {
+            percTwistedAngleAddYPos = height;
         }
     }
 }

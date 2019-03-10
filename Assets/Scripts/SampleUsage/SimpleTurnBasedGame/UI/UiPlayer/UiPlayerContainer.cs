@@ -3,7 +3,7 @@
 namespace SimpleTurnBasedGame
 {
     /// <summary>
-    /// All UI components that depend of a specific PlayerController.
+    ///     All UI components that depend of a specific PlayerController.
     /// </summary>
     public interface IUiPlayerSeat
     {
@@ -30,7 +30,7 @@ namespace SimpleTurnBasedGame
         bool IUiPlayerController.IsMyTurn => GameController.Instance.IsMyTurn(seat);
         bool IUiPlayerController.IsAi => GameController.Instance.GetPlayer(seat).IsAi;
         TurnState IUiPlayerController.Player => GameController.Instance.GetPlayer(seat);
-        
+
         #endregion
     }
 }

@@ -7,11 +7,6 @@ namespace Tools.UI.Card
     /// </summary>
     public class UiCardIdle : UiBaseCardState
     {
-        public void OnDestroy()
-        {
-            MyInput.OnPointerDown -= OnPointerDown;
-        }
-
         public override void OnAwake()
         {
             base.OnAwake();
@@ -21,13 +16,7 @@ namespace Tools.UI.Card
 
         public override void OnEnterState()
         {
-            Restart();
-        }
-
-        private void Restart()
-        {
-            MyCollider.enabled = true;
-            MyRigidbody.Sleep();
+            Enable();
             MakeRenderNormal();
         }
 
@@ -41,6 +30,11 @@ namespace Tools.UI.Card
         {
             if (Fsm.IsCurrent(this))
                 Fsm.SelectThisCard();
+        }
+
+        private void OnDestroy()
+        {
+            MyInput.OnPointerDown -= OnPointerDown;
         }
     }
 }

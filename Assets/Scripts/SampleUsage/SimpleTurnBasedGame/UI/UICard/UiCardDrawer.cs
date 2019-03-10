@@ -1,5 +1,6 @@
 ﻿using Extensions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Tools.UI.Card
 {
@@ -16,6 +17,12 @@ namespace Tools.UI.Card
             CardSelector = GetComponent<UiCardSelector>();
         }
 
+        private void Start()
+        {
+            //starting cards
+            for (var i = 0; i < 6; i++)
+                DrawCard();
+        }
 
         [Button]
         public void DrawCard()
@@ -37,8 +44,14 @@ namespace Tools.UI.Card
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.D)) DrawCard();
+            if (Input.GetKeyDown(KeyCode.Tab)) DrawCard();
             if (Input.GetKeyDown(KeyCode.Space)) PlayCard();
+            if (Input.GetKeyDown(KeyCode.Escape)) Restart();
+        }
+
+        public void Restart()
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }

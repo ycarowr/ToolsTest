@@ -28,8 +28,9 @@ namespace Tools.UI.Card
             StartPosition = MyTransform.position;
             StartRotation = MyTransform.rotation;
 
-            MyTransform.rotation = Quaternion.identity;
+            MyTransform.localRotation = Quaternion.identity;
             MakeRenderFirst();
+            NormalColor();
         }
 
         public override void OnExitState()

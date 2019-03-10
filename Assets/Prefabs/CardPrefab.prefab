@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 5487032038700876637}
   - component: {fileID: 8698573282674706714}
   m_Layer: 5
-  m_Name: CardFrame
+  m_Name: CardPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,6 +80,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e15e4a6dcc9d1844cbba3ed6f92d99c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keepRotation: 0
+  hoverYOffset: 1.5
+  percentScale: 1.1
 --- !u!114 &713291890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aceffd9bbaef14a4f8eb1e0212dd7bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disabledAlpha: 0.5
 --- !u!114 &713291893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,6 +207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 537323295787674946}
   - component: {fileID: 537323295787674944}
+  - component: {fileID: 6714008829719994529}
   m_Layer: 5
   m_Name: Character
   m_TagString: Untagged
@@ -272,6 +277,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6714008829719994529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537323295787674947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f51bece60856130418a0b5715f95f38f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sprites:
+  - {fileID: 21300000, guid: 20455dcba2870e24eb931aa4570255c7, type: 3}
+  - {fileID: 21300000, guid: 0cf2a985821d0304b862ef9dd7317b7f, type: 3}
+  - {fileID: 21300000, guid: b3497253e58513a469fb1bfa56829150, type: 3}
+  - {fileID: 21300000, guid: 97eed4db298436a45971e9b17442b6e5, type: 3}
 --- !u!1 &1113329664749280814
 GameObject:
   m_ObjectHideFlags: 0

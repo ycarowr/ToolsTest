@@ -32,13 +32,13 @@ namespace Tools.UI.Card
         public virtual void MakeRenderFirst()
         {
             for (var i = 0; i < MyRenderers.Length; i++)
-                MyRenderers[i].sortingOrder = 1;
+                MyRenderers[i].sortingOrder = LayerToRenderFirst;
         }
 
         public virtual void MakeRenderNormal()
         {
             for (var i = 0; i < MyRenderers.Length; i++)
-                MyRenderers[i].sortingOrder = 0;
+                MyRenderers[i].sortingOrder = LayerToRenderNormal;
         }
     }
 }

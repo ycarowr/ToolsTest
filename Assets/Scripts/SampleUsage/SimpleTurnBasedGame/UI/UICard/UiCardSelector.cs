@@ -5,12 +5,12 @@ using UnityEngine;
 namespace Tools.UI.Card
 {
     /// <summary>
-    ///     Card Selector holds a register of UI Cards of a player.
+    ///     Card Selector holds a register of UI cards of a player.
     /// </summary>
     public class UiCardSelector : MonoBehaviour
     {
-        //UI Cards of the player
-        private List<UiCardHand> Cards { get; set; }
+        //UI cards of the player
+        public List<UiCardHand> Cards { get; private set; }
 
         //UI Card currently selected by the player
         public UiCardHand SelectedCard { get; private set; }
@@ -77,6 +77,7 @@ namespace Tools.UI.Card
                 throw new ArgumentNullException("Null is not a valid argument.");
 
             EnableCards();
+            NotifyHandChange();
         }
 
         /// <summary>
@@ -91,7 +92,6 @@ namespace Tools.UI.Card
             Cards.Add(card);
             card.transform.SetParent(transform);
             card.PushState<UiCardIdle>();
-
             NotifyHandChange();
         }
 

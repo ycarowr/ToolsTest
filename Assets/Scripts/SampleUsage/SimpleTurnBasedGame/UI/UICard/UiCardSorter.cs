@@ -21,7 +21,7 @@ namespace Tools.UI.Card
                 throw new ArgumentException("Can't sort a card list null");
 
             var layerZ = 0;
-
+            Debug.Log("Sort Z");
             foreach (var card in cards)
             {
                 var localCardPosition = card.transform.localPosition;

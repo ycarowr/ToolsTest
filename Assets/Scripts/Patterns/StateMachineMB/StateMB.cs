@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Patterns
+namespace Patterns.StateMachineMB
 {
     public abstract class StateMB<T> : MonoBehaviour where T : MonoBehaviour
     {

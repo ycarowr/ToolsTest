@@ -1,4 +1,4 @@
-﻿using Patterns;
+﻿using Patterns.StateMachineMB;
 
 namespace ExampleStateMachine
 {

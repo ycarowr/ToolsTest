@@ -3,7 +3,7 @@ using Patterns.StateMachine;
 
 namespace SimpleTurnBasedGame.ControllerCs
 {
-    public class TurnBasedFSM : BaseStateMachine
+    public class TurnBasedFsm : BaseStateMachine
     {
         //----------------------------------------------------------------------------------------------------------
 
@@ -23,9 +23,9 @@ namespace SimpleTurnBasedGame.ControllerCs
         /// <summary>
         ///     MonoBehavior which holds this FSM.
         /// </summary>
-        public new IGameController Handler { get; set; }
+        public new IGameController Handler { get; }
 
-        public Configurations Configurations { get; }
+        private Configurations Configurations { get; }
 
         #endregion
 
@@ -33,8 +33,8 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         #region Initialization
 
-        public TurnBasedFSM(IGameController handler, IGameData gameData, Configurations configurations) :
-            base(handler, configurations.AreLogsEnabled)
+        public TurnBasedFsm(IGameController handler, IGameData gameData, Configurations configurations) :
+            base(handler)
         {
             Configurations = configurations;
             Handler = handler;
@@ -44,7 +44,7 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         protected override void OnBeforeInitialize()
         {
-            Logger.Instance.Log<TurnBasedFSM>("OnBeforeInitialize");
+            Logger.Instance.Log<TurnBasedFsm>("On Before Initialize: Create Game States");
             //create states
             var bottom = new BottomPlayerState(this, GameData, Configurations);
             var top = new TopPlayerState(this, GameData, Configurations);
@@ -75,11 +75,11 @@ namespace SimpleTurnBasedGame.ControllerCs
         #region Operations
 
         /// <summary>
-        ///     Returns a Turn according to its registered player.
+        ///     Returns the player controller according to its registered player.
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
-        public TurnState GetPlayer(IPrimitivePlayer player)
+        public TurnState GetPlayerController(IPrimitivePlayer player)
         {
             return IsInitialized && actorsRegister.ContainsKey(player) ? actorsRegister[player] : null;
         }
@@ -89,7 +89,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         /// </summary>
         /// <param name="seat"></param>
         /// <returns></returns>
-        public TurnState GetPlayer(PlayerSeat seat)
+        public TurnState GetPlayerController(PlayerSeat seat)
         {
             foreach (var player in actorsRegister.Keys)
                 if (player.Seat == seat)
@@ -137,6 +137,7 @@ namespace SimpleTurnBasedGame.ControllerCs
             //reinitialize the fsm
             Initialize();
 
+            //restart
             StartBattle();
         }
 

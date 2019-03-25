@@ -12,7 +12,7 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         #region Constructor
 
-        protected BaseBattleState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations)
+        protected BaseBattleState(TurnBasedFsm fsm, IGameData gameData, Configurations configurations)
         {
             Fsm = fsm;
             GameData = gameData;
@@ -31,7 +31,7 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         protected Configurations Configurations { get; }
         protected IGameData GameData { get; }
-        public TurnBasedFSM Fsm { get; set; }
+        public TurnBasedFsm Fsm { get; set; }
         public bool IsInitialized { get; }
 
         #endregion

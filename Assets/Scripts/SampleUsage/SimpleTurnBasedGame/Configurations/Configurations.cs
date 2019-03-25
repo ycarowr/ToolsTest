@@ -14,6 +14,8 @@ namespace SimpleTurnBasedGame
 
         #region Extra
 
+        [SerializeField] private bool areLogsEnabled;
+        
         #endregion
 
         //----------------------------------------------------------------------------------------------------------
@@ -21,9 +23,7 @@ namespace SimpleTurnBasedGame
         #region Properties
 
         //logs
-        [field: SerializeField]
-        [field: Header("Extra")]
-        public bool AreLogsEnabled { get; }
+        public bool AreLogsEnabled => areLogsEnabled;
 
         //player turn
         public float TimeStartTurn => PlayerTurn.TimeStartTurn;

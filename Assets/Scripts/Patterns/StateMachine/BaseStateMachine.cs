@@ -13,11 +13,9 @@ namespace Patterns.StateMachine
         ///     Constructor for the state machine. A handler is optional.
         /// </summary>
         /// <param name="handler"></param>
-        /// <param name="areLogsEnabled"></param>
-        protected BaseStateMachine(IStateMachineHandler handler = null, bool areLogsEnabled = false)
+        protected BaseStateMachine(IStateMachineHandler handler = null)
         {
             Handler = handler;
-            AreLogsEnabled = areLogsEnabled;
         }
 
         #endregion
@@ -30,11 +28,6 @@ namespace Patterns.StateMachine
         ///     Boolean that indicates whether the FSM has been initialized or not.
         /// </summary>
         public bool IsInitialized { get; protected set; }
-
-        /// <summary>
-        ///     Tells the fsm whether logs are enabled or not.
-        /// </summary>
-        public bool AreLogsEnabled { get; set; }
 
         /// <summary>
         ///     Stack of States.

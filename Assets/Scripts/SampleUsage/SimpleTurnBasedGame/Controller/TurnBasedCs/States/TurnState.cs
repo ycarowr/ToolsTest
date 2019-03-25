@@ -10,7 +10,7 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         #region Constructor
 
-        protected TurnState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) : base(fsm, gameData,
+        protected TurnState(TurnBasedFsm fsm, IGameData gameData, Configurations configurations) : base(fsm, gameData,
             configurations)
         {
             var game = GameData.RuntimeGame;
@@ -28,15 +28,15 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         #region Properties
 
-        public IPrimitivePlayer Player { get; protected set; }
+        public IPrimitivePlayer Player { get; }
         public IPrimitivePlayer Opponent => GameData.RuntimeGame.TurnLogic.GetOpponent(Player);
         public bool IsMyTurn => GameData.RuntimeGame.TurnLogic.IsMyTurn(Player);
-        public virtual PlayerSeat Seat { get; }
+        public virtual PlayerSeat Seat => PlayerSeat.Top;
         public virtual bool IsAi => false;
         public virtual bool IsUser => false;
 
-        protected Coroutine TimeOutRoutine { get; set; }
-        protected Coroutine TickRoutine { get; set; }
+        private Coroutine TimeOutRoutine { get; set; }
+        private Coroutine TickRoutine { get; set; }
 
         #endregion
 
@@ -57,7 +57,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         {
             var game = GameData.RuntimeGame;
             var nextPlayer = game.TurnLogic.NextPlayer;
-            var nextState = Fsm.GetPlayer(nextPlayer);
+            var nextState = Fsm.GetPlayerController(nextPlayer);
             OnNextState(nextState);
         }
 

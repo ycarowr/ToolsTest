@@ -22,7 +22,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         /// <summary>
         ///     State machine that holds the game logic.
         /// </summary>
-        private TurnBasedFSM TurnBasedLogic { get; set; }
+        private TurnBasedFsm TurnBasedLogic { get; set; }
 
         /// <summary>
         ///     Handler for the state machine. Used to dispatch coroutines.
@@ -38,7 +38,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         protected override void OnAwake()
         {
             Logger.Instance.Log<GameController>("Awake");
-            TurnBasedLogic = new TurnBasedFSM(this, Data, configurations);
+            TurnBasedLogic = new TurnBasedFsm(this, Data, configurations);
         }
 
         private void Start()
@@ -59,7 +59,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         /// <returns></returns>
         public IPlayerTurn GetPlayerController(PlayerSeat seat)
         {
-            return TurnBasedLogic.GetPlayer(seat);
+            return TurnBasedLogic.GetPlayerController(seat);
         }
 
         /// <summary>

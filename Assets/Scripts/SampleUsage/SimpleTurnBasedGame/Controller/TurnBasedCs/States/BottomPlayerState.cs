@@ -11,7 +11,7 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         #region Constructor
 
-        public BottomPlayerState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) :
+        public BottomPlayerState(TurnBasedFsm fsm, IGameData gameData, Configurations configurations) :
             base(fsm, gameData, configurations)
         {
         }
@@ -23,7 +23,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         #region Properties
 
         public override PlayerSeat Seat => PlayerSeat.Bottom;
-        public override AiArchetype AiArchetype => Configurations.BottomAiArchetype;
+        protected override AiArchetype AiArchetype => Configurations.BottomAiArchetype;
         public override bool IsAi => Configurations.BottomIsAi;
         public override bool IsUser => true;
 

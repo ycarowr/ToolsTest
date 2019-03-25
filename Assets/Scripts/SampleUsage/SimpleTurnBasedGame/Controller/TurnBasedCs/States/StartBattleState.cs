@@ -9,7 +9,7 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         #region Constructor
 
-        public StartBattleState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) : base(fsm,
+        public StartBattleState(TurnBasedFsm fsm, IGameData gameData, Configurations configurations) : base(fsm,
             gameData, configurations)
         {
         }
@@ -38,7 +38,7 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         void IStartGame.OnStartGame(IPrimitivePlayer starter)
         {
-            var nextState = Fsm.GetPlayer(starter);
+            var nextState = Fsm.GetPlayerController(starter);
             Fsm.Handler.MonoBehaviour.StartCoroutine(NextStateRoutine(nextState));
         }
 

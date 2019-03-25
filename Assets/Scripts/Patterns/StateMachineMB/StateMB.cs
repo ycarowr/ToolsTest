@@ -10,7 +10,7 @@ namespace Patterns.StateMachineMB
         public T Fsm { get; private set; }
 
         /// <summary>
-        ///     Called by the GameController's Awake
+        ///     Called by the GameControllerMB's Awake
         /// </summary>
         public virtual void OnAwake()
         {
@@ -18,7 +18,7 @@ namespace Patterns.StateMachineMB
         }
 
         /// <summary>
-        ///     Called by the GameController's Start
+        ///     Called by the GameControllerMB's Start
         /// </summary>
         public virtual void OnStart()
         {
@@ -26,7 +26,7 @@ namespace Patterns.StateMachineMB
         }
 
         /// <summary>
-        ///     Called by the GameController's Update
+        ///     Called by the GameControllerMB's Update
         /// </summary>
         public virtual void OnUpdate()
         {
@@ -57,7 +57,7 @@ namespace Patterns.StateMachineMB
         public void InjectStateMachine(StateMachineMB<T> stateMachine)
         {
             Fsm = stateMachine as T;
-            Log("StateMachine Assigned");
+            Log("BaseStateMachine Assigned");
         }
 
 

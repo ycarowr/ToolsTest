@@ -15,11 +15,13 @@ namespace Tools.UI.Card
         {
             Handler = handler;
             Parameters = parameters;
+            IsInitialized = true;
         }
 
         protected IUiCard Handler { get; }
         protected UiCardParameters Parameters { get; }
-        public IStateMachine Fsm { get; set; }
+        public BaseStateMachine Fsm { get; set; }
+        public bool IsInitialized { get; }
 
 
         /// <summary>
@@ -77,6 +79,16 @@ namespace Tools.UI.Card
         }
 
         public virtual void OnUpdate()
+        {
+
+        }
+
+        public virtual void OnNextState(IState next)
+        {
+            
+        }
+
+        public virtual void OnClear()
         {
 
         }

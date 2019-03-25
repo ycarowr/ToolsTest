@@ -6,6 +6,10 @@ namespace SimpleTurnBasedGame
 {
     public class UiClock : UiListener, IDoTick, IPreGameStart, IFinishPlayerTurn
     {
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Fields and Properties 
+
         private const float BlinkFactor = 0.1f;
         private const int BlinkStart = 3;
         private float currentBlinkTime;
@@ -14,6 +18,12 @@ namespace SimpleTurnBasedGame
         private TMP_Text Text { get; set; }
         private string TimeText { get; set; }
         private bool IsBlinking { get; set; }
+        
+        #endregion
+        
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Game Events
 
         void IDoTick.OnTickTime(int time, IPrimitivePlayer player)
         {
@@ -42,6 +52,9 @@ namespace SimpleTurnBasedGame
             Restart();
         }
 
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
 
         private void Awake()
         {

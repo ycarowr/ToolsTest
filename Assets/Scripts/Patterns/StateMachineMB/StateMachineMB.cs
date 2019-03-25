@@ -29,7 +29,7 @@ namespace Patterns.StateMachineMB
         {
             OnBeforeInitialize();
 
-            //grab all states of this StateMachine Type attached to this gameobject
+            //grab all states of this BaseStateMachine Type attached to this gameobject
             var allStates = GetComponents<StateMB<T>>();
 
             //StatesRegister all states
@@ -73,7 +73,7 @@ namespace Patterns.StateMachineMB
         #region Unity Callbacks
 
         /// <summary>
-        ///     Initialize the StateMachine and Awake all registered states
+        ///     Initialize the BaseStateMachine and Awake all registered states
         /// </summary>
         protected virtual void Awake()
         {

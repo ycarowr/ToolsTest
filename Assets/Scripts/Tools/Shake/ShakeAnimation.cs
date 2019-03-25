@@ -49,7 +49,7 @@ namespace Tools
         }
 
         /// <summary>
-        ///     Restart all the shake counters.
+        ///     Clear all the shake counters.
         /// </summary>
         private void ResetCounters()
         {
@@ -58,7 +58,7 @@ namespace Tools
         }
 
         /// <summary>
-        ///     Restart the shake instantly.
+        ///     Clear the shake instantly.
         /// </summary>
         public void StopShaking()
         {

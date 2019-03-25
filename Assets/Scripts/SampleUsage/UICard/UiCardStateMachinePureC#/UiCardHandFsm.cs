@@ -6,7 +6,7 @@ namespace Tools.UI.Card
     /// <summary>
     ///     State Machine that holds all states of a UI Card.
     /// </summary>
-    public class UiCardHandFsm : StateMachine
+    public class UiCardHandFsm : BaseStateMachine
     {
         public UiCardHandFsm(Camera camera, UiCardParameters cardConfigsParameters, IUiCard handler = null) :
             base(handler)

@@ -33,8 +33,9 @@ namespace Tools.UI.Card
     [RequireComponent(typeof(IMouseInput))]
     public class UiCardHandSystem : MonoBehaviour, IUiCard
     {
+        #region Properties
+
         [SerializeField] private UiCardParameters cardConfigsParameters;
-        public UiCardParameters CardConfigsParameters => cardConfigsParameters;
 
         private UiCardHandFsm CardHandFsm { get; set; }
         private Transform MyTransform { get; set; }
@@ -43,6 +44,7 @@ namespace Tools.UI.Card
         private Rigidbody MyRigidbody { get; set; }
         private IMouseInput MyInput { get; set; }
         private IUiCardSelector MyCardSelector { get; set; }
+        public UiCardParameters CardConfigsParameters => cardConfigsParameters;
         SpriteRenderer[] IUiCard.Renderers => MyRenderers;
         Collider IUiCard.Collider => MyCollider;
         Rigidbody IUiCard.Rigidbody => MyRigidbody;
@@ -52,6 +54,7 @@ namespace Tools.UI.Card
         public bool IsDragging => CardHandFsm.IsCurrent<UiCardDrag>();
         public bool IsHovering => CardHandFsm.IsCurrent<UiCardHover>();
 
+        #endregion
 
         #region Operations
 

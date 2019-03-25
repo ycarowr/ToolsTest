@@ -32,21 +32,6 @@ namespace SimpleTurnBasedGame
             IsInitialized = true;
         }
 
-        /// <summary>
-        ///     Kicks the start game state after booting the game.
-        /// </summary>
-        /// s
-        private void StartGame()
-        {
-            if (!IsInitialized)
-                return;
-
-            if (IsStarted)
-                return;
-
-            GameController.StartBattle();
-            IsStarted = true;
-        }
 
         #region Fields
 
@@ -66,7 +51,6 @@ namespace SimpleTurnBasedGame
         private GameController GameController { get; set; }
 
         public bool IsInitialized { get; private set; }
-        public bool IsStarted { get; private set; }
 
         #endregion
 
@@ -87,7 +71,6 @@ namespace SimpleTurnBasedGame
         private void Start()
         {
             Logger.Instance.Log<Bootstrapper>("Start");
-            StartGame();
         }
 
         #endregion

@@ -44,6 +44,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         private void Start()
         {
             Logger.Instance.Log<GameController>("Start");
+            StartBattle();
         }
 
         #endregion
@@ -63,7 +64,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         }
 
         /// <summary>
-        ///     Start Battle. Called by the bootstrapper only during the first launch of the game.
+        ///     Start the battle. Called only once after being initialized by the Bootstrapper.
         /// </summary>
         [Button]
         public void StartBattle()

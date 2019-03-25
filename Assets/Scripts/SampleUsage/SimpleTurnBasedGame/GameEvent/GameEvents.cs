@@ -5,7 +5,20 @@ namespace SimpleTurnBasedGame
 {
     public class GameEvents : Observer<GameEvents>
     {
+        protected override void OnAwake()
+        {
+            Logger.Instance.Log<GameEvents>("Awake");
+        }
+
+        private void Start()
+        {
+            Logger.Instance.Log<GameEvents>("Start");
+        }
     }
+
+    //----------------------------------------------------------------------------------------------------------
+    
+    #region Game Events Declaration
 
     /// <summary>
     ///     Broadcast of the players right before the game start.
@@ -70,4 +83,8 @@ namespace SimpleTurnBasedGame
     {
         void OnTickTime(int time, IPrimitivePlayer player);
     }
+    
+    #endregion
+    
+    //----------------------------------------------------------------------------------------------------------
 }

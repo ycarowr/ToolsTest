@@ -3,21 +3,34 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
-    public interface IUiEndGameController
+    public interface IRestartGameHandler
     {
         void RestartGame();
     }
 
     /// <summary>
-    ///     End game HUD.
+    ///     End game HUD. Solves model dependencies accessing the game controller via Singleton.
     /// </summary>
     [RequireComponent(typeof(IUiUserInput))]
-    public class UiEndGameContainer : UiListener, IUiEndGameController,
+    public class UiEndGameContainer : UiListener, 
+        IRestartGameHandler,
         IFinishGame,
-        IStartGame
+        IStartGame,
+        IUiController
     {
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Properties
+
         private const float DelayToEnable = 1f;
         private IUiUserInput UserInput { get; set; }
+        public IGameController GameController => ControllerCs.GameController.Instance;
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Game Events
 
         void IFinishGame.OnFinishGame(IPrimitivePlayer winner)
         {
@@ -29,10 +42,11 @@ namespace SimpleTurnBasedGame
             UserInput.Disable();
         }
 
-        void IUiEndGameController.RestartGame()
-        {
-            GameController.Instance.RestartGameImmediately();
-        }
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Unity Callbacks
 
         private void Awake()
         {
@@ -41,6 +55,15 @@ namespace SimpleTurnBasedGame
 
             //HUD end game
             gameObject.AddComponent<UiButtonsEndGame>();
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
+        void IRestartGameHandler.RestartGame()
+        {
+            GameController.RestartGameImmediately();
         }
 
         private IEnumerator EnableInput()

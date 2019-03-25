@@ -2,7 +2,7 @@
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Finish Current PlayerController Turn Implementation.
+    ///     Finish Current GameController Turn Implementation.
     /// </summary>
     public class ProcessFinishPlayer : ProcessBase
     {
@@ -21,9 +21,9 @@
             if (Game.IsGameFinished) return;
 
             Game.IsTurnInProgress = false;
-            Game.Token.CurrentPlayer.FinishTurn();
+            Game.TurnLogic.CurrentPlayer.FinishTurn();
             Game.TurnTime = 0;
-            OnFinishedCurrentPlayerTurn(Game.Token.CurrentPlayer);
+            OnFinishedCurrentPlayerTurn(Game.TurnLogic.CurrentPlayer);
         }
 
         /// <summary>

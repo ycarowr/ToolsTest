@@ -4,16 +4,17 @@ namespace SimpleTurnBasedGame
 {
     public class ProcessRandomMove : ProcessBase
     {
-        private const int BonusByPlayingRandom = 2;
+        public int Bonus { get; }
+        private ProcessDamagePlus DamagePlus { get; }
+        private ProcessHealPlus HealPlus { get; }
 
         public ProcessRandomMove(IPrimitiveGame game) : base(game)
         {
-            DamagePlus = new ProcessDamagePlus(game);
-            HealPlus = new ProcessHealPlus(game);
-        }
+            Bonus = Game.Configurations.Bonus.Value;
 
-        private ProcessDamagePlus DamagePlus { get; }
-        private ProcessHealPlus HealPlus { get; }
+            DamagePlus = new ProcessDamagePlus(game, Bonus);
+            HealPlus = new ProcessHealPlus(game, Bonus);
+        }
 
         public void Execute()
         {
@@ -26,32 +27,41 @@ namespace SimpleTurnBasedGame
                 HealPlus.Execute();
         }
 
+        //----------------------------------------------------------------------------------------------------------
+
         #region Decorators
 
         private class ProcessDamagePlus : ProcessDamageMove
         {
-            public ProcessDamagePlus(IPrimitiveGame game) : base(game)
+            private int Bonus { get; }
+
+            public ProcessDamagePlus(IPrimitiveGame game, int bonus) : base(game)
             {
+                Bonus = bonus;
             }
 
             protected override int GetDamage()
             {
-                return base.GetDamage() + BonusByPlayingRandom;
+                return base.GetDamage() + Bonus;
             }
         }
 
         private class ProcessHealPlus : ProcessHealMove
         {
-            public ProcessHealPlus(IPrimitiveGame game) : base(game)
+            private int Bonus { get; }
+
+            public ProcessHealPlus(IPrimitiveGame game, int bonus) : base(game)
             {
             }
 
             protected override int GetHeal()
             {
-                return base.GetHeal() + BonusByPlayingRandom;
+                return base.GetHeal() + Bonus;
             }
         }
 
         #endregion
+
+        //----------------------------------------------------------------------------------------------------------
     }
 }

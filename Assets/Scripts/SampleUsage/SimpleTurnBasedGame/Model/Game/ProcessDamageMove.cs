@@ -3,19 +3,18 @@
 namespace SimpleTurnBasedGame
 {
     /// <summary>
-    ///     Damage Logic Implementation
+    ///     DamagePlayers Logic Implementation
     /// </summary>
     public class ProcessDamageMove : ProcessBase
     {
-        public const int MaxDamage = 4;
-        public const int MinDamage = 1;
+        private int MaxDamage => Game.Configurations.Damage.MaxDamage;
+        private int MinDamage => Game.Configurations.Damage.MinDamage;
+        private ProcessFinishGame ProcessFinishGameStep { get; }
 
         public ProcessDamageMove(IPrimitiveGame game) : base(game)
         {
             ProcessFinishGameStep = new ProcessFinishGame(game);
         }
-
-        private ProcessFinishGame ProcessFinishGameStep { get; }
 
         /// <summary>
         ///     Execution of the damage logic.
@@ -32,8 +31,8 @@ namespace SimpleTurnBasedGame
                 return;
 
             //get players
-            var source = Game.Token.CurrentPlayer as IAttackable;
-            var target = Game.Token.GetOpponent(source as IPrimitivePlayer) as IDamageable;
+            var source = Game.TurnLogic.CurrentPlayer as IAttackable;
+            var target = Game.TurnLogic.GetOpponent(source as IPrimitivePlayer) as IDamageable;
 
             //do attack
             var damageDealt = source.DoAttack(target, GetDamage());

@@ -33,10 +33,10 @@ namespace Tools.UI.Card
             //TODO: Consider replace Instantiate by an Object Pool Pattern
             
             //pure c# card
-            //var card = Instantiate(cardPrefabCs, transform);
+            var card = Instantiate(cardPrefabCs, transform);
 
             //monobehavior components card
-            var card = Instantiate(cardPrefabSystemMb, transform);
+//            var card = Instantiate(cardPrefabSystemMb, transform);
 
             CardSelector.AddCard(card);
         }

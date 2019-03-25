@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
@@ -20,19 +21,9 @@ namespace SimpleTurnBasedGame
             if (Game.IsGameStarted) return;
 
             Game.IsGameStarted = true;
-            Game.Token.DecideStarterPlayer();
+            Game.TurnLogic.DecideStarterPlayer();
 
-            OnGamePreStarted(Game.Token.Players);
-            OnGameStarted(Game.Token.StarterPlayer);
-        }
-
-        /// <summary>
-        ///     Dispatch pre start game event to the listeners
-        /// </summary>
-        /// <param name="players"></param>
-        private void OnGamePreStarted(List<IPrimitivePlayer> players)
-        {
-            GameEvents.Instance.Notify<IPreGameStart>(i => i.OnPreGameStart(players));
+            OnGameStarted(Game.TurnLogic.StarterPlayer);
         }
 
         /// <summary>

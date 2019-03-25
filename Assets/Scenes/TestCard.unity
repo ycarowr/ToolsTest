@@ -4382,6 +4382,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   CardSelector: {fileID: 1989474355}
   <MyToggle>k__BackingField: {fileID: 0}
 --- !u!1 &1450853266
@@ -7209,7 +7219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4e6242e55c49f4196ccec629c5b6b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPrefabCs: {fileID: 0}
+  cardPrefabCs: {fileID: 4356121320777355773, guid: da89c93580533da4abe22dd655a7d0ca,
+    type: 3}
   cardPrefabSystemMb: {fileID: 713291892, guid: 7682922aafd2efd4cb72aa604064f03c,
     type: 3}
 --- !u!114 &1989474353

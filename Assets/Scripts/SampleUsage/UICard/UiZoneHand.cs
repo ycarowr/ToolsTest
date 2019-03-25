@@ -3,7 +3,7 @@
 namespace Tools.UI.Card
 {
     /// <summary>
-    ///     Player hand zone.
+    ///     GameController hand zone.
     /// </summary>
     public class UiZoneHand : UiBaseDropZone
     {

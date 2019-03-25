@@ -35,9 +35,28 @@ namespace SimpleTurnBasedGame
         IFinishGame
     {
         private const float DelayToShow = 3.5f;
-
         private UITextMeshImage UiButton { get; set; }
 
+        public interface IPressRestart
+        {
+            void PressRestart();
+        }
+
+        protected override void OnSetHandler(IButtonHandler handler)
+        {
+            if (handler is IPressRestart restart)
+                AddListener(restart.PressRestart);
+        }
+
+        private IEnumerator ShowButton()
+        {
+            yield return new WaitForSeconds(DelayToShow);
+            UiButton.Enabled = true;
+        }
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Game Events
 
         void IFinishGame.OnFinishGame(IPrimitivePlayer winner)
         {
@@ -49,9 +68,14 @@ namespace SimpleTurnBasedGame
             UiButton.Enabled = false;
         }
 
-        protected override void Awake()
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Unity callbacks
+
+        protected void Awake()
         {
-            base.Awake();
             UiButton = new UITextMeshImage(
                 GetComponentInChildren<TMP_Text>(),
                 GetComponent<Image>());
@@ -68,21 +92,8 @@ namespace SimpleTurnBasedGame
                 GameEvents.Instance.RemoveListener(this);
         }
 
-        protected override void OnSetHandler(IButtonHandler handler)
-        {
-            if (handler is IPressRestart restart)
-                AddListener(restart.PressRestart);
-        }
+        #endregion
 
-        private IEnumerator ShowButton()
-        {
-            yield return new WaitForSeconds(DelayToShow);
-            UiButton.Enabled = true;
-        }
-
-        public interface IPressRestart
-        {
-            void PressRestart();
-        }
+        //----------------------------------------------------------------------------------------------------------
     }
 }

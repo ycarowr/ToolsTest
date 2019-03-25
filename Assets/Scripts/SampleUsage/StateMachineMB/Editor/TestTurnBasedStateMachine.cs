@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
-    [CustomEditor(typeof(TurnBasedStateMachine))]
+    [CustomEditor(typeof(ExampleStateMachine.TurnBasedStateMachine))]
     public class TestTurnBasedStateMachine : Editor
     {
-        private TurnBasedStateMachine Target => target as TurnBasedStateMachine;
+        private ExampleStateMachine.TurnBasedStateMachine Target => target as ExampleStateMachine.TurnBasedStateMachine;
 
         public override void OnInspectorGUI()
         {

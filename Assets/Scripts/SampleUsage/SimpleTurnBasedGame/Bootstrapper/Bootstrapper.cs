@@ -17,16 +17,18 @@ namespace SimpleTurnBasedGame
             if (IsInitialized)
                 return;
 
-            //Create game events Singleton
+            //the order matters
+            
+            //First. Create game events Singleton
             GameEvents = Instantiate(GameEventsPrefab);
 
-            //Create game ui
+            //Second. Create game ui
             Ui = Instantiate(UIPrefab);
 
-            //Create game data Singleton
+            //Third. Create game data Singleton
             GameData = Instantiate(GameDataPrefab);
 
-            //Create game controller Singleton
+            //Fourth. Create game controller Singleton
             GameController = Instantiate(GameControllerPrefab);
 
             IsInitialized = true;

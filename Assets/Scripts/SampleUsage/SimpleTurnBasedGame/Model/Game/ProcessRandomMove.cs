@@ -6,7 +6,7 @@ namespace SimpleTurnBasedGame
     {
         public ProcessRandomMove(IPrimitiveGame game) : base(game)
         {
-            Bonus = Game.Configurations.Bonus.Value;
+            Bonus = Game.Configurations.Amount.Bonus.Value;
 
             DamagePlus = new ProcessDamagePlus(game, Bonus);
             HealPlus = new ProcessHealPlus(game, Bonus);

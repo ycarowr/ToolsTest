@@ -11,8 +11,8 @@ namespace SimpleTurnBasedGame
         {
         }
 
-        private int MaxHeal => Game.Configurations.Heal.MaxHeal;
-        private int MinHeal => Game.Configurations.Heal.MinHeal;
+        private int MaxHeal => Game.Configurations.Amount.Heal.MaxHeal;
+        private int MinHeal => Game.Configurations.Amount.Heal.MinHeal;
 
         /// <summary>
         ///     Execution of the heal logic.

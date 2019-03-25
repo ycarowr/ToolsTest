@@ -5,7 +5,7 @@ namespace SimpleTurnBasedGame
     public class UiTextButtonRandom : UiText
     {
         [SerializeField] private Configurations configurations;
-        private int Bonus => configurations.Bonus.Value;
+        private int Bonus => configurations.Amount.Bonus.Value;
 
         protected override void Awake()
         {

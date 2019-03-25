@@ -13,7 +13,7 @@ namespace SimpleTurnBasedGame
         {
             Configurations = configurations;
             Seat = seat;
-            DefaultMaxHealth = Configurations.HealthPlayers.GetHealth(seat);
+            DefaultMaxHealth = Configurations.Amount.HealthPlayers.GetHealth(seat);
             Health = DefaultMaxHealth;
         }
 

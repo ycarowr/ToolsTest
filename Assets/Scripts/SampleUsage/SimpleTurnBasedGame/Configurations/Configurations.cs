@@ -44,8 +44,8 @@ namespace SimpleTurnBasedGame
         public float AiFinishTurnDelay => Ai.AiFinishTurnDelay;
 
         //player health
-        public int HealthTopPlayer => HealthPlayers.healthTopPlayer;
-        public int HealthBottomPlayer => HealthPlayers.healthBottomPlayer;
+        public int HealthTopPlayer => Amount.HealthPlayers. healthTopPlayer;
+        public int HealthBottomPlayer => Amount.HealthPlayers.healthBottomPlayer;
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace SimpleTurnBasedGame
 
         #region Game Start
 
-        [Header("Game Start Events")] public GameStartEvents GameStart = new GameStartEvents();
+        public GameStartEvents GameStart = new GameStartEvents();
 
         [Serializable]
         public class GameStartEvents
@@ -74,7 +74,7 @@ namespace SimpleTurnBasedGame
 
         #region PlayerHandler Turn
 
-        [Header("PlayerTurn Events")] public PlayerTurnEvents PlayerTurn = new PlayerTurnEvents();
+        public PlayerTurnEvents PlayerTurn = new PlayerTurnEvents();
 
         [Serializable]
         public class PlayerTurnEvents
@@ -92,7 +92,7 @@ namespace SimpleTurnBasedGame
 
         #region AI
 
-        [Header("AI")] public AiConfigs Ai = new AiConfigs();
+        public AiConfigs Ai = new AiConfigs();
 
         [Serializable]
         public class AiConfigs
@@ -130,69 +130,75 @@ namespace SimpleTurnBasedGame
 
         //----------------------------------------------------------------------------------------------------------
 
-        #region DamagePlayers
-
-        [Header("Damage Amounts")] public DamagePlayers Damage = new DamagePlayers();
+        public Amounts Amount = new Amounts();
 
         [Serializable]
-        public class DamagePlayers
+        public class Amounts
         {
-            [Range(1, 10)] public int MaxDamage = 4;
+            #region DamagePlayers
 
-            [Range(1, 10)] public int MinDamage = 1;
-        }
+            public DamagePlayers Damage = new DamagePlayers();
 
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region HealPlayers
-
-        [Header("Heal Amounts")] public HealPlayers Heal = new HealPlayers();
-
-        [Serializable]
-        public class HealPlayers
-        {
-            [Range(1, 10)] public int MaxHeal = 4;
-
-            [Range(1, 10)] public int MinHeal = 1;
-        }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Health
-
-        [Header("Health Amounts")] public Health HealthPlayers = new Health();
-
-        [Serializable]
-        public class Health
-        {
-            [Range(1, 15)] public int healthBottomPlayer = 6;
-            [Range(1, 15)] public int healthTopPlayer = 6;
-
-            public int GetHealth(PlayerSeat seat)
+            [Serializable]
+            public class DamagePlayers
             {
-                return seat == PlayerSeat.Bottom ? healthBottomPlayer : healthTopPlayer;
+                [Range(1, 10)] public int MaxDamage = 4;
+
+                [Range(1, 10)] public int MinDamage = 1;
             }
+
+            #endregion
+
+            //----------------------------------------------------------------------------------------------------------
+
+            #region HealPlayers
+
+            public HealPlayers Heal = new HealPlayers();
+
+            [Serializable]
+            public class HealPlayers
+            {
+                [Range(1, 10)] public int MaxHeal = 4;
+
+                [Range(1, 10)] public int MinHeal = 1;
+            }
+
+            #endregion
+
+            //----------------------------------------------------------------------------------------------------------
+
+            #region Health
+
+            public Health HealthPlayers = new Health();
+
+            [Serializable]
+            public class Health
+            {
+                [Range(1, 15)] public int healthBottomPlayer = 6;
+                [Range(1, 15)] public int healthTopPlayer = 6;
+
+                public int GetHealth(PlayerSeat seat)
+                {
+                    return seat == PlayerSeat.Bottom ? healthBottomPlayer : healthTopPlayer;
+                }
+            }
+
+            #endregion
+
+            //----------------------------------------------------------------------------------------------------------
+
+            #region Bonus Random
+
+            public BonusRandom Bonus = new BonusRandom();
+
+            [Serializable]
+            public class BonusRandom
+            {
+                [Range(1, 5)] public int Value = 2;
+            }
+
+            #endregion
         }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Bonus Random
-
-        [Header("Bonus Random")] public BonusRandom Bonus = new BonusRandom();
-
-        [Serializable]
-        public class BonusRandom
-        {
-            [Range(1, 5)] public int Value = 2;
-        }
-
-        #endregion
 
         //----------------------------------------------------------------------------------------------------------
     }

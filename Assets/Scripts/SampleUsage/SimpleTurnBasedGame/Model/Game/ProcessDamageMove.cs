@@ -12,8 +12,8 @@ namespace SimpleTurnBasedGame
             ProcessFinishGameStep = new ProcessFinishGame(game);
         }
 
-        private int MaxDamage => Game.Configurations.Damage.MaxDamage;
-        private int MinDamage => Game.Configurations.Damage.MinDamage;
+        private int MaxDamage => Game.Configurations.Amount.Damage.MaxDamage;
+        private int MinDamage => Game.Configurations.Amount.Damage.MinDamage;
         private ProcessFinishGame ProcessFinishGameStep { get; }
 
         /// <summary>

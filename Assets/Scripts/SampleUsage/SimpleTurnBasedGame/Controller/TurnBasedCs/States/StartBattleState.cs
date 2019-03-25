@@ -9,27 +9,9 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         #region Constructor
 
-        public StartBattleState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) : base(fsm, gameData, configurations)
+        public StartBattleState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) : base(fsm,
+            gameData, configurations)
         {
-        }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Game Events
-
-
-        void IStartGame.OnStartGame(IPrimitivePlayer starter)
-        {
-            var nextState = Fsm.GetPlayer(starter);
-            Fsm.Handler.MonoBehaviour.StartCoroutine(NextStateRoutine(nextState));
-        }
-
-        private IEnumerator NextStateRoutine(BaseBattleState nextState)
-        {
-            yield return new WaitForSeconds(Configurations.FirstPlayer);
-            OnNextState(nextState);
         }
 
         #endregion
@@ -43,9 +25,27 @@ namespace SimpleTurnBasedGame.ControllerCs
             base.OnEnterState();
             //schedule pre game
             Fsm.Handler.MonoBehaviour.StartCoroutine(PreGameRoutine());
-            
+
             //schedule start game
             Fsm.Handler.MonoBehaviour.StartCoroutine(StartGameRoutine());
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Game Events
+
+        void IStartGame.OnStartGame(IPrimitivePlayer starter)
+        {
+            var nextState = Fsm.GetPlayer(starter);
+            Fsm.Handler.MonoBehaviour.StartCoroutine(NextStateRoutine(nextState));
+        }
+
+        private IEnumerator NextStateRoutine(BaseBattleState nextState)
+        {
+            yield return new WaitForSeconds(Configurations.FirstPlayer);
+            OnNextState(nextState);
         }
 
         #endregion

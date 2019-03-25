@@ -6,7 +6,7 @@ namespace SimpleTurnBasedGame
     {
         [SerializeField] private Configurations configurations;
 
-        private int MaxHeal=> configurations.Heal.MaxHeal;
+        private int MaxHeal => configurations.Heal.MaxHeal;
         private int MinHeal => configurations.Heal.MinHeal;
 
         protected override void Awake()

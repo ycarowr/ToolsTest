@@ -7,58 +7,40 @@ namespace Tools.UI.Card
     {
         #region Disable
 
-        [Header("Disable")] [Tooltip("How a card fades when disabled.")] [SerializeField] [Range(0.1f, 1)]
-        private float disabledAlpha;
-
-        public float DisabledAlpha
-        {
-            get => disabledAlpha;
-            set => disabledAlpha = value;
-        }
+        [field: Header("Disable")]
+        [field: Tooltip("How a card fades when disabled.")]
+        [field: SerializeField]
+        [field: Range(0.1f, 1)]
+        public float DisabledAlpha { get; set; }
 
         #endregion
 
         #region Hover
 
-        [Header("Hover")] [SerializeField] [Tooltip("How much the card will go upwards when hovered.")] [Range(0, 2)]
-        private float hoverHeight;
+        [field: Header("Hover")]
+        [field: SerializeField]
+        [field: Tooltip("How much the card will go upwards when hovered.")]
+        [field: Range(0, 2)]
+        public float HoverHeight { get; set; }
 
-        public float HoverHeight
-        {
-            get => hoverHeight;
-            set => hoverHeight = value;
-        }
+        [field: SerializeField]
+        [field: Tooltip("Whether the hovered card keep its rotation.")]
+        public bool HoverRotation { get; set; }
 
-        [SerializeField] [Tooltip("Whether the hovered card keep its rotation.")]
-        private bool hoverRotation;
-
-        public bool HoverRotation
-        {
-            get => hoverRotation;
-            set => hoverRotation = value;
-        }
-
-        [SerializeField] [Tooltip("How much a hovered card scales.")] [Range(0.9f, 2f)]
-        private float hoverScale;
-
-        public float HoverScale
-        {
-            get => hoverScale;
-            set => hoverScale = value;
-        }
+        [field: SerializeField]
+        [field: Tooltip("How much a hovered card scales.")]
+        [field: Range(0.9f, 2f)]
+        public float HoverScale { get; set; }
 
         #endregion
 
         #region Bend
 
-        [Header("Bend")] [SerializeField] [Tooltip("Height factor between two cards.")] [Range(0f, 1f)]
-        private float height;
-
-        public float Height
-        {
-            get => height;
-            set => height = value;
-        }
+        [field: Header("Bend")]
+        [field: SerializeField]
+        [field: Tooltip("Height factor between two cards.")]
+        [field: Range(0f, 1f)]
+        public float Height { get; set; }
 
         [SerializeField] [Tooltip("Amount of space between the cards on the X axis")] [Range(0f, -5f)]
         private float spacing;
@@ -69,14 +51,10 @@ namespace Tools.UI.Card
             set => spacing = -value;
         }
 
-        [SerializeField] [Tooltip("Total angle in degrees the cards will bend.")] [Range(0, 60)]
-        private float bentAngle;
-
-        public float BentAngle
-        {
-            get => bentAngle;
-            set => bentAngle = value;
-        }
+        [field: SerializeField]
+        [field: Tooltip("Total angle in degrees the cards will bend.")]
+        [field: Range(0, 60)]
+        public float BentAngle { get; set; }
 
         #endregion
     }

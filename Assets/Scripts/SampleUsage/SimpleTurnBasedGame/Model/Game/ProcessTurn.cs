@@ -12,7 +12,7 @@ namespace SimpleTurnBasedGame
     public class ProcessTurn : ITurnLogic
     {
         #region Constructor
-        
+
         public ProcessTurn(
             List<IPrimitivePlayer> players,
             PlayerSeat start = PlayerSeat.Bottom,

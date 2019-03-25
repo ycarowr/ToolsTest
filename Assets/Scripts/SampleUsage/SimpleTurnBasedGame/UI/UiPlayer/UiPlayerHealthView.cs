@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using SimpleTurnBasedGame.ControllerCs;
 
 namespace SimpleTurnBasedGame
 {
-    public class UiPlayerHealthView : UiListener, 
+    public class UiPlayerHealthView : UiListener,
         IPreGameStart,
         IDoDamage,
         IDoHeal
@@ -11,6 +10,21 @@ namespace SimpleTurnBasedGame
         private string HealthText { get; set; }
         private UiText UiText { get; set; }
         private IUiPlayer Ui { get; set; }
+
+        //----------------------------------------------------------------------------------------------------------
+
+        private void Awake()
+        {
+            Ui = GetComponentInParent<IUiPlayer>();
+            UiText = GetComponent<UiText>();
+            HealthText = Localization.Instance.Get(LocalizationIds.Health);
+        }
+
+        private void SetHealth()
+        {
+            var health = Ui.PlayerController.Player.Health;
+            UiText.SetText(HealthText + ": " + health);
+        }
 
         //----------------------------------------------------------------------------------------------------------
 
@@ -32,20 +46,5 @@ namespace SimpleTurnBasedGame
         }
 
         #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        private void Awake()
-        {
-            Ui = GetComponentInParent<IUiPlayer>();
-            UiText = GetComponent<UiText>();
-            HealthText = Localization.Instance.Get(LocalizationIds.Health);
-        }
-
-        private void SetHealth()
-        {
-            var health = Ui.PlayerController.Player.Health;
-            UiText.SetText(HealthText + ": " + health);
-        }
     }
 }

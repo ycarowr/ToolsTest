@@ -81,3 +81,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+.idea/
+Assets/Plugins/Editor/JetBrains.meta

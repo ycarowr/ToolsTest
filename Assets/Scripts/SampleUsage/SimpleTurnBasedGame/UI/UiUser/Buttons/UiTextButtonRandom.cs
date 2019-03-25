@@ -13,7 +13,7 @@ namespace SimpleTurnBasedGame
             var randomText = Localization.Instance.Get(LocalizationIds.Random);
             var moveText = Localization.Instance.Get(LocalizationIds.Move);
 
-            SetText(randomText + " " + moveText + " +"+ Bonus);
+            SetText(randomText + " " + moveText + " +" + Bonus);
         }
     }
 }

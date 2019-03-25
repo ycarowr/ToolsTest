@@ -8,6 +8,32 @@ namespace SimpleTurnBasedGame
     {
         //----------------------------------------------------------------------------------------------------------
 
+        private void Awake()
+        {
+            Text = GetComponent<TMP_Text>();
+            TimeText = Localization.Instance.Get(LocalizationIds.Time) + ":";
+        }
+
+        private void Update()
+        {
+            if (!IsBlinking)
+                return;
+
+            currentBlinkTime += Time.deltaTime;
+            if (!(currentBlinkTime >= maxBlinkTime))
+                return;
+
+            currentBlinkTime = 0;
+            Text.enabled = !Text.enabled;
+        }
+
+        private void Restart()
+        {
+            IsBlinking = false;
+            Text.enabled = false;
+        }
+        //----------------------------------------------------------------------------------------------------------
+
         #region Fields and Properties 
 
         private const float BlinkFactor = 0.1f;
@@ -18,9 +44,9 @@ namespace SimpleTurnBasedGame
         private TMP_Text Text { get; set; }
         private string TimeText { get; set; }
         private bool IsBlinking { get; set; }
-        
+
         #endregion
-        
+
         //----------------------------------------------------------------------------------------------------------
 
         #region Game Events
@@ -53,32 +79,5 @@ namespace SimpleTurnBasedGame
         }
 
         #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        private void Awake()
-        {
-            Text = GetComponent<TMP_Text>();
-            TimeText = Localization.Instance.Get(LocalizationIds.Time) + ":";
-        }
-
-        private void Update()
-        {
-            if (!IsBlinking)
-                return;
-
-            currentBlinkTime += Time.deltaTime;
-            if (!(currentBlinkTime >= maxBlinkTime))
-                return;
-
-            currentBlinkTime = 0;
-            Text.enabled = !Text.enabled;
-        }
-
-        private void Restart()
-        {
-            IsBlinking = false;
-            Text.enabled = false;
-        }
     }
 }

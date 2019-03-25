@@ -35,8 +35,6 @@ namespace Tools.UI.Card
     {
         #region Properties
 
-        [SerializeField] private UiCardParameters cardConfigsParameters;
-
         private UiCardHandFsm CardHandFsm { get; set; }
         private Transform MyTransform { get; set; }
         private Collider MyCollider { get; set; }
@@ -44,7 +42,8 @@ namespace Tools.UI.Card
         private Rigidbody MyRigidbody { get; set; }
         private IMouseInput MyInput { get; set; }
         private IUiCardSelector MyCardSelector { get; set; }
-        public UiCardParameters CardConfigsParameters => cardConfigsParameters;
+        [field: SerializeField] public UiCardParameters CardConfigsParameters { get; }
+
         SpriteRenderer[] IUiCard.Renderers => MyRenderers;
         Collider IUiCard.Collider => MyCollider;
         Rigidbody IUiCard.Rigidbody => MyRigidbody;

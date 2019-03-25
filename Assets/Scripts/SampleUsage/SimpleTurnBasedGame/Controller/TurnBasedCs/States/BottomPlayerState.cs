@@ -11,7 +11,7 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         #region Constructor
 
-        public BottomPlayerState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) : 
+        public BottomPlayerState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) :
             base(fsm, gameData, configurations)
         {
         }

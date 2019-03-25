@@ -14,6 +14,28 @@ namespace SimpleTurnBasedGame
 
         //----------------------------------------------------------------------------------------------------------
 
+        #region Unity callback 
+
+        private void Awake()
+        {
+            UserInput = GetComponent<IUiUserInput>();
+            Ui = GetComponent<IUiPlayer>();
+            var buttons = gameObject.GetComponentsInChildren<UiButton>();
+            foreach (var button in buttons)
+                button.SetHandler(this);
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
+        private void DisableInput()
+        {
+            UserInput.Disable();
+        }
+
+        //----------------------------------------------------------------------------------------------------------
+
         #region Buttons
 
         void UiButtonDamage.IPressDamage.PressDamageMove()
@@ -35,27 +57,5 @@ namespace SimpleTurnBasedGame
         }
 
         #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Unity callback 
-
-        private void Awake()
-        {
-            UserInput = GetComponent<IUiUserInput>();
-            Ui = GetComponent<IUiPlayer>();
-            var buttons = gameObject.GetComponentsInChildren<UiButton>();
-            foreach (var button in buttons)
-                button.SetHandler(this);
-        }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        private void DisableInput()
-        {
-            UserInput.Disable();
-        }
     }
 }

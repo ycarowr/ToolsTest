@@ -54,33 +54,6 @@ namespace Tools.UI
     {
         //----------------------------------------------------------------------------------------------------------
 
-        #region Delegates 
-
-        //TODO: Consider to implement Safe Invokes.
-        Action<PointerEventData> IMouseInput.OnPointerDown { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnPointerUp { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnPointerClick { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnBeginDrag { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnDrag { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnEndDrag { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnDrop { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnPointerEnter { get; set; } = eventData => { };
-        Action<PointerEventData> IMouseInput.OnPointerExit { get; set; } = eventData => { };
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Properties and Fields
-
-        private Vector3 oldDragPosition;
-        DragDirection IMouseInput.DragDirection => GetDragDirection();
-        Vector2 IMouseInput.MousePosition => Input.mousePosition;
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
         #region Unity Callbacks
 
         private void Awake()
@@ -117,6 +90,33 @@ namespace Tools.UI
 
             return normalized.y < 0 ? DragDirection.Down : DragDirection.None;
         }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Delegates 
+
+        //TODO: Consider to implement Safe Invokes.
+        Action<PointerEventData> IMouseInput.OnPointerDown { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnPointerUp { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnPointerClick { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnBeginDrag { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnDrag { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnEndDrag { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnDrop { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnPointerEnter { get; set; } = eventData => { };
+        Action<PointerEventData> IMouseInput.OnPointerExit { get; set; } = eventData => { };
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Properties and Fields
+
+        private Vector3 oldDragPosition;
+        DragDirection IMouseInput.DragDirection => GetDragDirection();
+        Vector2 IMouseInput.MousePosition => Input.mousePosition;
 
         #endregion
 

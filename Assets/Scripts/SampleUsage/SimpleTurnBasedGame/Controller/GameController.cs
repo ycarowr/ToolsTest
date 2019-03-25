@@ -1,5 +1,4 @@
 ﻿using Patterns;
-using Patterns.StateMachine;
 using UnityEngine;
 
 namespace SimpleTurnBasedGame.ControllerCs
@@ -7,19 +6,19 @@ namespace SimpleTurnBasedGame.ControllerCs
     /// <summary>
     ///     Main Controller. Holds the FSM which controls the game flow. Also provides access to the players controllers.
     /// </summary>
-    public class GameController : SingletonMB<GameController>, IStateMachineHandler, IGameController, IGameDataHandler
+    public class GameController : SingletonMB<GameController>, IGameController
     {
         [SerializeField] private Configurations configurations;
-        
+
         //----------------------------------------------------------------------------------------------------------
 
         #region Properties
 
         /// <summary>
-        /// All game data. Access via Singleton Pattern.
+        ///     All game data. Access via Singleton Pattern.
         /// </summary>
         public IGameData Data => GameData.Instance;
-        
+
         /// <summary>
         ///     State machine that holds the game logic.
         /// </summary>
@@ -54,7 +53,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         #region Operations
 
         /// <summary>
-        /// Provides access to players controllers according to the player seat.
+        ///     Provides access to players controllers according to the player seat.
         /// </summary>
         /// <param name="seat"></param>
         /// <returns></returns>
@@ -64,7 +63,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         }
 
         /// <summary>
-        /// Start Battle. Called by the bootstrapper only during the first launch of the game.
+        ///     Start Battle. Called by the bootstrapper only during the first launch of the game.
         /// </summary>
         [Button]
         public void StartBattle()

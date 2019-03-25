@@ -1,12 +1,12 @@
-﻿using Patterns;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Patterns;
 using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
     /// <summary>
-    /// All classes dependent of the game data.
+    ///     All classes dependent of the game data.
     /// </summary>
     public interface IGameDataHandler
     {
@@ -14,7 +14,7 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Game data public interface
+    ///     Game data public interface
     /// </summary>
     public interface IGameData
     {
@@ -25,7 +25,7 @@ namespace SimpleTurnBasedGame
     }
 
     /// <summary>
-    /// Game data concrete implementation with Singleton Pattern.
+    ///     Game data concrete implementation with Singleton Pattern.
     /// </summary>
     public class GameData : SingletonMB<GameData>, IGameData
     {
@@ -67,7 +67,7 @@ namespace SimpleTurnBasedGame
         #region Operations
 
         /// <summary>
-        /// Clears the game data.
+        ///     Clears the game data.
         /// </summary>
         public void Clear()
         {
@@ -75,7 +75,7 @@ namespace SimpleTurnBasedGame
         }
 
         /// <summary>
-        /// Create a new game data overriding the previous one. Produces Garbage.
+        ///     Create a new game data overriding the previous one. Produces Garbage.
         /// </summary>
         public void CreateGame()
         {

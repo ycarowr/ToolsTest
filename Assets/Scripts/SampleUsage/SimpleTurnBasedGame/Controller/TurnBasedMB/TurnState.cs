@@ -79,7 +79,7 @@ namespace SimpleTurnBasedGame.ControllerMB
             if (TimeOutRoutine != null)
                 StopCoroutine(TimeOutRoutine);
             else
-                yield return new WaitForSeconds(0);//ProcessTick.TimeOut);
+                yield return new WaitForSeconds(0); //ProcessTick.TimeOut);
 
             TryPassTurn();
         }
@@ -138,7 +138,7 @@ namespace SimpleTurnBasedGame.ControllerMB
         /// <returns></returns>
         protected virtual IEnumerator StartTurn()
         {
-            yield return new WaitForSeconds(0);//ProcessTick.StartTurnDelay);
+            yield return new WaitForSeconds(0); //ProcessTick.StartTurnDelay);
             GameData.RuntimeGame.StartCurrentPlayerTurn();
 
             //setup tick routine

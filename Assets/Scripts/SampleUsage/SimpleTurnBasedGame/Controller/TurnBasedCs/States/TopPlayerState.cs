@@ -8,7 +8,8 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         #region Constructor
 
-        public TopPlayerState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) : base(fsm, gameData, configurations)
+        public TopPlayerState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) : base(fsm, gameData,
+            configurations)
         {
         }
 
@@ -17,7 +18,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         //----------------------------------------------------------------------------------------------------------
 
         #region Properties
-            
+
         public override PlayerSeat Seat => PlayerSeat.Top;
         public override bool IsAi => Configurations.TopIsAi;
         public override AiArchetype AiArchetype => Configurations.TopAiArchetype;

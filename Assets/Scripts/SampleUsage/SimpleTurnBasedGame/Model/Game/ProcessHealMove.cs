@@ -7,12 +7,12 @@ namespace SimpleTurnBasedGame
     /// </summary>
     public class ProcessHealMove : ProcessBase
     {
-        private int MaxHeal => Game.Configurations.Heal.MaxHeal;
-        private int MinHeal => Game.Configurations.Heal.MinHeal;
-
         public ProcessHealMove(IPrimitiveGame game) : base(game)
         {
         }
+
+        private int MaxHeal => Game.Configurations.Heal.MaxHeal;
+        private int MinHeal => Game.Configurations.Heal.MinHeal;
 
         /// <summary>
         ///     Execution of the heal logic.

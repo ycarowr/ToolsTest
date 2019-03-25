@@ -13,21 +13,6 @@ namespace SimpleTurnBasedGame.AI
     {
         //----------------------------------------------------------------------------------------------------------
 
-        #region Properties and Fields 
-
-        /// <summary>
-        ///     Register with all the AiConfigs submodules.
-        /// </summary>
-        private readonly Dictionary<AiArchetype, AiBase> subModules = new Dictionary<AiArchetype, AiBase>();
-        
-        /// <summary>
-        ///     AiConfigs that is current operating.
-        /// </summary>
-        private AiArchetype CurrentAi { get; set; }
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
         #region Constructor
 
         public AiModule(IPrimitivePlayer player, IPrimitiveGame game)
@@ -78,7 +63,24 @@ namespace SimpleTurnBasedGame.AI
 
         //----------------------------------------------------------------------------------------------------------
 
+        #region Properties and Fields 
+
+        /// <summary>
+        ///     Register with all the AiConfigs submodules.
+        /// </summary>
+        private readonly Dictionary<AiArchetype, AiBase> subModules = new Dictionary<AiArchetype, AiBase>();
+
+        /// <summary>
+        ///     AiConfigs that is current operating.
+        /// </summary>
+        private AiArchetype CurrentAi { get; set; }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
         #region Operations 
+
         /// <summary>
         ///     Returns the best move according to the current ai submodule.
         /// </summary>

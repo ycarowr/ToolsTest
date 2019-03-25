@@ -5,13 +5,12 @@
     /// </summary>
     public class ProcessTick : ProcessBase
     {
-        private float TimeOutTurn => Game.Configurations.TimeOutTurn;
-        private float TimeStartTurn => Game.Configurations.TimeStartTurn;
-
         public ProcessTick(IPrimitiveGame game) : base(game)
         {
-
         }
+
+        private float TimeOutTurn => Game.Configurations.TimeOutTurn;
+        private float TimeStartTurn => Game.Configurations.TimeStartTurn;
 
         /// <summary>
         ///     Execution of the tick logic.
@@ -29,7 +28,7 @@
 
             Game.TurnTime++;
             Game.TotalTime++;
-            var reverseTime = (int)(TimeOutTurn - 1 - Game.TurnTime - TimeStartTurn);
+            var reverseTime = (int) (TimeOutTurn - 1 - Game.TurnTime - TimeStartTurn);
             OnTickTime(reverseTime, Game.TurnLogic.CurrentPlayer);
         }
 

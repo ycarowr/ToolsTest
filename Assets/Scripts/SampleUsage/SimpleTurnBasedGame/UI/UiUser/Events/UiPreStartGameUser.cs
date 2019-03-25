@@ -11,6 +11,7 @@ namespace SimpleTurnBasedGame
         private IUiPlayer Ui { get; set; }
 
         //----------------------------------------------------------------------------------------------------------
+
         #region Game Events
 
         void IPreGameStart.OnPreGameStart(List<IPrimitivePlayer> players)

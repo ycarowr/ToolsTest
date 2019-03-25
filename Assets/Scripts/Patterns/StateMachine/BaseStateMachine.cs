@@ -68,7 +68,7 @@ namespace Patterns.StateMachine
         /// <param name="state"></param>
         public void RegisterState(IState state)
         {
-            if(state == null)
+            if (state == null)
                 throw new ArgumentNullException("Null is not a valid state");
 
             var type = state.GetType();
@@ -203,7 +203,7 @@ namespace Patterns.StateMachine
         }
 
         /// <summary>
-        /// Clears and restart the states register;
+        ///     Clears and restart the states register;
         /// </summary>
         public virtual void Clear()
         {
@@ -217,6 +217,5 @@ namespace Patterns.StateMachine
         #endregion
 
         //----------------------------------------------------------------------------------------------------------
-
     }
 }

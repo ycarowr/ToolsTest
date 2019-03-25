@@ -1,5 +1,4 @@
 ﻿using Patterns.StateMachine;
-using UnityEngine;
 
 namespace Tools.UI.Card
 {
@@ -65,32 +64,26 @@ namespace Tools.UI.Card
 
         void IState.OnInitialize()
         {
-
         }
 
         public virtual void OnEnterState()
         {
-
         }
 
         public virtual void OnExitState()
         {
-
         }
 
         public virtual void OnUpdate()
         {
-
         }
 
         public virtual void OnNextState(IState next)
         {
-            
         }
 
         public virtual void OnClear()
         {
-
         }
 
         #endregion

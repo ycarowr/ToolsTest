@@ -19,7 +19,7 @@ namespace SimpleTurnBasedGame
     }
 
     //----------------------------------------------------------------------------------------------------------
-    
+
     #region Game Events Declaration
 
     /// <summary>
@@ -85,8 +85,8 @@ namespace SimpleTurnBasedGame
     {
         void OnTickTime(int time, IPrimitivePlayer player);
     }
-    
+
     #endregion
-    
+
     //----------------------------------------------------------------------------------------------------------
 }

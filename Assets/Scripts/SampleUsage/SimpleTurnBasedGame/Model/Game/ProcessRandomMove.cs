@@ -4,10 +4,6 @@ namespace SimpleTurnBasedGame
 {
     public class ProcessRandomMove : ProcessBase
     {
-        public int Bonus { get; }
-        private ProcessDamagePlus DamagePlus { get; }
-        private ProcessHealPlus HealPlus { get; }
-
         public ProcessRandomMove(IPrimitiveGame game) : base(game)
         {
             Bonus = Game.Configurations.Bonus.Value;
@@ -15,6 +11,10 @@ namespace SimpleTurnBasedGame
             DamagePlus = new ProcessDamagePlus(game, Bonus);
             HealPlus = new ProcessHealPlus(game, Bonus);
         }
+
+        public int Bonus { get; }
+        private ProcessDamagePlus DamagePlus { get; }
+        private ProcessHealPlus HealPlus { get; }
 
         public void Execute()
         {
@@ -33,12 +33,12 @@ namespace SimpleTurnBasedGame
 
         private class ProcessDamagePlus : ProcessDamageMove
         {
-            private int Bonus { get; }
-
             public ProcessDamagePlus(IPrimitiveGame game, int bonus) : base(game)
             {
                 Bonus = bonus;
             }
+
+            private int Bonus { get; }
 
             protected override int GetDamage()
             {
@@ -48,11 +48,11 @@ namespace SimpleTurnBasedGame
 
         private class ProcessHealPlus : ProcessHealMove
         {
-            private int Bonus { get; }
-
             public ProcessHealPlus(IPrimitiveGame game, int bonus) : base(game)
             {
             }
+
+            private int Bonus { get; }
 
             protected override int GetHeal()
             {

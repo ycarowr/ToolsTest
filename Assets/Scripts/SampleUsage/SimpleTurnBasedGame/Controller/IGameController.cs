@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
-    public interface IGameController : IStateMachineHandler
+    public interface IGameController : IStateMachineHandler, IGameDataHandler
     {
         MonoBehaviour MonoBehaviour { get; }
         IPlayerTurn GetPlayerController(PlayerSeat seat);

@@ -9,7 +9,8 @@
 
         #region Constructor
 
-        public EndBattleState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) : base(fsm, gameData, configurations)
+        public EndBattleState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) : base(fsm, gameData,
+            configurations)
         {
         }
 

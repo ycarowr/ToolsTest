@@ -6,7 +6,7 @@
         bool IsUser { get; }
         bool IsMyTurn { get; }
         PlayerSeat Seat { get; }
-        bool ProcessMove(MoveType move);
         IPrimitivePlayer Player { get; }
+        bool ProcessMove(MoveType move);
     }
 }

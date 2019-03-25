@@ -26,6 +26,22 @@ namespace Tools.UI.Card
         public bool IsDragging => IsCurrent<UiCardDragMB>();
         public bool IsHovering => IsCurrent<UiCardHoverMB>();
 
+        #region Unity Callbacks
+
+        protected override void Start()
+        {
+            base.Start();
+
+            MyTransform = transform;
+            MyCollider = GetComponent<Collider>();
+            MyRigidbody = GetComponent<Rigidbody>();
+            MyInput = GetComponent<IMouseInput>();
+            MyCardSelector = GetComponentInParent<IUiCardSelector>();
+            MyRenderers = GetComponentsInChildren<SpriteRenderer>();
+        }
+
+        #endregion
+
 
         #region Operations
 
@@ -61,22 +77,6 @@ namespace Tools.UI.Card
             MyCardSelector.UnselectCard(this);
         }
 
-        #endregion
-
-        #region Unity Callbacks
-
-        protected override void Start()
-        {
-            base.Start();
-
-            MyTransform = transform;
-            MyCollider = GetComponent<Collider>();
-            MyRigidbody = GetComponent<Rigidbody>();
-            MyInput = GetComponent<IMouseInput>();
-            MyCardSelector = GetComponentInParent<IUiCardSelector>();
-            MyRenderers = GetComponentsInChildren<SpriteRenderer>();
-        }
-        
         #endregion
     }
 }

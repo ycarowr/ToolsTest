@@ -7,14 +7,14 @@ namespace SimpleTurnBasedGame
     /// </summary>
     public class ProcessDamageMove : ProcessBase
     {
-        private int MaxDamage => Game.Configurations.Damage.MaxDamage;
-        private int MinDamage => Game.Configurations.Damage.MinDamage;
-        private ProcessFinishGame ProcessFinishGameStep { get; }
-
         public ProcessDamageMove(IPrimitiveGame game) : base(game)
         {
             ProcessFinishGameStep = new ProcessFinishGame(game);
         }
+
+        private int MaxDamage => Game.Configurations.Damage.MaxDamage;
+        private int MinDamage => Game.Configurations.Damage.MinDamage;
+        private ProcessFinishGame ProcessFinishGameStep { get; }
 
         /// <summary>
         ///     Execution of the damage logic.

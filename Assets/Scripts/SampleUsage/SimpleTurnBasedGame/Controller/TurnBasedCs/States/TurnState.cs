@@ -10,7 +10,8 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         #region Constructor
 
-        protected TurnState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) : base(fsm, gameData, configurations)
+        protected TurnState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) : base(fsm, gameData,
+            configurations)
         {
             var game = GameData.RuntimeGame;
 
@@ -36,7 +37,7 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         protected Coroutine TimeOutRoutine { get; set; }
         protected Coroutine TickRoutine { get; set; }
-        
+
         #endregion
 
         //----------------------------------------------------------------------------------------------------------
@@ -59,6 +60,7 @@ namespace SimpleTurnBasedGame.ControllerCs
             var nextState = Fsm.GetPlayer(nextPlayer);
             OnNextState(nextState);
         }
+
         #endregion
 
         //----------------------------------------------------------------------------------------------------------
@@ -103,6 +105,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         }
 
         #region Player Moves
+
         /// <summary>
         ///     Processes a move based on its Type.
         /// </summary>
@@ -122,7 +125,7 @@ namespace SimpleTurnBasedGame.ControllerCs
                     throw new ArgumentOutOfRangeException(nameof(move), move, null);
             }
         }
-        
+
         /// <summary>
         ///     Check if the player can pass the turn and passes the turn to the next player.
         /// </summary>
@@ -184,7 +187,7 @@ namespace SimpleTurnBasedGame.ControllerCs
                 GameData.RuntimeGame.Tick();
             }
         }
-        
+
         /// <summary>
         ///     Finishes the player turn.
         /// </summary>

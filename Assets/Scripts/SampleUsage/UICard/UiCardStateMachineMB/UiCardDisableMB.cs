@@ -7,8 +7,7 @@ namespace Tools.UI.Card
     /// </summary>
     public class UiCardDisableMB : UiBaseCardStateMB
     {
-        [SerializeField]
-        [Tooltip("Configurations for Disabled State.")]
+        [SerializeField] [Tooltip("Configurations for Disabled State.")]
         private UiCardParameters configParameters;
 
         public override void OnEnterState()

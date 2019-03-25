@@ -7,6 +7,7 @@ namespace Tools.UI.Card
     {
         [SerializeField] [Tooltip("Configurations for Hover State.")]
         private UiCardParameters configParameters;
+
         private Vector3 StartPosition { get; set; }
         private Quaternion StartRotation { get; set; }
         private Vector3 StartScale { get; set; }

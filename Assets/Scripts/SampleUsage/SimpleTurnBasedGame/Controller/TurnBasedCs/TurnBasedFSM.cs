@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Patterns.StateMachine;
-using UnityEngine;
 
 namespace SimpleTurnBasedGame.ControllerCs
 {
@@ -17,12 +16,12 @@ namespace SimpleTurnBasedGame.ControllerCs
             new Dictionary<IPrimitivePlayer, TurnState>();
 
         /// <summary>
-        /// All Game Data.
+        ///     All Game Data.
         /// </summary>
         private IGameData GameData { get; }
-        
+
         /// <summary>
-        /// MonoBehavior which holds this FSM.
+        ///     MonoBehavior which holds this FSM.
         /// </summary>
         public new IGameController Handler { get; set; }
 
@@ -51,7 +50,7 @@ namespace SimpleTurnBasedGame.ControllerCs
             var top = new TopPlayerState(this, GameData, Configurations);
             var start = new StartBattleState(this, GameData, Configurations);
             var end = new EndBattleState(this, GameData, Configurations);
-            
+
             //register all states
             RegisterState(bottom);
             RegisterState(top);
@@ -142,7 +141,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         }
 
         /// <summary>
-        /// Clears the state machine completely.
+        ///     Clears the state machine completely.
         /// </summary>
         public override void Clear()
         {

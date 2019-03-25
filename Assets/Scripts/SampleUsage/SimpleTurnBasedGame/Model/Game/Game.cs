@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 namespace SimpleTurnBasedGame
 {
@@ -41,7 +40,7 @@ namespace SimpleTurnBasedGame
         public int TurnTime { get; set; }
         public int TotalTime { get; set; }
         public Configurations Configurations { get; }
-        
+
         #region Processes
 
         private ProcessTurn ProcessTurn { get; }

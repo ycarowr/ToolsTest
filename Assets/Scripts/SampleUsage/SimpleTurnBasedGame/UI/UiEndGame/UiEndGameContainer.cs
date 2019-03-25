@@ -12,12 +12,39 @@ namespace SimpleTurnBasedGame
     ///     End game HUD. Solves model dependencies accessing the game controller via Singleton.
     /// </summary>
     [RequireComponent(typeof(IUiUserInput))]
-    public class UiEndGameContainer : UiListener, 
+    public class UiEndGameContainer : UiListener,
         IRestartGameHandler,
         IFinishGame,
         IStartGame,
         IUiController
     {
+        //----------------------------------------------------------------------------------------------------------
+
+        void IRestartGameHandler.RestartGame()
+        {
+            GameController.RestartGameImmediately();
+        }
+
+        //----------------------------------------------------------------------------------------------------------
+
+        #region Unity Callbacks
+
+        private void Awake()
+        {
+            //user input
+            UserInput = gameObject.AddComponent<UiUserInput>();
+
+            //HUD end game
+            gameObject.AddComponent<UiButtonsEndGame>();
+        }
+
+        #endregion
+
+        private IEnumerator EnableInput()
+        {
+            yield return new WaitForSeconds(DelayToEnable);
+            UserInput.Enable();
+        }
         //----------------------------------------------------------------------------------------------------------
 
         #region Properties
@@ -43,33 +70,5 @@ namespace SimpleTurnBasedGame
         }
 
         #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Unity Callbacks
-
-        private void Awake()
-        {
-            //user input
-            UserInput = gameObject.AddComponent<UiUserInput>();
-
-            //HUD end game
-            gameObject.AddComponent<UiButtonsEndGame>();
-        }
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        void IRestartGameHandler.RestartGame()
-        {
-            GameController.RestartGameImmediately();
-        }
-
-        private IEnumerator EnableInput()
-        {
-            yield return new WaitForSeconds(DelayToEnable);
-            UserInput.Enable();
-        }
     }
 }

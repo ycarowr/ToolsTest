@@ -31,7 +31,7 @@ namespace Tools.UI.Card
         public void DrawCard()
         {
             //TODO: Consider replace Instantiate by an Object Pool Pattern
-            
+
             //pure c# card
             var card = Instantiate(cardPrefabCs, transform);
 

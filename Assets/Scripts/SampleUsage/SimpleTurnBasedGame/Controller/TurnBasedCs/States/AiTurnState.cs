@@ -8,6 +8,18 @@ namespace SimpleTurnBasedGame.ControllerCs
     {
         //----------------------------------------------------------------------------------------------------------
 
+        #region Constructor
+
+        public AiTurnState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) : base(fsm, gameData,
+            configurations)
+        {
+            AiModule = new AiModule(Player, GameData.RuntimeGame);
+        }
+
+        #endregion
+
+        //----------------------------------------------------------------------------------------------------------
+
         #region Properties
 
         private Coroutine AiFinishTurnRoutine { get; set; }
@@ -15,17 +27,6 @@ namespace SimpleTurnBasedGame.ControllerCs
         public virtual AiArchetype AiArchetype { get; }
         private float AiFinishTurnDelay => Configurations.AiFinishTurnDelay;
         private float AiDoTurnDelay => Configurations.AiDoTurnDelay;
-
-        #endregion
-
-        //----------------------------------------------------------------------------------------------------------
-
-        #region Constructor
-
-        public AiTurnState(TurnBasedFSM fsm, IGameData gameData, Configurations configurations) : base(fsm, gameData, configurations)
-        {
-            AiModule = new AiModule(Player, GameData.RuntimeGame);
-        }
 
         #endregion
 

@@ -12,7 +12,7 @@ namespace SimpleTurnBasedGame.ControllerMB
         [SerializeField] private AiArchetype aiArchetype;
 
         [Tooltip("Whether this player is AI or not.")] [SerializeField]
-        private bool isAi = false;
+        private bool isAi;
 
         private Coroutine AiFinishTurnRoutine { get; set; }
         private AiModule AiModule { get; set; }

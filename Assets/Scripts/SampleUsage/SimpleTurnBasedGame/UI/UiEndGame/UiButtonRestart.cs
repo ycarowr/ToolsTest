@@ -37,11 +37,6 @@ namespace SimpleTurnBasedGame
         private const float DelayToShow = 3.5f;
         private UITextMeshImage UiButton { get; set; }
 
-        public interface IPressRestart
-        {
-            void PressRestart();
-        }
-
         protected override void OnSetHandler(IButtonHandler handler)
         {
             if (handler is IPressRestart restart)
@@ -52,6 +47,11 @@ namespace SimpleTurnBasedGame
         {
             yield return new WaitForSeconds(DelayToShow);
             UiButton.Enabled = true;
+        }
+
+        public interface IPressRestart
+        {
+            void PressRestart();
         }
 
         //----------------------------------------------------------------------------------------------------------

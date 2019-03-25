@@ -28,6 +28,7 @@ namespace SimpleTurnBasedGame.ControllerCs
         //----------------------------------------------------------------------------------------------------------
 
         #region Properties
+
         protected Configurations Configurations { get; }
         protected IGameData GameData { get; }
         public TurnBasedFSM Fsm { get; set; }

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace Patterns
 {
+    //--------------------------------------------------------------------------------------------------------------
+
+    #region Interfaces 
+
     /// <summary>
     ///     All classes that are listened by IListener.
     /// </summary>
@@ -16,6 +20,10 @@ namespace Patterns
     public interface IListener
     {
     }
+
+    #endregion
+
+    //--------------------------------------------------------------------------------------------------------------
 
     //TODO: Consider a refactor to adapt the implementation using an Attribute instead only 
     //TODO: Interfaces, because mid level interfaces cause a duplicated register as [Key, Listener].
@@ -33,6 +41,10 @@ namespace Patterns
     /// </summary>
     public class Observer<T> : SingletonMB<Observer<T>>
     {
+        //--------------------------------------------------------------------------------------------------------------
+
+        #region Fields
+
         /// <summary>
         ///     This is the Subject-Listener register. It supports both, Monobehaviors and
         ///     Pure C# classes that implement ISubject and IListener interfaces.
@@ -40,6 +52,11 @@ namespace Patterns
         private readonly Dictionary<Type, List<IListener>>
             register = new Dictionary<Type, List<IListener>>();
 
+        #endregion
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        #region Operations 
 
         /// <summary>
         ///     Register a listener as well as its implemented interfaces subjects.
@@ -133,5 +150,10 @@ namespace Patterns
             else
                 register.Add(subject, new List<IListener> {listener});
         }
+
+        #endregion
+
+        //--------------------------------------------------------------------------------------------------------------
+
     }
 }

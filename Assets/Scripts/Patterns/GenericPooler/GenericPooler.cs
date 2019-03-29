@@ -5,11 +5,18 @@ namespace Patterns
 {
     public class GenericPooler<T> where T : class, IPoolableObject, new()
     {
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Fields
+        
         private readonly List<T> busyObjects = new List<T>();
-
-        //lists that control the pool
         private readonly List<T> freeObjects = new List<T>();
 
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Constructor
         /// <summary>
         ///     Constructor, you must have to specify the starting size of the pool
         /// </summary>
@@ -25,13 +32,23 @@ namespace Patterns
                 freeObjects.Add(obj);
             }
         }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
+        #region Exceptions
+        
         public class GenericPoolerArgumentException : ArgumentException
         {
             public GenericPoolerArgumentException(string message) : base(message)
             {
             }
         }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         #region Utility
 
@@ -44,6 +61,8 @@ namespace Patterns
         public Type PoolType => typeof(T);
 
         #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         #region Operations
 
@@ -93,5 +112,7 @@ namespace Patterns
         }
 
         #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

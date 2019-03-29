@@ -6,14 +6,20 @@ namespace Tools.UI.Card
     [RequireComponent(typeof(UiCardSelector))]
     public class UiCardSorter : MonoBehaviour
     {
+        //--------------------------------------------------------------------------------------------------------------
+        
         private const int OffsetZ = -1;
         private UiCardSelector CardSelector { get; set; }
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         private void Awake()
         {
             CardSelector = GetComponent<UiCardSelector>();
             CardSelector.OnHandChanged += Sort;
         }
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         public void Sort(IUiCard[] cards)
         {
@@ -29,5 +35,7 @@ namespace Tools.UI.Card
                 layerZ += OffsetZ;
             }
         }
+        
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

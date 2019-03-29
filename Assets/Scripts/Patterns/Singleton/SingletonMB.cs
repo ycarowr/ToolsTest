@@ -14,6 +14,10 @@ namespace Patterns
     /// <typeparam name="T"></typeparam>
     public class SingletonMB<T> : MonoBehaviour where T : class
     {
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Fields
+        
         //multi thread locker
         private static readonly object locker = new object();
 
@@ -27,6 +31,12 @@ namespace Patterns
 
         //singleton generic instance
         public static T Instance { get; private set; }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Initialization
 
         protected virtual void Awake()
         {
@@ -54,6 +64,10 @@ namespace Patterns
 
             OnAwake();
         }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         /// <summary>
         ///     Override this call instead using Awake.
@@ -91,11 +105,20 @@ namespace Patterns
             }
         }
 
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Exceptions
+        
         public class SingletonMBException : Exception
         {
             public SingletonMBException(string message) : base(message)
             {
             }
         }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

@@ -7,21 +7,30 @@ namespace Tools.UI.Card
     /// </summary>
     public abstract class UiBaseCardState : IState
     {
-        protected const int LayerToRenderNormal = 0;
-        protected const int LayerToRenderFirst = 1;
+        private const int LayerToRenderNormal = 0;
+        private const int LayerToRenderFirst = 1;        
+        protected IUiCard Handler { get; }
+        protected UiCardParameters Parameters { get; }
+        protected BaseStateMachine Fsm { get; }
+        public bool IsInitialized { get; }
 
-        protected UiBaseCardState(IUiCard handler, UiCardParameters parameters)
+        //--------------------------------------------------------------------------------------------------------------
+
+        #region Constructor
+
+        protected UiBaseCardState(IUiCard handler, BaseStateMachine fsm,  UiCardParameters parameters)
         {
+            Fsm = fsm;
             Handler = handler;
             Parameters = parameters;
             IsInitialized = true;
         }
+        
+        #endregion
 
-        protected IUiCard Handler { get; }
-        protected UiCardParameters Parameters { get; }
-        public BaseStateMachine Fsm { get; set; }
-        public bool IsInitialized { get; }
-
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Operations
 
         /// <summary>
         ///     Renders the textures in the first layer. Each card state is responsible to handle its own layer activity.
@@ -59,6 +68,10 @@ namespace Tools.UI.Card
                 renderer.color = myColor;
             }
         }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         #region FSM
 
@@ -87,5 +100,7 @@ namespace Tools.UI.Card
         }
 
         #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

@@ -3,34 +3,30 @@ using UnityEngine;
 
 namespace Tools.UI.Card
 {
-    // Nice configs to start are:
-    // spacing = -2
-    // CardWidth = 6
-    // pivot pos = (0, -10, 0)
-    // percTwistedAngleAddYPos = 0.12
-    // BentAngle = 20
-
     /// <summary>
     ///     Class responsible to bend the cards in the player hand.
     /// </summary>
     [RequireComponent(typeof(UiCardSelector))]
     public class UiCardBender : MonoBehaviour
     {
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Fields and Properties
+        
         [SerializeField] private UiCardParameters cardConfigParameters;
-
         [SerializeField] [Tooltip("The Card Prefab")]
         private UiCardHandSystemMB CardPrefab;
-
         [SerializeField] [Tooltip("Transform used as anchor to position the cards.")]
         private Transform pivot;
-
         private SpriteRenderer CardRenderer { get; set; }
-
         private float CardWidth => CardRenderer.bounds.size.x;
-
         private UiCardSelector CardSelector { get; set; }
 
+        #endregion
 
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Unitycallbacks
         private void Awake()
         {
             CardSelector = GetComponent<UiCardSelector>();
@@ -42,7 +38,13 @@ namespace Tools.UI.Card
         {
             Bend(CardSelector.Cards.ToArray());
         }
+        
+        #endregion
 
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Operations
+        
         private void Bend(IUiCard[] cards)
         {
             if (cards == null)
@@ -104,5 +106,9 @@ namespace Tools.UI.Card
             var widthSpacing = (quantityOfCards - 1) * cardConfigParameters.Spacing;
             return widthCards + widthSpacing;
         }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

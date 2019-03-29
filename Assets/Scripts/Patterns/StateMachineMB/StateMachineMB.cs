@@ -13,6 +13,10 @@ namespace Patterns.StateMachineMB
     /// <typeparam name="T"></typeparam>
     public abstract class StateMachineMB<T> : MonoBehaviour where T : MonoBehaviour
     {
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Fields and Properties
+        
         //Push-Pop stack of States of this Type of Finite state Machine
         private readonly Stack<StateMB<T>> stack = new Stack<StateMB<T>>();
 
@@ -21,7 +25,12 @@ namespace Patterns.StateMachineMB
         public bool EnableLogs = true;
         public bool IsInitialized { get; private set; }
 
-
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Initialization
+        
         /// <summary>
         ///     Register all the states
         /// </summary>
@@ -61,14 +70,9 @@ namespace Patterns.StateMachineMB
         {
         }
 
-        private void Log(string log, string colorName = "black")
-        {
-            if (EnableLogs)
-            {
-                log = string.Format("[" + GetType() + "]: <color={0}><b>" + log + "</b></color>", colorName);
-                Debug.Log(log);
-            }
-        }
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         #region Unity Callbacks
 
@@ -109,6 +113,8 @@ namespace Patterns.StateMachineMB
         }
 
         #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         # region Operations
 
@@ -209,5 +215,18 @@ namespace Patterns.StateMachineMB
         }
 
         #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
+        private void Log(string log, string colorName = "black")
+        {
+            if (EnableLogs)
+            {
+                log = string.Format("[" + GetType() + "]: <color={0}><b>" + log + "</b></color>", colorName);
+                Debug.Log(log);
+            }
+        }
+        
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

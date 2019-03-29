@@ -8,15 +8,19 @@ namespace Tools.UI.Card
     /// </summary>
     public class UiCardHandFsm : BaseStateMachine
     {
+        //--------------------------------------------------------------------------------------------------------------
+
+        #region Constructor
+        
         public UiCardHandFsm(Camera camera, UiCardParameters cardConfigsParameters, IUiCard handler = null) :
             base(handler)
         {
             CardConfigsParameters = cardConfigsParameters;
 
-            IdleState = new UiCardIdle(handler, CardConfigsParameters);
-            DisableState = new UiCardDisable(handler, CardConfigsParameters);
-            DragState = new UiCardDrag(handler, camera, CardConfigsParameters);
-            HoverState = new UiCardHover(handler, CardConfigsParameters);
+            IdleState = new UiCardIdle(handler, this, CardConfigsParameters);
+            DisableState = new UiCardDisable(handler, this, CardConfigsParameters);
+            DragState = new UiCardDrag(handler, camera, this, CardConfigsParameters);
+            HoverState = new UiCardHover(handler, this, CardConfigsParameters);
 
             RegisterState(IdleState);
             RegisterState(DisableState);
@@ -25,14 +29,24 @@ namespace Tools.UI.Card
 
             Initialize();
         }
+        
+        #endregion
 
-        private UiCardParameters CardConfigsParameters { get; }
-
-        //states
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Properties
+        
         private UiCardIdle IdleState { get; }
         private UiCardDisable DisableState { get; }
         private UiCardDrag DragState { get; }
         private UiCardHover HoverState { get; }
+        private UiCardParameters CardConfigsParameters { get; }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Operations
 
         public void Hover()
         {
@@ -58,5 +72,9 @@ namespace Tools.UI.Card
         {
             Enable();
         }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

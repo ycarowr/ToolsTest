@@ -1,12 +1,15 @@
 ﻿using System;
 using Extensions;
+using Patterns.StateMachine;
 using UnityEngine;
 
 namespace Tools.UI.Card
 {
     public class UiCardDrag : UiBaseCardState
     {
-        public UiCardDrag(IUiCard handler, Camera camera, UiCardParameters parameters) : base(handler, parameters)
+        //--------------------------------------------------------------------------------------------------------------
+        
+        public UiCardDrag(IUiCard handler, Camera camera, BaseStateMachine fsm, UiCardParameters parameters) : base(handler, fsm, parameters)
         {
             MyCamera = camera;
         }
@@ -14,10 +17,13 @@ namespace Tools.UI.Card
         private Vector3 StartPosition { get; set; }
         private Quaternion StartRotation { get; set; }
         private Camera MyCamera { get; }
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Operations
 
         public override void OnUpdate()
         {
-            Debug.Log("drag update");
             AddMovement();
         }
 
@@ -39,6 +45,11 @@ namespace Tools.UI.Card
             Handler.Transform.rotation = StartRotation;
             MakeRenderNormal();
         }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
 
         private Vector3 WorldPoint()
         {
@@ -59,5 +70,8 @@ namespace Tools.UI.Card
 
             throw new NotImplementedException();
         }
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
     }
 }

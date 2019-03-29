@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PrefabPooler : SingletonMB<PrefabPooler>
 {
+    //--------------------------------------------------------------------------------------------------------------
+    
+    #region Fields
+    
     //StatesRegister of the already pooled objects
     private readonly Dictionary<GameObject, List<GameObject>> busyObjects =
         new Dictionary<GameObject, List<GameObject>>();
@@ -18,7 +22,12 @@ public class PrefabPooler : SingletonMB<PrefabPooler>
     [Tooltip("All pooled models have to be inside this array before the initialization")] [SerializeField]
     private GameObject[] modelsPooled;
 
-
+    #endregion
+    
+    //--------------------------------------------------------------------------------------------------------------
+    
+    #region Initialization
+    
     /// <summary>
     ///     I am initializing it as soon as possible. You can move it to Awake or Start calls. It's up to you.
     /// </summary>
@@ -31,35 +40,39 @@ public class PrefabPooler : SingletonMB<PrefabPooler>
         //initialize the pool system
         Initialize();
     }
-
-
+    
     /// <summary>
-    ///     Here is the initialization of the pooler. All the models/prefabs which you need to pool have to be inside
-    ///     the modelPooled array. They will be keys for the Lists inside the pool system.
-    /// </summary>
-    private void Initialize()
-    {
-        foreach (var model in modelsPooled)
+        ///     Here is the initialization of the pooler. All the models/prefabs which you need to pool have to be inside
+        ///     the modelPooled array. They will be keys for the Lists inside the pool system.
+        /// </summary>
+        private void Initialize()
         {
-            //list for pool
-            var pool = new List<GameObject>();
-
-            //list for busy
-            var busy = new List<GameObject>();
-
-            //create the initial amount and add them to the pool
-            for (var i = 0; i < startSize; i++)
+            foreach (var model in modelsPooled)
             {
-                var obj = Instantiate(model, transform);
-                pool.Add(obj);
-                obj.SetActive(false);
+                //list for pool
+                var pool = new List<GameObject>();
+    
+                //list for busy
+                var busy = new List<GameObject>();
+    
+                //create the initial amount and add them to the pool
+                for (var i = 0; i < startSize; i++)
+                {
+                    var obj = Instantiate(model, transform);
+                    pool.Add(obj);
+                    obj.SetActive(false);
+                }
+    
+                poolAbleObjects.Add(model, pool);
+                busyObjects.Add(model, busy);
             }
-
-            poolAbleObjects.Add(model, pool);
-            busyObjects.Add(model, busy);
         }
-    }
+    #endregion
+    
+    //--------------------------------------------------------------------------------------------------------------
 
+    #region Operations
+    
     /// <summary>
     ///     Here you can pool the prefab objects. Currently the key is a reference to the prefab that you need to get.
     ///     Although I haven't had problems with this approach, you can come up with a solution that performs better
@@ -149,6 +162,12 @@ public class PrefabPooler : SingletonMB<PrefabPooler>
         pooledObj.transform.localPosition = Vector3.zero;
         OnRelease(pooledObj);
     }
+    
+    #endregion
+
+    //--------------------------------------------------------------------------------------------------------------
+
+    #region Events
 
     /// <summary>
     /// </summary>
@@ -167,4 +186,8 @@ public class PrefabPooler : SingletonMB<PrefabPooler>
         // If you need to execute some code right AFTER the object is released, you can do it here.
         // Clean references or reset variables are very common cases.
     }
+    
+    #endregion
+    
+    //--------------------------------------------------------------------------------------------------------------
 }

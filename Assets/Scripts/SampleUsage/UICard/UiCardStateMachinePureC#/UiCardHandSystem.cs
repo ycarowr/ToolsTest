@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace Tools.UI.Card
 {
+    //--------------------------------------------------------------------------------------------------------------
+    
+    #region Interface
+    
     //TODO: Consider to split this gigantic interface in smaller ones. SOL(I)D.
     public interface IUiCard : IStateMachineHandler
     {
@@ -27,12 +31,18 @@ namespace Tools.UI.Card
         void Unselect();
         void Hover();
     }
+    
+    #endregion
+    
+    //--------------------------------------------------------------------------------------------------------------
 
     [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(IMouseInput))]
     public class UiCardHandSystem : MonoBehaviour, IUiCard
     {
+        //--------------------------------------------------------------------------------------------------------------
+        
         #region Properties
 
         private UiCardHandFsm CardHandFsm { get; set; }
@@ -42,7 +52,9 @@ namespace Tools.UI.Card
         private Rigidbody MyRigidbody { get; set; }
         private IMouseInput MyInput { get; set; }
         private IUiCardSelector MyCardSelector { get; set; }
-        [field: SerializeField] public UiCardParameters CardConfigsParameters { get; }
+
+        [SerializeField] public UiCardParameters cardConfigsParameters;
+        public UiCardParameters CardConfigsParameters => cardConfigsParameters;
 
         SpriteRenderer[] IUiCard.Renderers => MyRenderers;
         Collider IUiCard.Collider => MyCollider;
@@ -54,6 +66,8 @@ namespace Tools.UI.Card
         public bool IsHovering => CardHandFsm.IsCurrent<UiCardHover>();
 
         #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         #region Operations
 
@@ -90,6 +104,8 @@ namespace Tools.UI.Card
         }
 
         #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         #region Unity Callbacks
 
@@ -111,5 +127,7 @@ namespace Tools.UI.Card
         }
 
         #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

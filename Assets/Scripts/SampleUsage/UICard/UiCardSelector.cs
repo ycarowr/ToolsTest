@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Tools.UI.Card
 {
+    //------------------------------------------------------------------------------------------------------------------
+    
+    #region Interface
+    
     public interface IUiCardSelector
     {
         void AddCard(IUiCard uiCard);
@@ -12,12 +16,21 @@ namespace Tools.UI.Card
         void SelectCard(IUiCard uiCard);
         void UnselectCard(IUiCard uiCard);
     }
+    
+    #endregion
+    
+    //------------------------------------------------------------------------------------------------------------------
 
     /// <summary>
     ///     Card Selector holds a register of UI cards of a player.
     /// </summary>
     public class UiCardSelector : MonoBehaviour, IUiCardSelector
     {
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Properties
+        
         //UI cards of the player
         public List<IUiCard> Cards { get; private set; }
 
@@ -33,8 +46,13 @@ namespace Tools.UI.Card
         ///     Event raised when a card is selected.
         /// </summary>
         public event Action<IUiCard> OnCardSelected = card => { };
+        
+        #endregion
 
-
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Unitycallbacks
+        
         private void Awake()
         {
             //initialize register
@@ -42,6 +60,10 @@ namespace Tools.UI.Card
 
             Clear();
         }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         #region Operations
 
@@ -117,7 +139,8 @@ namespace Tools.UI.Card
         }
 
         #endregion
-
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         #region Extra
 
@@ -162,5 +185,7 @@ namespace Tools.UI.Card
         }
 
         #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

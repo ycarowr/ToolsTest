@@ -1,4 +1,5 @@
-﻿using UnityEngine.EventSystems;
+﻿using Patterns.StateMachine;
+using UnityEngine.EventSystems;
 
 namespace Tools.UI.Card
 {
@@ -7,17 +8,23 @@ namespace Tools.UI.Card
     /// </summary>
     public class UiCardIdle : UiBaseCardState
     {
-        public UiCardIdle(IUiCard handler, UiCardParameters parameters) : base(handler, parameters)
+        //--------------------------------------------------------------------------------------------------------------
+        
+        public UiCardIdle(IUiCard handler, BaseStateMachine fsm, UiCardParameters parameters) : base(handler, fsm, parameters)
         {
             Handler.Input.OnPointerDown += OnPointerDown;
             Handler.Input.OnPointerEnter += OnPointerEnter;
         }
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         public override void OnEnterState()
         {
             Enable();
             MakeRenderNormal();
         }
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         private void OnPointerEnter(PointerEventData obj)
         {
@@ -30,5 +37,7 @@ namespace Tools.UI.Card
             if (Fsm.IsCurrent(this))
                 Handler.Select();
         }
+        
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

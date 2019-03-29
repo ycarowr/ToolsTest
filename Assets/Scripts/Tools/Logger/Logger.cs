@@ -11,7 +11,7 @@ public class Logger : PersistentSingleton<Logger>
 
     public void Log<T>(object log, string colorName = "black", Type param = null)
     {
-        if (configurations.AreLogsEnabled)
+        if (AreLogsEnabled)
         {
             var context = GetTypeName(typeof(T));
             log = string.Format("[" + context + OpenColor + log + CloseColor + GetTypeName(param), colorName);
@@ -44,7 +44,7 @@ public class Logger : PersistentSingleton<Logger>
     private const char Period = '.';
     private const string OpenColor = "]: <color={0}><b>";
     private const string CloseColor = "</b></color>";
-    [SerializeField] private Configurations configurations;
+    [SerializeField] private bool AreLogsEnabled = true;
 
     #endregion
 }

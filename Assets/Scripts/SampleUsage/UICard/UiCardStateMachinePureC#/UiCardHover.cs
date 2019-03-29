@@ -1,18 +1,31 @@
-﻿using UnityEngine;
+﻿using Patterns.StateMachine;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Tools.UI.Card
 {
     public class UiCardHover : UiBaseCardState
     {
-        public UiCardHover(IUiCard handler, UiCardParameters parameters) : base(handler, parameters)
+        //--------------------------------------------------------------------------------------------------------------
+        
+        public UiCardHover(IUiCard handler, BaseStateMachine fsm, UiCardParameters parameters) : base(handler, fsm, parameters)
         {
         }
-
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Properties
+        
         private Vector3 StartPosition { get; set; }
         private Quaternion StartRotation { get; set; }
         private Vector3 StartScale { get; set; }
 
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Operations
+        
         public override void OnEnterState()
         {
             MakeRenderFirst();
@@ -25,6 +38,8 @@ namespace Tools.UI.Card
             StartRotation = Handler.Transform.rotation;
             StartScale = Handler.Transform.localScale;
 
+            Debug.Log(Handler);
+            Debug.Log(Parameters);
             Handler.Transform.localPosition += new Vector3(0, Parameters.HoverHeight, 0);
             Handler.Transform.localScale *= Parameters.HoverScale;
 
@@ -42,6 +57,10 @@ namespace Tools.UI.Card
             Handler.Transform.position = StartPosition;
             Handler.Transform.localScale = StartScale;
         }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
         private void OnPointerExit(PointerEventData obj)
         {
@@ -54,5 +73,7 @@ namespace Tools.UI.Card
             if (Fsm.IsCurrent(this))
                 Handler.Select();
         }
+        
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

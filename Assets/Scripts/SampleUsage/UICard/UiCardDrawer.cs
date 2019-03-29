@@ -7,14 +7,24 @@ namespace Tools.UI.Card
     [RequireComponent(typeof(UiCardSelector))]
     public class UiCardDrawer : MonoBehaviour
     {
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Fields
+        
         [SerializeField] [Tooltip("Prefab of the Card C#")]
-        private UiCardHandSystem cardPrefabCs;
+        private GameObject cardPrefabCs;
 
         [SerializeField] [Tooltip("Prefab of the Card MB")]
-        private UiCardHandSystemMB cardPrefabSystemMb;
+        private GameObject cardPrefabSystemMb;
 
         private UiCardSelector CardSelector { get; set; }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
 
+        #region Unitycallbacks
+        
         private void Awake()
         {
             CardSelector = GetComponent<UiCardSelector>();
@@ -26,15 +36,20 @@ namespace Tools.UI.Card
             for (var i = 0; i < 6; i++)
                 DrawCard();
         }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
+        #region Operations
 
         [Button]
         public void DrawCard()
         {
             //TODO: Consider replace Instantiate by an Object Pool Pattern
-
+            
             //pure c# card
-            var card = Instantiate(cardPrefabCs, transform);
-
+            var card = Instantiate(cardPrefabCs, transform).GetComponent<IUiCard>();
             //monobehavior components card
 //            var card = Instantiate(cardPrefabSystemMb, transform);
 
@@ -62,5 +77,9 @@ namespace Tools.UI.Card
         {
             SceneManager.LoadScene(0);
         }
+        
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

@@ -34,10 +34,10 @@ namespace Tools.UI.Card
             CardSelector.OnHandChanged += Bend;
         }
 
-        private void Update()
-        {
-            Bend(CardSelector.Cards.ToArray());
-        }
+//        private void Update()
+//        {
+//            Bend(CardSelector.Cards.ToArray());
+//        }
         
         #endregion
 
@@ -76,7 +76,7 @@ namespace Tools.UI.Card
                 if (!card.IsDragging && !card.IsHovering)
                 {
                     card.transform.rotation = Quaternion.Euler(0, 0, angleTwist);
-                    card.transform.position = new Vector3(xPos, yPos, card.transform.position.z);
+                    card.MoveTo(new Vector3(xPos, yPos, card.transform.position.z));
                 }
 
                 //increment offset

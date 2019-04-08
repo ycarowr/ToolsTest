@@ -90,9 +90,11 @@ namespace Tools.UI.Card
             if (card == null)
                 throw new ArgumentNullException("Null is not a valid argument.");
 
+            SelectedCard = null;
             Destroy(card.gameObject);
             RemoveCard(card);
             EnableCards();
+            NotifyHandChange();
         }
 
         /// <summary>
@@ -104,6 +106,7 @@ namespace Tools.UI.Card
             if (card == null)
                 throw new ArgumentNullException("Null is not a valid argument.");
 
+            SelectedCard = null;
             EnableCards();
             NotifyHandChange();
         }
@@ -116,7 +119,7 @@ namespace Tools.UI.Card
         {
             if (card == null)
                 throw new ArgumentNullException("Null is not a valid argument.");
-
+//
             Cards.Add(card);
             card.transform.SetParent(transform);
             card.Enable();
@@ -175,13 +178,13 @@ namespace Tools.UI.Card
         [Button]
         private void NotifyHandChange()
         {
-            OnHandChanged.Invoke(Cards.ToArray());
+            OnHandChanged?.Invoke(Cards.ToArray());
         }
 
         [Button]
         private void NotifyCardSelected()
         {
-            OnCardSelected.Invoke(SelectedCard);
+            OnCardSelected?.Invoke(SelectedCard);
         }
 
         #endregion

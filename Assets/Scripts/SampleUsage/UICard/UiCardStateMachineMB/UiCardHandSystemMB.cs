@@ -23,6 +23,7 @@ namespace Tools.UI.Card
         Transform IUiCard.Transform => MyTransform;
         IMouseInput IUiCard.Input => MyInput;
         IUiCardSelector IUiCard.CardSelector => MyCardSelector;
+        public UiCardMovement UiCardMovement { get; }
         public bool IsDragging => IsCurrent<UiCardDragMB>();
         public bool IsHovering => IsCurrent<UiCardHoverMB>();
 
@@ -48,6 +49,16 @@ namespace Tools.UI.Card
         public void Hover()
         {
             PushState<UiCardHoverMB>();
+        }
+
+        public void Draw()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MoveTo(Vector3 position)
+        {
+            throw new NotImplementedException();
         }
 
         public void Disable()

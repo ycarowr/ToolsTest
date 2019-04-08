@@ -48,13 +48,17 @@ namespace Tools.UI.Card
         protected virtual void MakeRenderNormal()
         {
             for (var i = 0; i < Handler.Renderers.Length; i++)
-                Handler.Renderers[i].sortingOrder = LayerToRenderNormal;
+                if(Handler.Renderers[i])
+                    Handler.Renderers[i].sortingOrder = LayerToRenderNormal;
         }
 
         protected void Enable()
         {
-            Handler.Collider.enabled = true;
-            Handler.Rigidbody.Sleep();
+            if(Handler.Collider)
+                Handler.Collider.enabled = true;
+            if(Handler.Rigidbody)
+                Handler.Rigidbody.Sleep();
+            
             MakeRenderNormal();
             NormalColor();
         }
@@ -63,9 +67,12 @@ namespace Tools.UI.Card
         {
             foreach (var renderer in Handler.Renderers)
             {
-                var myColor = renderer.color;
-                myColor.a = 1;
-                renderer.color = myColor;
+                if (renderer)
+                {
+                    var myColor = renderer.color;
+                    myColor.a = 1;
+                    renderer.color = myColor;
+                }
             }
         }
         
@@ -102,5 +109,6 @@ namespace Tools.UI.Card
         #endregion
         
         //--------------------------------------------------------------------------------------------------------------
+      
     }
 }

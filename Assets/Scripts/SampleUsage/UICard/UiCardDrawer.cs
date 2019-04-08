@@ -47,12 +47,9 @@ namespace Tools.UI.Card
         public void DrawCard()
         {
             //TODO: Consider replace Instantiate by an Object Pool Pattern
-            
-            //pure c# card
-            var card = Instantiate(cardPrefabCs, transform).GetComponent<IUiCard>();
-            //monobehavior components card
-//            var card = Instantiate(cardPrefabSystemMb, transform);
-
+            var cardGo = Instantiate(cardPrefabCs, transform);
+            cardGo.transform.localRotation = Quaternion.Euler(-90, 180, 0);
+            var card = cardGo.GetComponent<IUiCard>();
             CardSelector.AddCard(card);
         }
 

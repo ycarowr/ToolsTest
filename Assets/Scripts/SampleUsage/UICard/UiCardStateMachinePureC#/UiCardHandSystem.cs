@@ -19,6 +19,7 @@ namespace Tools.UI.Card
         IMouseInput Input { get; }
         GameObject gameObject { get; }
         Transform transform { get; }
+        UiCardMovement  UiCardMovement { get; }
 
         bool IsDragging { get; }
         bool IsHovering { get; }
@@ -30,6 +31,7 @@ namespace Tools.UI.Card
         void Select();
         void Unselect();
         void Hover();
+        void MoveTo(Vector3 position);
     }
     
     #endregion
@@ -64,12 +66,19 @@ namespace Tools.UI.Card
         IUiCardSelector IUiCard.CardSelector => MyCardSelector;
         public bool IsDragging => CardHandFsm.IsCurrent<UiCardDrag>();
         public bool IsHovering => CardHandFsm.IsCurrent<UiCardHover>();
+        
+        public UiCardMovement UiCardMovement { get; private set; }
 
         #endregion
         
         //--------------------------------------------------------------------------------------------------------------
 
         #region Operations
+
+        public void MoveTo(Vector3 position)
+        {
+            UiCardMovement.MoveTo(position);
+        }
 
         public void Hover()
         {
@@ -117,6 +126,7 @@ namespace Tools.UI.Card
             MyInput = GetComponent<IMouseInput>();
             MyCardSelector = GetComponentInParent<IUiCardSelector>();
             MyRenderers = GetComponentsInChildren<SpriteRenderer>();
+            UiCardMovement = new UiCardMovement(this, cardConfigsParameters);
             var camera = Camera.main;
             CardHandFsm = new UiCardHandFsm(camera, CardConfigsParameters, this);
         }
@@ -124,6 +134,7 @@ namespace Tools.UI.Card
         private void Update()
         {
             CardHandFsm.Update();
+            UiCardMovement.Update();
         }
 
         #endregion

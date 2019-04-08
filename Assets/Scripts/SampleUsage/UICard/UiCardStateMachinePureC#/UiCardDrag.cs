@@ -14,7 +14,6 @@ namespace Tools.UI.Card
             MyCamera = camera;
         }
 
-        private Vector3 StartPosition { get; set; }
         private Quaternion StartRotation { get; set; }
         private Camera MyCamera { get; }
         
@@ -30,7 +29,6 @@ namespace Tools.UI.Card
         public override void OnEnterState()
         {
             //cache old values
-            StartPosition = Handler.Transform.position;
             StartRotation = Handler.Transform.rotation;
 
             Handler.Transform.localRotation = Quaternion.identity;
@@ -41,9 +39,11 @@ namespace Tools.UI.Card
         public override void OnExitState()
         {
             //reset position and rotation
-            Handler.Transform.position = StartPosition;
-            Handler.Transform.rotation = StartRotation;
-            MakeRenderNormal();
+            if (Handler.Transform)
+            {
+                Handler.Transform.rotation = StartRotation;
+                MakeRenderNormal();
+            }
         }
         
         #endregion

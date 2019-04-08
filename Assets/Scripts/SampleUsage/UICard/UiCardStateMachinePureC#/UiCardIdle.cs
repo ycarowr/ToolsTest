@@ -20,10 +20,14 @@ namespace Tools.UI.Card
 
         public override void OnEnterState()
         {
-            Enable();
+            Handler.UiCardMovement.OnArrive += Enable;
             MakeRenderNormal();
         }
-        
+
+        public override void OnExitState()
+        {
+            Handler.UiCardMovement.OnArrive -= Enable;
+        }
         //--------------------------------------------------------------------------------------------------------------
 
         private void OnPointerEnter(PointerEventData obj)

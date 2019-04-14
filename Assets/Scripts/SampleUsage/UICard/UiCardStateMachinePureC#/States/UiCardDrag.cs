@@ -9,13 +9,13 @@ namespace Tools.UI.Card
     {
         //--------------------------------------------------------------------------------------------------------------
         
+        private Vector3 StartEuler { get; set; }
+        private Camera MyCamera { get; }
+        
         public UiCardDrag(IUiCard handler, Camera camera, BaseStateMachine fsm, UiCardParameters parameters) : base(handler, fsm, parameters)
         {
             MyCamera = camera;
         }
-
-        private Quaternion StartRotation { get; set; }
-        private Camera MyCamera { get; }
         
         //--------------------------------------------------------------------------------------------------------------
         
@@ -29,9 +29,9 @@ namespace Tools.UI.Card
         public override void OnEnterState()
         {
             //cache old values
-            StartRotation = Handler.Transform.rotation;
+            StartEuler = Handler.Transform.eulerAngles;
 
-            Handler.Transform.localRotation = Quaternion.identity;
+            Handler.RotateTo(Vector3.zero);
             MakeRenderFirst();
             NormalColor();
         }
@@ -41,7 +41,7 @@ namespace Tools.UI.Card
             //reset position and rotation
             if (Handler.Transform)
             {
-                Handler.Transform.rotation = StartRotation;
+                Handler.RotateTo(StartEuler);
                 MakeRenderNormal();
             }
         }

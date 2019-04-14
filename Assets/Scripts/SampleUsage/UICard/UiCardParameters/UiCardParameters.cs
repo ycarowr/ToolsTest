@@ -16,7 +16,6 @@ namespace Tools.UI.Card
 
         [Header("Disable")] [Tooltip("How a card fades when disabled.")] [SerializeField] [Range(0.1f, 1)]
         private float disabledAlpha;
-        
 
         #endregion
         
@@ -44,7 +43,7 @@ namespace Tools.UI.Card
             set => hoverScale = value;
         }
 
-        [Header("Hover")] [SerializeField] [Tooltip("How much the card will go upwards when hovered.")] [Range(0, 2)]
+        [Header("Hover")] [SerializeField] [Tooltip("How much the card will go upwards when hovered.")] [Range(0, 4)]
         private float hoverHeight;
 
         [SerializeField] [Tooltip("Whether the hovered card keep its rotation.")]
@@ -89,5 +88,18 @@ namespace Tools.UI.Card
         #endregion
 
         //--------------------------------------------------------------------------------------------------------------
+
+        [Header("Movement")][SerializeField][Range(1, 50)][Tooltip("Speed of a card while it is moving")]
+        private float movementSpeed;
+        
+        [Header("Rotation")][SerializeField][Range(1, 50)][Tooltip("Speed of a card while it is rotating")]
+        private float rotationSpeed;
+
+        public float MovementSpeed => movementSpeed;
+
+        public float RotationSpeed => rotationSpeed;
+        
+        //--------------------------------------------------------------------------------------------------------------
+
     }
 }

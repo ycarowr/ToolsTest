@@ -14,8 +14,8 @@ namespace Tools.UI.Card
         [SerializeField] [Tooltip("Prefab of the Card C#")]
         private GameObject cardPrefabCs;
 
-        [SerializeField] [Tooltip("Prefab of the Card MB")]
-        private GameObject cardPrefabSystemMb;
+        [SerializeField] [Tooltip("World point where the deck is positioned")]
+        private Transform deckPosition;
 
         private UiCardSelector CardSelector { get; set; }
         
@@ -34,7 +34,7 @@ namespace Tools.UI.Card
         {
             //starting cards
             for (var i = 0; i < 6; i++)
-                DrawCard();
+                DrawCard(i);
         }
         
         #endregion
@@ -44,11 +44,10 @@ namespace Tools.UI.Card
         #region Operations
 
         [Button]
-        public void DrawCard()
+        public void DrawCard(int index)
         {
             //TODO: Consider replace Instantiate by an Object Pool Pattern
-            var cardGo = Instantiate(cardPrefabCs, transform);
-            cardGo.transform.localRotation = Quaternion.Euler(-90, 180, 0);
+            var cardGo = Instantiate(cardPrefabCs, deckPosition);
             var card = cardGo.GetComponent<IUiCard>();
             CardSelector.AddCard(card);
         }
@@ -65,7 +64,7 @@ namespace Tools.UI.Card
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Tab)) DrawCard();
+            if (Input.GetKeyDown(KeyCode.Tab)) DrawCard(99);
             if (Input.GetKeyDown(KeyCode.Space)) PlayCard();
             if (Input.GetKeyDown(KeyCode.Escape)) Restart();
         }

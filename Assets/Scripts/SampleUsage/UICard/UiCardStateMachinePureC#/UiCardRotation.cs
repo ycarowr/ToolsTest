@@ -1,23 +1,23 @@
 ﻿using System;
-using System.Collections;
 using Patterns.StateMachine;
 using UnityEngine;
 
 namespace Tools.UI.Card
 {
-    public class UiCardMovement
+    public class UiCardRotation
     {
         public Action OnArrive = () => { };
         
         private const float Threshold = 0.1f;
-        private Vector3 Target { get; set; }
+        private Vector3 TargetEuler { get; set; }
+        private float Speed { get; set; }
         private IUiCard Handler { get; }
         private UiCardParameters Parameters { get; }
-        public bool IsMoving { get; private set; }
+        public bool IsRotating { get; private set; }
 
         //--------------------------------------------------------------------------------------------------------------
         
-        public UiCardMovement(IUiCard handler, UiCardParameters parameters)
+        public UiCardRotation(IUiCard handler, UiCardParameters parameters)
         {
             Handler = handler;
             Parameters = parameters;
@@ -30,14 +30,15 @@ namespace Tools.UI.Card
 
         public void Update()
         {
-            if (!IsMoving)
+            if (!IsRotating)
                 return;
             
-            var distance = Target - Handler.transform.position;
-            if (distance.magnitude > Threshold)
-                KeepMoving();
-            else
+            var distance = TargetEuler- Handler.transform.eulerAngles;
+            
+            if (distance.magnitude <= Threshold || (int) distance.magnitude == 360)
                 ToArrive();
+            else
+                KeepMoving();
         }
         
         #endregion
@@ -46,27 +47,21 @@ namespace Tools.UI.Card
         
         private void ToArrive()
         {
-            Handler.transform.position = Target;
-            IsMoving = false;
+            Handler.transform.eulerAngles = TargetEuler;
+            IsRotating = false;
             OnArrive?.Invoke();
         }
 
         private void KeepMoving()
         {
-            var current = Handler.transform.position;
-            Handler.transform.position = Vector3.Lerp(current, Target, Parameters.MovementSpeed * Time.deltaTime);
+            var current = Handler.transform.rotation;
+            Handler.transform.rotation = Quaternion.RotateTowards(current, Quaternion.Euler(TargetEuler), Parameters.RotationSpeed * Time.deltaTime);
         }
         
-        public void MoveTo(Vector3 position)
+        public void RotateTo(Vector3 euler)
         {
-            Target = position;
-            Handler.MonoBehavior.StartCoroutine(AllowMovement(0.01f));
-        }
-
-        private IEnumerator AllowMovement(float f)
-        {
-            yield return new WaitForSeconds(f);
-            IsMoving = true;    
+            IsRotating = true;
+            TargetEuler = euler;
         }
     }
 }

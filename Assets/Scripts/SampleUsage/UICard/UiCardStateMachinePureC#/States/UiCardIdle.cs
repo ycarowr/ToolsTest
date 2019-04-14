@@ -21,6 +21,7 @@ namespace Tools.UI.Card
         public override void OnEnterState()
         {
             Handler.UiCardMovement.OnArrive += Enable;
+            DisableCollision();
             MakeRenderNormal();
         }
 
@@ -28,6 +29,7 @@ namespace Tools.UI.Card
         {
             Handler.UiCardMovement.OnArrive -= Enable;
         }
+        
         //--------------------------------------------------------------------------------------------------------------
 
         private void OnPointerEnter(PointerEventData obj)

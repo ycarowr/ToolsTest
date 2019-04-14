@@ -55,12 +55,35 @@ namespace Tools.UI.Card
         protected void Enable()
         {
             if(Handler.Collider)
-                Handler.Collider.enabled = true;
+                EnableCollision();
             if(Handler.Rigidbody)
                 Handler.Rigidbody.Sleep();
             
             MakeRenderNormal();
             NormalColor();
+        }
+
+        protected virtual void Disable()
+        {
+            DisableCollision();
+            Handler.Rigidbody.Sleep();
+            MakeRenderNormal();
+            foreach (var renderer in Handler.Renderers)
+            {
+                var myColor = renderer.color;
+                myColor.a = Parameters.DisabledAlpha;
+                renderer.color = myColor;
+            }
+        }
+
+        protected void DisableCollision()
+        {
+            Handler.Collider.enabled = false;
+        }
+
+        protected void EnableCollision()
+        {
+            Handler.Collider.enabled = true;
         }
 
         protected void NormalColor()

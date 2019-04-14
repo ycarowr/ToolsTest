@@ -1,4 +1,5 @@
-﻿using Patterns.StateMachine;
+﻿using System.Runtime.CompilerServices;
+using Patterns.StateMachine;
 using UnityEngine;
 
 namespace Tools.UI.Card
@@ -11,8 +12,10 @@ namespace Tools.UI.Card
     public interface IUiCard : IStateMachineHandler
     {
         UiCardParameters CardConfigsParameters { get; }
+        Camera MainCamera { get; }
         IUiCardSelector CardSelector { get; }
         SpriteRenderer[] Renderers { get; }
+        SpriteRenderer MyRenderer { get; }
         Collider Collider { get; }
         Rigidbody Rigidbody { get; }
         Transform Transform { get; }
@@ -20,6 +23,8 @@ namespace Tools.UI.Card
         GameObject gameObject { get; }
         Transform transform { get; }
         UiCardMovement  UiCardMovement { get; }
+        MonoBehaviour MonoBehavior { get; }
+        
 
         bool IsDragging { get; }
         bool IsHovering { get; }
@@ -32,6 +37,7 @@ namespace Tools.UI.Card
         void Unselect();
         void Hover();
         void MoveTo(Vector3 position);
+        void RotateTo(Vector3 euler);
     }
     
     #endregion
@@ -51,14 +57,18 @@ namespace Tools.UI.Card
         private Transform MyTransform { get; set; }
         private Collider MyCollider { get; set; }
         private SpriteRenderer[] MyRenderers { get; set; }
+        private SpriteRenderer MyRenderer { get; set; }
         private Rigidbody MyRigidbody { get; set; }
         private IMouseInput MyInput { get; set; }
         private IUiCardSelector MyCardSelector { get; set; }
+        public MonoBehaviour MonoBehavior => this;
+        public Camera MainCamera => Camera.main;
 
         [SerializeField] public UiCardParameters cardConfigsParameters;
         public UiCardParameters CardConfigsParameters => cardConfigsParameters;
 
         SpriteRenderer[] IUiCard.Renderers => MyRenderers;
+        SpriteRenderer IUiCard.MyRenderer => MyRenderer;
         Collider IUiCard.Collider => MyCollider;
         Rigidbody IUiCard.Rigidbody => MyRigidbody;
         Transform IUiCard.Transform => MyTransform;
@@ -68,12 +78,18 @@ namespace Tools.UI.Card
         public bool IsHovering => CardHandFsm.IsCurrent<UiCardHover>();
         
         public UiCardMovement UiCardMovement { get; private set; }
+        public UiCardRotation UiCardRotation { get; private set; }
 
         #endregion
         
         //--------------------------------------------------------------------------------------------------------------
 
         #region Operations
+
+        public void RotateTo(Vector3 rotation)
+        {
+            UiCardRotation.RotateTo(rotation);
+        }
 
         public void MoveTo(Vector3 position)
         {
@@ -126,15 +142,17 @@ namespace Tools.UI.Card
             MyInput = GetComponent<IMouseInput>();
             MyCardSelector = GetComponentInParent<IUiCardSelector>();
             MyRenderers = GetComponentsInChildren<SpriteRenderer>();
+            MyRenderer = GetComponent<SpriteRenderer>();
             UiCardMovement = new UiCardMovement(this, cardConfigsParameters);
-            var camera = Camera.main;
-            CardHandFsm = new UiCardHandFsm(camera, CardConfigsParameters, this);
+            UiCardRotation = new UiCardRotation(this, cardConfigsParameters);
+            CardHandFsm = new UiCardHandFsm(MainCamera, CardConfigsParameters, this);
         }
 
         private void Update()
         {
             CardHandFsm.Update();
             UiCardMovement.Update();
+            UiCardRotation.Update();
         }
 
         #endregion

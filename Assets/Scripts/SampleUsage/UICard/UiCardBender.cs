@@ -12,10 +12,10 @@ namespace Tools.UI.Card
         //--------------------------------------------------------------------------------------------------------------
         
         #region Fields and Properties
-        
+
         [SerializeField] private UiCardParameters cardConfigParameters;
         [SerializeField] [Tooltip("The Card Prefab")]
-        private UiCardHandSystemMB CardPrefab;
+        private UiCardHandSystem CardPrefab;
         [SerializeField] [Tooltip("Transform used as anchor to position the cards.")]
         private Transform pivot;
         private SpriteRenderer CardRenderer { get; set; }
@@ -75,7 +75,7 @@ namespace Tools.UI.Card
                 //set position
                 if (!card.IsDragging && !card.IsHovering)
                 {
-                    card.transform.rotation = Quaternion.Euler(0, 0, angleTwist);
+                    card.RotateTo(new Vector3(0, 0, angleTwist));
                     card.MoveTo(new Vector3(xPos, yPos, card.transform.position.z));
                 }
 

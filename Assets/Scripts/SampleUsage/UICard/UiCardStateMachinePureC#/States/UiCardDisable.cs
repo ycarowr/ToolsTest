@@ -21,23 +21,5 @@ namespace Tools.UI.Card
         }
         
         #endregion
-        
-        //--------------------------------------------------------------------------------------------------------------
-        
-        /// <summary>
-        ///     Disabled state of the card.
-        /// </summary>
-        private void Disable()
-        {
-            Handler.Collider.enabled = false;
-            Handler.Rigidbody.Sleep();
-            MakeRenderNormal();
-            foreach (var renderer in Handler.Renderers)
-            {
-                var myColor = renderer.color;
-                myColor.a = Parameters.DisabledAlpha;
-                renderer.color = myColor;
-            }
-        }
     }
 }

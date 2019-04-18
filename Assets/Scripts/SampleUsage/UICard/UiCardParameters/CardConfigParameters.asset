@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: CardConfigParameters
   m_EditorClassIdentifier: 
   disabledAlpha: 0.46874943
-  hoverHeight: 0.19990906
+  hoverHeight: 1.247534
   hoverRotation: 0
-  hoverScale: 1.1687543
+  hoverScale: 1.3
   height: 0.16250813
   spacing: -2.375
-  bentAngle: 19.500685
-  movementSpeed: 7
-  rotationSpeed: 25
+  bentAngle: 8.999217
+  movementSpeed: 4
+  rotationSpeed: 15
+  scaleSpeed: 8
+  startSizeWhenDraw: 0.05
+  discardedSize: 0.5

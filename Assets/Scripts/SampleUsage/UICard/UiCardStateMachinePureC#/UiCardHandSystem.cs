@@ -36,8 +36,13 @@ namespace Tools.UI.Card
         void Select();
         void Unselect();
         void Hover();
-        void MoveTo(Vector3 position);
-        void RotateTo(Vector3 euler);
+        void Draw();
+        void Discard();
+
+        //card transform
+        void MoveTo(Vector3 position, float speed);
+        void RotateTo(Vector3 euler, float speed);
+        void ScaleTo(Vector3 scale, float speed);
     }
     
     #endregion
@@ -79,23 +84,35 @@ namespace Tools.UI.Card
         
         public UiCardMovement UiCardMovement { get; private set; }
         public UiCardRotation UiCardRotation { get; private set; }
+        public UiCardScale UiCardScale { get; private set; }
 
         #endregion
         
         //--------------------------------------------------------------------------------------------------------------
 
+        #region Transform
+
+        public void RotateTo(Vector3 rotation, float speed)
+        {
+            UiCardRotation.Execute(rotation, speed);
+        }
+
+        public void MoveTo(Vector3 position, float speed)
+        {
+            UiCardMovement.Execute(position, speed);
+        }
+        
+        public void ScaleTo(Vector3 scale, float speed)
+        {
+            UiCardScale.Execute(scale, speed);
+        }
+
+        #endregion
+        
+        //--------------------------------------------------------------------------------------------------------------
+        
         #region Operations
-
-        public void RotateTo(Vector3 rotation)
-        {
-            UiCardRotation.RotateTo(rotation);
-        }
-
-        public void MoveTo(Vector3 position)
-        {
-            UiCardMovement.MoveTo(position);
-        }
-
+        
         public void Hover()
         {
             CardHandFsm.Hover();
@@ -128,6 +145,16 @@ namespace Tools.UI.Card
             MyCardSelector.UnselectCard(this);
         }
 
+        public void Draw()
+        {
+            CardHandFsm.Draw();
+        }
+        
+        public void Discard()
+        {
+            CardHandFsm.Discard();
+        }
+
         #endregion
         
         //--------------------------------------------------------------------------------------------------------------
@@ -143,8 +170,9 @@ namespace Tools.UI.Card
             MyCardSelector = GetComponentInParent<IUiCardSelector>();
             MyRenderers = GetComponentsInChildren<SpriteRenderer>();
             MyRenderer = GetComponent<SpriteRenderer>();
-            UiCardMovement = new UiCardMovement(this, cardConfigsParameters);
-            UiCardRotation = new UiCardRotation(this, cardConfigsParameters);
+            UiCardMovement = new UiCardMovement(this);
+            UiCardRotation = new UiCardRotation(this);
+            UiCardScale = new UiCardScale(this);
             CardHandFsm = new UiCardHandFsm(MainCamera, CardConfigsParameters, this);
         }
 
@@ -153,6 +181,7 @@ namespace Tools.UI.Card
             CardHandFsm.Update();
             UiCardMovement.Update();
             UiCardRotation.Update();
+            UiCardScale.Update();
         }
 
         #endregion

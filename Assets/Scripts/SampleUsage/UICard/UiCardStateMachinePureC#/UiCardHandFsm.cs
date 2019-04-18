@@ -21,15 +21,19 @@ namespace Tools.UI.Card
             DisableState = new UiCardDisable(handler, this, CardConfigsParameters);
             DragState = new UiCardDrag(handler, camera, this, CardConfigsParameters);
             HoverState = new UiCardHover(handler, this, CardConfigsParameters);
-
+            DrawState = new UiCardDraw(handler, this, CardConfigsParameters);
+            DiscardState = new UiCardDiscard(handler, this, CardConfigsParameters);
+            
             RegisterState(IdleState);
             RegisterState(DisableState);
             RegisterState(DragState);
             RegisterState(HoverState);
+            RegisterState(DrawState);
+            RegisterState(DiscardState);
 
             Initialize();
         }
-        
+
         #endregion
 
         //--------------------------------------------------------------------------------------------------------------
@@ -40,6 +44,8 @@ namespace Tools.UI.Card
         private UiCardDisable DisableState { get; }
         private UiCardDrag DragState { get; }
         private UiCardHover HoverState { get; }
+        private UiCardDraw DrawState { get; }
+        private UiCardDiscard DiscardState { get; }
         private UiCardParameters CardConfigsParameters { get; }
         
         #endregion
@@ -71,6 +77,16 @@ namespace Tools.UI.Card
         public void Unselect()
         {
             Enable();
+        }
+
+        public void Draw()
+        {
+            PushState<UiCardDraw>();
+        }
+
+        public void Discard()
+        {
+            PushState<UiCardDiscard>();
         }
         
         #endregion

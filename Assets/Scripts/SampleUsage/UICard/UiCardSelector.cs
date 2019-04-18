@@ -8,10 +8,8 @@ namespace Tools.UI.Card
     
     #region Interface
     
-    public interface IUiCardSelector
+    public interface IUiCardSelector : IUiCardPile
     {
-        void AddCard(IUiCard uiCard);
-        void RemoveCard(IUiCard uiCard);
         void PlayCard(IUiCard uiCard);
         void SelectCard(IUiCard uiCard);
         void UnselectCard(IUiCard uiCard);
@@ -24,42 +22,25 @@ namespace Tools.UI.Card
     /// <summary>
     ///     Card Selector holds a register of UI cards of a player.
     /// </summary>
-    public class UiCardSelector : MonoBehaviour, IUiCardSelector
+    public class UiCardSelector : UiCardPile, IUiCardSelector
     {
         
         //--------------------------------------------------------------------------------------------------------------
         
         #region Properties
-        
-        //UI cards of the player
-        public List<IUiCard> Cards { get; private set; }
 
         //UI Card currently selected by the player
         public IUiCard SelectedCard { get; private set; }
-
-        /// <summary>
-        ///     Event raised when add or remove a card.
-        /// </summary>
-        public event Action<IUiCard[]> OnHandChanged = hand => { };
 
         /// <summary>
         ///     Event raised when a card is selected.
         /// </summary>
         public event Action<IUiCard> OnCardSelected = card => { };
         
-        #endregion
-
-        //--------------------------------------------------------------------------------------------------------------
-        
-        #region Unitycallbacks
-        
-        private void Awake()
-        {
-            //initialize register
-            Cards = new List<IUiCard>();
-
-            Clear();
-        }
+        /// <summary>
+        ///     Event raised when a card is played.
+        /// </summary>
+        public event Action<IUiCard> OnCardPlayed = card => { };
         
         #endregion
         
@@ -91,10 +72,10 @@ namespace Tools.UI.Card
                 throw new ArgumentNullException("Null is not a valid argument.");
 
             SelectedCard = null;
-            Destroy(card.gameObject);
             RemoveCard(card);
+            OnCardPlayed?.Invoke(card);
             EnableCards();
-            NotifyHandChange();
+            NotifyPileChange();
         }
 
         /// <summary>
@@ -108,37 +89,7 @@ namespace Tools.UI.Card
 
             SelectedCard = null;
             EnableCards();
-            NotifyHandChange();
-        }
-
-        /// <summary>
-        ///     Add an UI Card to the player hand.
-        /// </summary>
-        /// <param name="card"></param>
-        public void AddCard(IUiCard card)
-        {
-            if (card == null)
-                throw new ArgumentNullException("Null is not a valid argument.");
-//
-            Cards.Add(card);
-            card.transform.SetParent(transform);
-            card.Enable();
-            NotifyHandChange();
-        }
-
-
-        /// <summary>
-        ///     Remove an UI Card to the player hand.
-        /// </summary>
-        /// <param name="card"></param>
-        public void RemoveCard(IUiCard card)
-        {
-            if (card == null)
-                throw new ArgumentNullException("Null is not a valid argument.");
-
-            Cards.Remove(card);
-
-            NotifyHandChange();
+            NotifyPileChange();
         }
 
         #endregion
@@ -163,22 +114,6 @@ namespace Tools.UI.Card
         {
             foreach (var otherCard in Cards)
                 otherCard.Enable();
-        }
-
-        [Button]
-        private void Clear()
-        {
-            var childCards = GetComponentsInChildren<IUiCard>();
-            foreach (var uiCardHand in childCards)
-                Destroy(uiCardHand.gameObject);
-
-            Cards.Clear();
-        }
-
-        [Button]
-        private void NotifyHandChange()
-        {
-            OnHandChanged?.Invoke(Cards.ToArray());
         }
 
         [Button]

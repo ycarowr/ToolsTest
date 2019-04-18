@@ -64,15 +64,15 @@ namespace Tools.UI.Card
         
         private void ResetValues()
         {
-            Handler.RotateTo(StartEuler);
-            Handler.MoveTo(StartPosition);
-            Handler.Transform.localScale = StartScale;
+            Handler.RotateTo(StartEuler, Parameters.RotationSpeed);
+            Handler.MoveTo(StartPosition, Parameters.MovementSpeed);
+            Handler.ScaleTo(StartScale, Parameters.ScaleSpeed);
         }
         
         private void SetRotation()
         {
             if (!Parameters.HoverRotation)
-                Handler.RotateTo(Vector3.zero);
+                Handler.RotateTo(Vector3.zero, Parameters.RotationSpeed);
         }
 
         private void SetPosition()
@@ -83,12 +83,14 @@ namespace Tools.UI.Card
             var currentPosWithoutY = new Vector3(Handler.transform.position.x, 0, Handler.transform.position.z);
             var hoverHeightParameter = new Vector3(0, Parameters.HoverHeight);
             var final = currentPosWithoutY + bottomScreenY + halfCardHeight + hoverHeightParameter;
-            Handler.MoveTo(final);
+            Handler.MoveTo(final, Parameters.MovementSpeed);
         }
 
         private void SetScale()
         {
-            Handler.Transform.localScale *= Parameters.HoverScale;
+            var currentScale = Handler.transform.localScale;
+            var finalScale = currentScale * Parameters.HoverScale;
+            Handler.ScaleTo(finalScale, Parameters.ScaleSpeed); 
         }
 
         private void CachePreviousValues()

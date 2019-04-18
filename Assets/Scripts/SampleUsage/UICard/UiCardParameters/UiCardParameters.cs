@@ -89,17 +89,37 @@ namespace Tools.UI.Card
 
         //--------------------------------------------------------------------------------------------------------------
 
+        #region Movement
+        
         [Header("Movement")][SerializeField][Range(1, 50)][Tooltip("Speed of a card while it is moving")]
         private float movementSpeed;
         
         [Header("Rotation")][SerializeField][Range(1, 50)][Tooltip("Speed of a card while it is rotating")]
         private float rotationSpeed;
 
+        [Header("Scale")][SerializeField][Range(1, 50)][Tooltip("Speed of a card while it is scaling")]
+        private float scaleSpeed;
+        
         public float MovementSpeed => movementSpeed;
 
         public float RotationSpeed => rotationSpeed;
         
+        public float ScaleSpeed => scaleSpeed;
+        
+        #endregion
+        
         //--------------------------------------------------------------------------------------------------------------
+        
+        [Header("Draw")][SerializeField][Range(0, 1)][Tooltip("Scale when draw the card")]
+        private float startSizeWhenDraw;
 
+        public float StartSizeWhenDraw => startSizeWhenDraw;
+
+        //--------------------------------------------------------------------------------------------------------------
+        
+        [Header("Discard")][SerializeField][Range(0, 1)][Tooltip("Scale when discard the card")]
+        private float discardedSize;
+
+        public float DiscardedSize => discardedSize;
     }
 }

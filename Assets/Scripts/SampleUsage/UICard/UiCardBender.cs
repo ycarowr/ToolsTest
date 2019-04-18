@@ -13,7 +13,7 @@ namespace Tools.UI.Card
         
         #region Fields and Properties
 
-        [SerializeField] private UiCardParameters cardConfigParameters;
+        [SerializeField] private UiCardParameters parameters;
         [SerializeField] [Tooltip("The Card Prefab")]
         private UiCardHandSystem CardPrefab;
         [SerializeField] [Tooltip("Transform used as anchor to position the cards.")]
@@ -31,7 +31,7 @@ namespace Tools.UI.Card
         {
             CardSelector = GetComponent<UiCardSelector>();
             CardRenderer = CardPrefab.GetComponent<SpriteRenderer>();
-            CardSelector.OnHandChanged += Bend;
+            CardSelector.OnPileChanged += Bend;
         }
 
 //        private void Update()
@@ -50,7 +50,7 @@ namespace Tools.UI.Card
             if (cards == null)
                 throw new ArgumentException("Can't bend a card list null");
 
-            var fullAngle = -cardConfigParameters.BentAngle;
+            var fullAngle = -parameters.BentAngle;
             var anglePerCard = fullAngle / cards.Length;
             var firstAngle = CalcFirstAngle(fullAngle);
             var handWidth = CalcHandWidth(cards.Length);
@@ -69,18 +69,21 @@ namespace Tools.UI.Card
                 var xPos = offsetX + CardWidth / 2;
 
                 //calc y position
-                var yDistance = Mathf.Abs(angleTwist) * cardConfigParameters.Height;
+                var yDistance = Mathf.Abs(angleTwist) * parameters.Height;
                 var yPos = pivot.position.y - yDistance;
 
                 //set position
                 if (!card.IsDragging && !card.IsHovering)
                 {
-                    card.RotateTo(new Vector3(0, 0, angleTwist));
-                    card.MoveTo(new Vector3(xPos, yPos, card.transform.position.z));
+                    var rotation = new Vector3(0, 0, angleTwist);
+                    var position = new Vector3(xPos, yPos, card.transform.position.z);
+
+                    card.RotateTo(rotation, parameters.RotationSpeed);
+                    card.MoveTo(position, parameters.MovementSpeed);
                 }
 
                 //increment offset
-                offsetX += CardWidth + cardConfigParameters.Spacing;
+                offsetX += CardWidth + parameters.Spacing;
             }
         }
 
@@ -103,7 +106,7 @@ namespace Tools.UI.Card
         private float CalcHandWidth(int quantityOfCards)
         {
             var widthCards = quantityOfCards * CardWidth;
-            var widthSpacing = (quantityOfCards - 1) * cardConfigParameters.Spacing;
+            var widthSpacing = (quantityOfCards - 1) * parameters.Spacing;
             return widthCards + widthSpacing;
         }
         

@@ -11,7 +11,7 @@ namespace Tools.UI.Card
         {
             Assert.IsNotNull(CardSelector);
 
-            CardSelector.OnHandChanged += CardSelector_OnHandChanged;
+            CardSelector.OnPileChanged += CardSelector_OnHandChanged;
         }
 
         protected virtual void CardSelector_OnHandChanged(IUiCard[] cards)

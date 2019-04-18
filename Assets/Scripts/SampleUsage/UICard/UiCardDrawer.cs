@@ -1,4 +1,5 @@
-﻿using Extensions;
+﻿using System.Collections;
+using Extensions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -30,11 +31,14 @@ namespace Tools.UI.Card
             CardSelector = GetComponent<UiCardSelector>();
         }
 
-        private void Start()
+        private IEnumerator Start()
         {
             //starting cards
             for (var i = 0; i < 6; i++)
+            {
+                yield return new WaitForSeconds(0.2f);
                 DrawCard(i);
+            }
         }
         
         #endregion

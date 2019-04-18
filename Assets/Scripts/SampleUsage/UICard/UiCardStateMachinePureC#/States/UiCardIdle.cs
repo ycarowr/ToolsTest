@@ -1,4 +1,5 @@
 ﻿using Patterns.StateMachine;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Tools.UI.Card
@@ -8,21 +9,30 @@ namespace Tools.UI.Card
     /// </summary>
     public class UiCardIdle : UiBaseCardState
     {
+        private Vector3 DefaultSize { get; set; }
         //--------------------------------------------------------------------------------------------------------------
         
         public UiCardIdle(IUiCard handler, BaseStateMachine fsm, UiCardParameters parameters) : base(handler, fsm, parameters)
         {
             Handler.Input.OnPointerDown += OnPointerDown;
             Handler.Input.OnPointerEnter += OnPointerEnter;
+            DefaultSize = Handler.Transform.localScale;
         }
         
         //--------------------------------------------------------------------------------------------------------------
 
         public override void OnEnterState()
         {
-            Handler.UiCardMovement.OnArrive += Enable;
-            DisableCollision();
+            if (Handler.UiCardMovement.IsOperating)
+            {
+                DisableCollision();
+                Handler.UiCardMovement.OnArrive += Enable;
+            }
+            else
+                Enable();
+            
             MakeRenderNormal();
+            Handler.transform.localScale = DefaultSize;
         }
 
         public override void OnExitState()

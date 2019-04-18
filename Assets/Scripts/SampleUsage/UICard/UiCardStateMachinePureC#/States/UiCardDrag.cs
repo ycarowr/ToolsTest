@@ -31,7 +31,7 @@ namespace Tools.UI.Card
             //cache old values
             StartEuler = Handler.Transform.eulerAngles;
 
-            Handler.RotateTo(Vector3.zero);
+            Handler.RotateTo(Vector3.zero, Parameters.RotationSpeed);
             MakeRenderFirst();
             NormalColor();
         }
@@ -41,7 +41,7 @@ namespace Tools.UI.Card
             //reset position and rotation
             if (Handler.Transform)
             {
-                Handler.RotateTo(StartEuler);
+                Handler.RotateTo(StartEuler, Parameters.RotationSpeed);
                 MakeRenderNormal();
             }
         }

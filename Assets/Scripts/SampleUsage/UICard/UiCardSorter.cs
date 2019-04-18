@@ -16,7 +16,7 @@ namespace Tools.UI.Card
         private void Awake()
         {
             CardSelector = GetComponent<UiCardSelector>();
-            CardSelector.OnHandChanged += Sort;
+            CardSelector.OnPileChanged += Sort;
         }
         
         //--------------------------------------------------------------------------------------------------------------

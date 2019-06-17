@@ -37,13 +37,13 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         protected override void OnAwake()
         {
-            Logger.Instance.Log<GameController>("Awake");
+            Logger.Log<GameController>("Awake");
             TurnBasedLogic = new TurnBasedFsm(this, Data, configurations);
         }
 
         private void Start()
         {
-            Logger.Instance.Log<GameController>("Start");
+            Logger.Log<GameController>("Start");
             StartBattle();
         }
 

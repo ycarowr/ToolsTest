@@ -9,12 +9,12 @@ namespace SimpleTurnBasedGame
     {
         protected override void OnAwake()
         {
-            Logger.Instance.Log<GameEvents>("Awake");
+            Logger.Log<GameEvents>("Awake");
         }
 
         private void Start()
         {
-            Logger.Instance.Log<GameEvents>("Start");
+            Logger.Log<GameEvents>("Start");
         }
     }
 

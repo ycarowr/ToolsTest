@@ -3,27 +3,24 @@ using Patterns;
 using SimpleTurnBasedGame;
 using UnityEngine;
 
-public class Logger : PersistentSingleton<Logger>
+public static class Logger
 {
     //----------------------------------------------------------------------------------------------------------
-
-    #region Log
-
-    public void Log<T>(object log, string colorName = "black", Type param = null)
+    /// <summary>
+    /// Use "black", "red" or any other html code to set the color.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="log"></param>
+    /// <param name="colorName"></param>
+    /// <param name="context"></param>
+    public static void Log<T>(object log, string colorName = "black", Type context = null)
     {
-        if (AreLogsEnabled)
-        {
-            var context = GetTypeName(typeof(T));
-            log = string.Format("[" + context + OpenColor + log + CloseColor + GetTypeName(param), colorName);
-            Debug.Log(log);
-        }
+        var contextType = GetTypeName(typeof(T));
+        log = string.Format("[" + context + OpenColor + log + CloseColor + contextType, colorName);
+        Debug.Log(log);
     }
-
-    #endregion
-
+    
     //----------------------------------------------------------------------------------------------------------
-
-    #region
 
     private static string GetTypeName(Type type)
     {
@@ -35,16 +32,10 @@ public class Logger : PersistentSingleton<Logger>
         return last > 0 ? split[last] : string.Empty;
     }
 
-    #endregion
-
     //----------------------------------------------------------------------------------------------------------
-
-    #region Fields and Properties
 
     private const char Period = '.';
     private const string OpenColor = "]: <color={0}><b>";
     private const string CloseColor = "</b></color>";
-    [SerializeField] private bool AreLogsEnabled = true;
 
-    #endregion
 }

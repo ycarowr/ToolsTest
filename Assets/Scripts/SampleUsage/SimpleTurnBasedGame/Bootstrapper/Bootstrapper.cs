@@ -63,7 +63,7 @@ namespace SimpleTurnBasedGame
         /// </summary>
         protected override void OnAwake()
         {
-            Logger.Instance.Log<Bootstrapper>("Awake");
+            Logger.Log<Bootstrapper>("Awake");
             InitializeGame();
         }
 
@@ -72,7 +72,7 @@ namespace SimpleTurnBasedGame
         /// </summary>
         private void Start()
         {
-            Logger.Instance.Log<Bootstrapper>("Start");
+            Logger.Log<Bootstrapper>("Start");
         }
 
         #endregion

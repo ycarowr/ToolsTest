@@ -44,7 +44,7 @@ namespace SimpleTurnBasedGame.ControllerCs
 
         protected override void OnBeforeInitialize()
         {
-            Logger.Instance.Log<TurnBasedFsm>("On Before Initialize: Create Game States");
+            Logger.Log<TurnBasedFsm>("On Before Initialize: Create Game States");
             //create states
             var bottom = new BottomPlayerState(this, GameData, Configurations);
             var top = new TopPlayerState(this, GameData, Configurations);

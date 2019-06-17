@@ -24,7 +24,7 @@ namespace SimpleTurnBasedGame
             ProcessHealMove = new ProcessHealMove(this);
             ProcessRandomMove = new ProcessRandomMove(this);
             ProcessTick = new ProcessTick(this);
-            Logger.Instance.Log<Game>("Game Created", "blue");
+            Logger.Log<Game>("Game Created", "blue");
         }
 
         #endregion

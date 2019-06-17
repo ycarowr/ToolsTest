@@ -51,13 +51,13 @@ namespace SimpleTurnBasedGame
         /// </summary>
         protected override void OnAwake()
         {
-            Logger.Instance.Log<GameData>("Awake");
+            Logger.Log<GameData>("Awake");
             CreateGame();
         }
 
         private void Start()
         {
-            Logger.Instance.Log<GameData>("Start");
+            Logger.Log<GameData>("Start");
         }
 
         #endregion

@@ -18,9 +18,8 @@ namespace Patterns
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="T1"></typeparam>
-    public class PrefabPooler<T, T1> : SingletonMB<T>
+    public class PrefabPooler<T> : SingletonMB<T>
         where T : class
-        where T1 : class
     {
         //--------------------------------------------------------------------------------------------------------------
         
@@ -95,7 +94,7 @@ namespace Patterns
         /// </summary>
         /// <param name="prefabModel"></param>
         /// <returns></returns>
-        public virtual T1 Get(GameObject prefabModel)
+        public virtual GameObject Get(GameObject prefabModel)
         {
             GameObject pooledObj = null;
 
@@ -127,12 +126,20 @@ namespace Patterns
             pooledObj.SetActive(true);
             OnPool(pooledObj);
 
-            return pooledObj.GetComponent<T1>();
+            return pooledObj;
         }
 
-        public virtual T1 Get()
+        /// <summary>
+        ///     Here you can pool the prefab objects. Currently the key is a reference to the prefab that you need to get.
+        ///     Although I haven't had problems with this approach, you can come up with a solution that performs better
+        ///     using an enumeration as key.
+        /// </summary>
+        /// <param name="prefabModel"></param>
+        /// <returns></returns>
+        public virtual T1 Get<T1>(GameObject prefabModel) where T1 : class
         {
-            return Get(models[0]);
+            var obj = Get(prefabModel);
+            return obj.GetComponent<T1>();
         }
 
         /// <summary>

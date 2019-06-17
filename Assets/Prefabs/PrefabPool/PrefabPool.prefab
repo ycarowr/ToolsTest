@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3349281799092949998}
-  - component: {fileID: 2036510764832935442}
+  - component: {fileID: 8146207001582608050}
   m_Layer: 0
   m_Name: PrefabPool
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2036510764832935442
+--- !u!114 &8146207001582608050
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,13 +40,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3349281799092949985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce975a81a490b3f478f424fbc7804e32, type: 3}
+  m_Script: {fileID: 11500000, guid: 82410bf11798e48488c9d71e30140102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isDontDestroyOnLoad: 0
-  isSilent: 0
+  isSilent: 1
   startSize: 10
-  modelsPooled:
+  models:
   - {fileID: 5664464418820892006, guid: 281909da0a25fb84fa214436cd5bbf7a, type: 3}
   - {fileID: 5664464418820892006, guid: 0ae198d6af2b1a84997465e28fa3bc87, type: 3}
   - {fileID: 5664464418820892006, guid: ededfbc3b00905e4e81308706691ed05, type: 3}

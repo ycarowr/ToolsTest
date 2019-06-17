@@ -9,27 +9,28 @@ namespace Tools
     /// </summary>
     public class ShakeAnimation : MonoBehaviour
     {
-        [Tooltip("How big are the width and height of the shake.")] [SerializeField]
-        private readonly float amplitude = 0;
+        //---------------------------------------------------------------------------------------------------------------
 
-        [Tooltip("Duration of the shake in seconds")] [SerializeField]
-        private readonly float duration = 0;
+        [Tooltip("How big are the width and height of the shake.")]
+        [SerializeField] float amplitude = 0;
+
+        [Tooltip("Duration of the shake in seconds")]
+        [SerializeField] float duration = 0;
 
         [Tooltip("How often the shake happens during its own duration. Value has to be smaller than the duration.")]
-        [SerializeField]
-        private readonly float frequency = 0;
+        [SerializeField] float frequency = 0;
 
-        [Tooltip("Transform that has to be shaken")] [SerializeField]
-        private Transform cachedTransform;
+        [Tooltip("Whether the transform is shaking or not.")]
+        [SerializeField] bool isShaking = false;
 
-        //initial position
-        private Vector3 originalPosition;
+        [Tooltip("Transform that has to be shaken")]
+        [SerializeField] Transform cachedTransform;
 
-        [field: Tooltip("whether the object is shaking or not.")]
-        public bool IsShaking { get; private set; }
+        //---------------------------------------------------------------------------------------------------------------
 
-        private float CounterFrequency { get; set; }
-        private float CounterDuration { get; set; }
+        Vector3 initialPosition;
+        float CounterFrequency { get; set; }
+        float CounterDuration { get; set; }
 
         private void Awake()
         {
@@ -39,13 +40,14 @@ namespace Tools
         /// <summary>
         ///     Method which starts the shake movement.
         /// </summary>
+        [Button]
         public void Shake()
         {
-            if (IsShaking)
+            if (isShaking)
                 return;
 
-            originalPosition = cachedTransform.position;
-            IsShaking = true;
+            initialPosition = cachedTransform.position;
+            isShaking = true;
         }
 
         /// <summary>
@@ -60,10 +62,11 @@ namespace Tools
         /// <summary>
         ///     Clear the shake instantly.
         /// </summary>
-        public void StopShaking()
+        [Button]
+        public void Stop()
         {
-            IsShaking = false;
-            cachedTransform.localPosition = originalPosition;
+            isShaking = false;
+            cachedTransform.localPosition = initialPosition;
             ResetCounters();
         }
 
@@ -72,7 +75,7 @@ namespace Tools
         /// </summary>
         private void Update()
         {
-            if (!IsShaking) return;
+            if (!isShaking) return;
 
             var deltaTime = Time.deltaTime;
 
@@ -80,7 +83,7 @@ namespace Tools
             CounterDuration += deltaTime;
             if (CounterDuration >= duration)
             {
-                StopShaking();
+                Stop();
             }
             else
             {
@@ -92,7 +95,7 @@ namespace Tools
                 else
                 {
                     //move the object somewhere inside the amplitude
-                    cachedTransform.localPosition = originalPosition + Random.insideUnitSphere * amplitude;
+                    cachedTransform.localPosition = initialPosition + Random.insideUnitSphere * amplitude;
 
                     //reset frequency
                     CounterFrequency = 0;

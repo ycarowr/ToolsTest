@@ -1,63 +1,39 @@
 ﻿using System.Runtime.CompilerServices;
-using Patterns.StateMachine;
 using UnityEngine;
 
 namespace Tools.UI.Card
 {
-    //--------------------------------------------------------------------------------------------------------------
-    
-    #region Interface
-    
-    //TODO: Consider to split this gigantic interface in smaller ones. SOL(I)D.
-    public interface IUiCard : IStateMachineHandler
-    {
-        UiCardParameters CardConfigsParameters { get; }
-        Camera MainCamera { get; }
-        IUiCardSelector CardSelector { get; }
-        SpriteRenderer[] Renderers { get; }
-        SpriteRenderer MyRenderer { get; }
-        Collider Collider { get; }
-        Rigidbody Rigidbody { get; }
-        Transform Transform { get; }
-        IMouseInput Input { get; }
-        GameObject gameObject { get; }
-        Transform transform { get; }
-        UiCardMovement  UiCardMovement { get; }
-        MonoBehaviour MonoBehavior { get; }
-        
-
-        bool IsDragging { get; }
-        bool IsHovering { get; }
-
-        //cards operations
-        void Play();
-        void Disable();
-        void Enable();
-        void Select();
-        void Unselect();
-        void Hover();
-        void Draw();
-        void Discard();
-
-        //card transform
-        void MoveTo(Vector3 position, float speed);
-        void RotateTo(Vector3 euler, float speed);
-        void ScaleTo(Vector3 scale, float speed);
-    }
-    
-    #endregion
-    
-    //--------------------------------------------------------------------------------------------------------------
-
     [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(IMouseInput))]
     public class UiCardHandSystem : MonoBehaviour, IUiCard
     {
         //--------------------------------------------------------------------------------------------------------------
-        
+
+        #region Components
+
+        SpriteRenderer[] IUiCardComponents.Renderers => MyRenderers;
+        SpriteRenderer IUiCardComponents.MyRenderer => MyRenderer;
+        Collider IUiCardComponents.Collider => MyCollider;
+        Rigidbody IUiCardComponents.Rigidbody => MyRigidbody;
+        Transform IUiCardComponents.Transform => MyTransform;
+        IMouseInput IUiCardComponents.Input => MyInput;
+        IUiCardSelector IUiCardComponents.CardSelector => MyCardSelector;
+
+        #endregion
+
+        #region Transform
+
+        public UiCardMovement UiCardMovement { get; private set; }
+        public UiCardRotation UiCardRotation { get; private set; }
+        public UiCardScale UiCardScale { get; private set; }
+
+        #endregion
+
         #region Properties
 
+        public UiCardParameters CardConfigsParameters => cardConfigsParameters;
+        [SerializeField] public UiCardParameters cardConfigsParameters;
         private UiCardHandFsm CardHandFsm { get; set; }
         private Transform MyTransform { get; set; }
         private Collider MyCollider { get; set; }
@@ -68,24 +44,9 @@ namespace Tools.UI.Card
         private IUiCardSelector MyCardSelector { get; set; }
         public MonoBehaviour MonoBehavior => this;
         public Camera MainCamera => Camera.main;
-
-        [SerializeField] public UiCardParameters cardConfigsParameters;
-        public UiCardParameters CardConfigsParameters => cardConfigsParameters;
-
-        SpriteRenderer[] IUiCard.Renderers => MyRenderers;
-        SpriteRenderer IUiCard.MyRenderer => MyRenderer;
-        Collider IUiCard.Collider => MyCollider;
-        Rigidbody IUiCard.Rigidbody => MyRigidbody;
-        Transform IUiCard.Transform => MyTransform;
-        IMouseInput IUiCard.Input => MyInput;
-        IUiCardSelector IUiCard.CardSelector => MyCardSelector;
         public bool IsDragging => CardHandFsm.IsCurrent<UiCardDrag>();
         public bool IsHovering => CardHandFsm.IsCurrent<UiCardHover>();
         
-        public UiCardMovement UiCardMovement { get; private set; }
-        public UiCardRotation UiCardRotation { get; private set; }
-        public UiCardScale UiCardScale { get; private set; }
-
         #endregion
         
         //--------------------------------------------------------------------------------------------------------------
@@ -163,6 +124,7 @@ namespace Tools.UI.Card
 
         private void Awake()
         {
+            //components
             MyTransform = transform;
             MyCollider = GetComponent<Collider>();
             MyRigidbody = GetComponent<Rigidbody>();
@@ -170,9 +132,13 @@ namespace Tools.UI.Card
             MyCardSelector = GetComponentInParent<IUiCardSelector>();
             MyRenderers = GetComponentsInChildren<SpriteRenderer>();
             MyRenderer = GetComponent<SpriteRenderer>();
+
+            //transform
+            UiCardScale = new UiCardScale(this);
             UiCardMovement = new UiCardMovement(this);
             UiCardRotation = new UiCardRotation(this);
-            UiCardScale = new UiCardScale(this);
+
+            //fsm
             CardHandFsm = new UiCardHandFsm(MainCamera, CardConfigsParameters, this);
         }
 

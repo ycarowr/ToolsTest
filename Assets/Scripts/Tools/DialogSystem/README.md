@@ -13,4 +13,5 @@ Text Piece sample:
 
 Todo: 
 1. Add event when the a text piece finishes to write.
-2. ...
+2. Make a localization system to load the texts instead reading the raw string.
+3. ...

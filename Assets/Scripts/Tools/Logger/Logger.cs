@@ -1,6 +1,4 @@
 ﻿using System;
-using Patterns;
-using SimpleTurnBasedGame;
 using UnityEngine;
 
 public static class Logger

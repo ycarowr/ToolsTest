@@ -1,12 +1,9 @@
-﻿using Patterns;
-
-namespace Patterns.GameEvents
+﻿namespace Patterns.GameEvents
 {
     //----------------------------------------------------------------------------------------------------------
 
     public class GameEvents : Observer<GameEvents>
     {
-        
     }
 
     //----------------------------------------------------------------------------------------------------------
@@ -14,7 +11,7 @@ namespace Patterns.GameEvents
     #region Game Events Definition
 
     /// <summary>
-    ///      Broadcast of the event to the Listeners.
+    ///     Broadcast of the event to the Listeners.
     /// </summary>
     public interface ISampleEvent1 : ISubject
     {
@@ -22,7 +19,7 @@ namespace Patterns.GameEvents
     }
 
     /// <summary>
-    ///      Broadcast of the event to the Listeners.
+    ///     Broadcast of the event to the Listeners.
     /// </summary>
     public interface ISampleEvent2 : ISubject
     {

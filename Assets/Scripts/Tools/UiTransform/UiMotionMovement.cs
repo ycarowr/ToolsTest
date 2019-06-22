@@ -9,9 +9,10 @@ namespace Tools.UI
         }
 
         /// <summary>
-        ///  TODO: Implement 2d and 3d in the same class (?).
+        ///     TODO: Implement 2d and 3d in the same class (?).
         /// </summary>
         private bool WithZ { get; set; }
+
         public bool IsConstant { get; set; }
 
         public override void Execute(Vector3 position, float speed, float delay)
@@ -31,18 +32,18 @@ namespace Tools.UI
 
         protected override void KeepMotion()
         {
-            var current = (Vector2)Handler.transform.position;
+            var current = (Vector2) Handler.transform.position;
             var amount = Speed * Time.deltaTime;
             var delta = !IsConstant
                 ? Vector2.Lerp(current, Target, amount)
                 : Vector2.MoveTowards(current, Target, amount);
-            
+
             Handler.transform.position = delta;
         }
 
         protected override bool CheckFinalState()
         {
-            var distance = (Vector2)Target - (Vector2)Handler.transform.position;
+            var distance = (Vector2) Target - (Vector2) Handler.transform.position;
             return distance.magnitude <= Threshold;
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 
-
 namespace Tools
 {
     /// <summary>
@@ -13,6 +12,7 @@ namespace Tools
         ///     The monobehavior attached to the system.
         /// </summary>
         MonoBehaviour Monobehavior { get; }
+
         /// <summary>
         ///     OnShow Event.
         /// </summary>
@@ -29,9 +29,14 @@ namespace Tools
         Action OnFinishSequence { get; set; }
 
         /// <summary>
-        ///  Tells whether the window is opened or not.
+        ///     Tells whether the window is opened or not.
         /// </summary>
         bool IsOpened { get; }
+
+        /// <summary>
+        ///     Speed the text is written to the user.
+        /// </summary>
+        int Speed { get; }
 
         /// <summary>
         ///     If active, show the dialog in the screen in the same position it was before.
@@ -54,11 +59,6 @@ namespace Tools
         void Deactivate();
 
         /// <summary>
-        ///     Speed the text is written to the user.
-        /// </summary>
-        int Speed { get; }
-
-        /// <summary>
         ///     If active, write a text to the user.
         /// </summary>
         /// <param name="text"></param>
@@ -70,7 +70,7 @@ namespace Tools
         void Clear();
 
         /// <summary>
-        ///  Calls next text sequence.
+        ///     Calls next text sequence.
         /// </summary>
         void WriteNext();
     }

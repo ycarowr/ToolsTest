@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Tools
 {
     public class OnShow : StateMachineBehaviour
     {
-        DialogSystem DialogSystem { get; set; }
+        private DialogSystem DialogSystem { get; set; }
 
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-        override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if (!DialogSystem)
                 DialogSystem = animator.GetComponentInParent<DialogSystem>();

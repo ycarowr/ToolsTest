@@ -4,14 +4,13 @@
     {
         private class DialogSequence : DialogSubComponent
         {
+            public DialogSequence(IDialogSystem system) : base(system)
+            {
+            }
+
             public TextSequence Sequence { get; private set; }
             public int IndexPieces { get; private set; }
-            public bool IsLast => Sequence.Sequence.Length -1 == IndexPieces;
-
-            public DialogSequence(IDialogSystem system): base(system)
-            {
-
-            }
+            public bool IsLast => Sequence.Sequence.Length - 1 == IndexPieces;
 
             public void SetSequence(TextSequence sequence)
             {
@@ -30,7 +29,8 @@
                     return null;
 
                 return index < Sequence.Sequence.Length
-                   ? Sequence.Sequence[index] : null;
+                    ? Sequence.Sequence[index]
+                    : null;
             }
 
             public TextPiece GetCurrent()

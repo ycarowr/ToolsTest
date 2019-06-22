@@ -11,26 +11,28 @@ namespace Tools
     {
         //---------------------------------------------------------------------------------------------------------------
 
-        [Tooltip("How big are the width and height of the shake.")]
-        [SerializeField] float amplitude = 0;
+        [Tooltip("How big are the width and height of the shake.")] [SerializeField]
+        private float amplitude;
 
-        [Tooltip("Duration of the shake in seconds")]
-        [SerializeField] float duration = 0;
+        [Tooltip("Transform that has to be shaken")] [SerializeField]
+        private Transform cachedTransform;
+
+        [Tooltip("Duration of the shake in seconds")] [SerializeField]
+        private float duration;
 
         [Tooltip("How often the shake happens during its own duration. Value has to be smaller than the duration.")]
-        [SerializeField] float frequency = 0;
-
-        [Tooltip("Whether the transform is shaking or not.")]
-        [SerializeField] bool isShaking = false;
-
-        [Tooltip("Transform that has to be shaken")]
-        [SerializeField] Transform cachedTransform;
+        [SerializeField]
+        private float frequency;
 
         //---------------------------------------------------------------------------------------------------------------
 
-        Vector3 initialPosition;
-        float CounterFrequency { get; set; }
-        float CounterDuration { get; set; }
+        private Vector3 initialPosition;
+
+        [Tooltip("Whether the transform is shaking or not.")] [SerializeField]
+        private bool isShaking;
+
+        private float CounterFrequency { get; set; }
+        private float CounterDuration { get; set; }
 
         private void Awake()
         {

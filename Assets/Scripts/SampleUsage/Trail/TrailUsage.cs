@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Tools;
+﻿using Tools;
 using UnityEngine;
 
 public class TrailUsage : MonoBehaviour
 {
-    void Start()
+    private void Start()
     {
         var renderer = GetComponent<SpriteRenderer>();
         var trail = GetComponentInChildren<TrailParticles>();

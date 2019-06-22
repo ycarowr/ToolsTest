@@ -4,7 +4,7 @@
     {
         public enum DialogAutoAction
         {
-            Hide, 
+            Hide,
             Show,
             Clear,
             Next

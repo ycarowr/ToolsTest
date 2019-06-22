@@ -1,11 +1,10 @@
-﻿using Patterns;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Usage
 {
     public class PrefabPoolUsage : MonoBehaviour
     {
-        [SerializeField] GameObject[] Prefabs;
+        [SerializeField] private GameObject[] Prefabs;
 
         [Button]
         //pool random object from inside prefabs array
@@ -28,4 +27,5 @@ namespace Usage
             var randomChild = transform.GetChild(randomIndex);
             APooler.Instance.Release(randomChild.gameObject);
         }
-    } }
+    }
+}

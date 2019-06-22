@@ -5,11 +5,11 @@ namespace Tools
     [RequireComponent(typeof(ParticleSystem))]
     public class TrailParticles : MonoBehaviour
     {
-        [SerializeField] bool autoPlay;
-        [SerializeField] ParticleSystem trail;
-        [SerializeField] Material trailMaterial;
+        [SerializeField] private bool autoPlay;
+        [SerializeField] private ParticleSystem trail;
+        [SerializeField] private Material trailMaterial;
 
-        void Start()
+        private void Start()
         {
             if (autoPlay)
                 Play();

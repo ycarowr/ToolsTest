@@ -4,6 +4,5 @@ namespace Usage
 {
     public class APooled : MonoBehaviour
     {
-
     }
 }

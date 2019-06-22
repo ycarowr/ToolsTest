@@ -4,12 +4,12 @@
     {
         private abstract class DialogSubComponent
         {
-            public IDialogSystem DialogSystem { get; }
-
-            protected DialogSubComponent (IDialogSystem system)
+            protected DialogSubComponent(IDialogSystem system)
             {
                 DialogSystem = system;
             }
+
+            public IDialogSystem DialogSystem { get; }
         }
     }
 }

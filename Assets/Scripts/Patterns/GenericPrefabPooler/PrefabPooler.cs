@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using Patterns;
 using UnityEngine;
-
 
 namespace Patterns
 {
@@ -14,24 +12,27 @@ namespace Patterns
     }
 
     /// <summary>
-    ///  T is the Singleton Pooler class and T1 is the Pooled.
+    ///     T is the Singleton Pooler class and T1 is the Pooled.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="T1"></typeparam>
     public class PrefabPooler<T> : SingletonMB<T>
         where T : class
     {
+        [Tooltip("All pooled models have to be inside this array before the initialization")] [SerializeField]
+        private GameObject[] models;
+
+        [Tooltip("How many objects will be created as soon as the game loads")] [SerializeField]
+        private int startSize = 10;
         //--------------------------------------------------------------------------------------------------------------
-        
-        public Dictionary<GameObject, List<GameObject>> Busy { get; set; } = new Dictionary<GameObject, List<GameObject>>();
-        public Dictionary<GameObject, List<GameObject>> Available { get; set; } = new Dictionary<GameObject, List<GameObject>>();
 
-        [Tooltip("How many objects will be created as soon as the game loads")]
-        [SerializeField] int startSize = 10;
+        public Dictionary<GameObject, List<GameObject>> Busy { get; set; } =
+            new Dictionary<GameObject, List<GameObject>>();
+
+        public Dictionary<GameObject, List<GameObject>> Available { get; set; } =
+            new Dictionary<GameObject, List<GameObject>>();
+
         public int StartSize => startSize;
-
-        [Tooltip("All pooled models have to be inside this array before the initialization")]
-        [SerializeField] GameObject[] models;
         public GameObject[] Models => models;
 
         //--------------------------------------------------------------------------------------------------------------

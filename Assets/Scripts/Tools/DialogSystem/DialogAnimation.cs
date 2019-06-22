@@ -1,22 +1,21 @@
 ﻿using UnityEngine;
 
-
 namespace Tools
 {
     public partial class DialogSystem
     {
         private class DialogAnimation : DialogSubComponent
         {
-            int ShowHash { get; }
-            int HideHash { get; }
-            Animator Animator { get; }
-
             public DialogAnimation(IDialogSystem system) : base(system)
             {
                 ShowHash = Animator.StringToHash("Show");
                 HideHash = Animator.StringToHash("Hide");
                 Animator = DialogSystem.Monobehavior.GetComponentInChildren<Animator>();
             }
+
+            private int ShowHash { get; }
+            private int HideHash { get; }
+            private Animator Animator { get; }
 
             public void Show()
             {

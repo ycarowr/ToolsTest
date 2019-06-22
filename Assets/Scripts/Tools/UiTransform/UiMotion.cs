@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Tools.UI
 {
     public class UiMotion : IUiMotion
     {
-        public UiMotionBase Movement { get; }
-        public UiMotionBase Rotation { get; }
-        public UiMotionBase Scale { get; }
-
         public UiMotion(IUiMotionHandler handler)
         {
             Scale = new UiMotionScale(handler);
             Movement = new UiMotionMovement(handler);
             Rotation = new UiMotionRotation(handler);
         }
+
+        public UiMotionBase Movement { get; }
+        public UiMotionBase Rotation { get; }
+        public UiMotionBase Scale { get; }
 
         public void Update()
         {

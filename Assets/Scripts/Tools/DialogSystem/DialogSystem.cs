@@ -1,8 +1,5 @@
-﻿using Patterns;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using TMPro;
-using Tools;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,13 +7,20 @@ namespace Tools
 {
     public partial class DialogSystem : MonoBehaviour, IDialogSystem
     {
-        [Header("Set by Editor")]
-        [SerializeField] GameObject content;
-        [SerializeField] Parameters parameters;
-        [SerializeField] TextMeshProUGUI sentenceText;
-        [SerializeField] TextMeshProUGUI authorText;
-        [SerializeField] Button NextButton;
-        
+        [SerializeField] private TextMeshProUGUI authorText;
+
+        [Header("Set by Editor")] [SerializeField]
+        private GameObject content;
+
+        [SerializeField] private Button NextButton;
+        [SerializeField] private Parameters parameters;
+        [SerializeField] private TextMeshProUGUI sentenceText;
+        private IKeyboardInput Keyboard { get; set; }
+
+        private DialogAnimation Animation { get; set; }
+        private DialogWriting Writing { get; set; }
+        private DialogSequence Sequence { get; set; }
+
 
         public int Speed => parameters.Speed;
         public bool IsOpened { get; private set; }
@@ -24,11 +28,6 @@ namespace Tools
         public Action OnHide { get; set; } = () => { };
         public Action OnFinishSequence { get; set; } = () => { };
         public MonoBehaviour Monobehavior => this;
-        IKeyboardInput Keyboard { get; set; }
-
-        DialogAnimation Animation { get; set; }
-        DialogWriting Writing { get; set; }
-        DialogSequence Sequence { get; set; }
 
         protected void Awake()
         {
@@ -42,11 +41,48 @@ namespace Tools
             NextButton.onClick.AddListener(PressNext);
         }
 
+
+        //-----------------------------------------------------------------------------------------
+
+        private void PressNext()
+        {
+            if (!IsOpened)
+                return;
+
+            if (Sequence == null)
+                return;
+
+            if (Sequence.IsLast)
+                OnFinishSequence?.Invoke();
+
+            var current = Sequence.GetCurrent();
+            if (current == null)
+                return;
+
+            current.OnNext?.Invoke();
+            var action = current.OnPressNext;
+            switch (action)
+            {
+                case DialogAutoAction.Hide:
+                    Hide();
+                    break;
+                case DialogAutoAction.Show:
+                    Show();
+                    break;
+                case DialogAutoAction.Clear:
+                    Clear();
+                    break;
+                case DialogAutoAction.Next:
+                    WriteNext();
+                    break;
+            }
+        }
+
         //-----------------------------------------------------------------------------------------
 
         #region Write and Clear
 
-        [Header("Test")][SerializeField] TextSequence testSequence;
+        [Header("Test")] [SerializeField] private TextSequence testSequence;
 
         [Button]
         public void Write()
@@ -134,43 +170,6 @@ namespace Tools
         }
 
         #endregion
-
-
-        //-----------------------------------------------------------------------------------------
-
-        void PressNext()
-        {
-            if (!IsOpened)
-                return;
-
-            if (Sequence == null)
-                return;
-
-            if (Sequence.IsLast)
-                OnFinishSequence?.Invoke();
-
-            var current = Sequence.GetCurrent();
-            if (current == null)
-                return;
-
-            current.OnNext?.Invoke();
-            var action = current.OnPressNext;
-            switch (action)
-            {
-                case DialogAutoAction.Hide:
-                    Hide();
-                    break;
-                case DialogAutoAction.Show:
-                    Show();
-                    break;
-                case DialogAutoAction.Clear:
-                    Clear();
-                    break;
-                case DialogAutoAction.Next:
-                    WriteNext();
-                    break;
-            }
-        }
 
 
         //-----------------------------------------------------------------------------------------

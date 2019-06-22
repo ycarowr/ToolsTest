@@ -3,28 +3,28 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 
-
 namespace Tools
-{ 
+{
     public partial class DialogSystem
     {
         private class DialogWriting : DialogSubComponent
         {
-            StringBuilder Builder { get; }
-            const char space = ' ';
-            int CharLength { get; set; }
-            Coroutine WriteRoutine { get; set; }
-            TextMeshProUGUI SentenceText { get; }
-            TextMeshProUGUI AuthorText { get; }
+            private const char space = ' ';
 
-            public DialogWriting(IDialogSystem system, 
-                TextMeshProUGUI sentence, 
+            public DialogWriting(IDialogSystem system,
+                TextMeshProUGUI sentence,
                 TextMeshProUGUI author) : base(system)
             {
                 Builder = new StringBuilder();
                 AuthorText = author;
                 SentenceText = sentence;
             }
+
+            private StringBuilder Builder { get; }
+            private int CharLength { get; set; }
+            private Coroutine WriteRoutine { get; set; }
+            private TextMeshProUGUI SentenceText { get; }
+            private TextMeshProUGUI AuthorText { get; }
 
 
             public void Write(string text, string author)
@@ -63,13 +63,14 @@ namespace Tools
 
             //-----------------------------------------------------------------------------------------
 
-            IEnumerator KeepWriting(float delay)
+            private IEnumerator KeepWriting(float delay)
             {
                 yield return new WaitForSeconds(delay);
 
                 var aSetence = Builder.ToString();
                 var subSentence = CharLength <= aSetence.Length
-                    ? aSetence.Substring(0, CharLength) : string.Empty;
+                    ? aSetence.Substring(0, CharLength)
+                    : string.Empty;
                 SentenceText.text = subSentence;
 
                 ++CharLength;
@@ -79,17 +80,17 @@ namespace Tools
                     StartCoroutine();
             }
 
-            void StartCoroutine()
+            private void StartCoroutine()
             {
                 var delay = CalculateTime();
                 WriteRoutine = DialogSystem.Monobehavior.StartCoroutine(KeepWriting(delay));
             }
 
             /// <summary>
-            ///     Return the time necessary to wait according to the sentence length. 
+            ///     Return the time necessary to wait according to the sentence length.
             /// </summary>
             /// <returns></returns>
-            float CalculateTime()
+            private float CalculateTime()
             {
                 // v = d / t
                 // wordsPerSecond = totalWords/totalSeconds

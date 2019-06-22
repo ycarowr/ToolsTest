@@ -1,9 +1,6 @@
-﻿using Patterns;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using Patterns;
 using UnityEngine;
-
 
 namespace Tools.UI.Fade
 {
@@ -18,16 +15,35 @@ namespace Tools.UI.Fade
 
     public class Fade : SingletonMB<Fade>, IFade
     {
-        [Range(1, 100f)] public float Speed;
-        public SpriteRenderer Renderer;
-
         private const float Threshold = 0.01f;
+        public SpriteRenderer Renderer;
+        [Range(1, 100f)] public float Speed;
+        private Color Target;
+        private Color Current => Renderer.color;
         public bool IsFading { get; set; }
 
         public Action OnFinishFade { get; set; } = () => { };
         public float Alpha => Renderer.color.a;
-        private Color Current => Renderer.color;
-        private Color Target;
+
+        //------------------------------------------------------------------------------------------------------------------------------
+
+        public void SetAlphaImmediatly(float a)
+        {
+            Enable();
+            var color = Current;
+            color.a = a;
+            Renderer.color = color;
+            if (Current.a <= 0)
+                Disable();
+        }
+
+        public void SetAlpha(float a, float speed)
+        {
+            Enable();
+            Speed = speed;
+            Target.a = a;
+            IsFading = true;
+        }
 
         //------------------------------------------------------------------------------------------------------------------------------
 
@@ -50,28 +66,11 @@ namespace Tools.UI.Fade
                 OnFinishFade?.Invoke();
                 if (Current.a <= 0)
                     Disable();
-            } else
+            }
+            else
+            {
                 Renderer.color = Color.Lerp(Current, Target, Speed * Time.deltaTime);
-        }
-
-        //------------------------------------------------------------------------------------------------------------------------------
-
-        public void SetAlphaImmediatly(float a)
-        {
-            Enable();
-            var color = Current;
-            color.a = a;
-            Renderer.color = color;
-            if (Current.a <= 0)
-                Disable();
-        }
-
-        public void SetAlpha(float a, float speed)
-        {
-            Enable();
-            Speed = speed;
-            Target.a = a;
-            IsFading = true;
+            }
         }
 
 

@@ -1,22 +1,35 @@
-﻿using Patterns;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Tools
 {
     public class FreezeFrame : MonoBehaviour
     {
-        [SerializeField] [Tooltip("Duration in frames of the freeze.")] float totalFramesFrozen;
-        [SerializeField] [Tooltip("Whether the game is frozen or not.")] bool isFrozen;
-        [SerializeField] [Tooltip("Fix the framerate when the game starts.")] bool fixFrameRate = true;
-        [SerializeField] [Tooltip("Target of the fixed framerate.")] uint fixedFrameRate = 60;
-        [SerializeField] int frozenCount;
-        [SerializeField] float initialTimeScale;
+        [SerializeField] private float delay;
 
-        void Start()
+        [SerializeField] [Tooltip("Target of the fixed framerate.")]
+        private uint fixedFrameRate = 60;
+
+        [SerializeField] [Tooltip("Fix the framerate when the game starts.")]
+        private bool fixFrameRate = true;
+
+        [SerializeField] private int frozenCount;
+        [SerializeField] private float initialTimeScale;
+
+        [SerializeField] [Tooltip("Whether the game is frozen or not.")]
+        private bool isFrozen;
+
+        //------------------------------------------------------------------------------------------------------
+
+        [Header("Test")] [SerializeField] private float time;
+
+        [SerializeField] [Tooltip("Duration in frames of the freeze.")]
+        private float totalFramesFrozen;
+
+        private void Start()
         {
             if (fixFrameRate)
-                Application.targetFrameRate = (int)fixedFrameRate;
+                Application.targetFrameRate = (int) fixedFrameRate;
         }
 
         //------------------------------------------------------------------------------------------------------
@@ -30,16 +43,16 @@ namespace Tools
         {
             if (isFrozen)
                 return;
-            
+
             totalFramesFrozen = time * Application.targetFrameRate;
             initialTimeScale = Time.timeScale;
-             
+
             if (delay == 0)
                 Freeze();
             else
                 StartCoroutine(FreezeRoutine(delay));
         }
-        
+
         /// <summary>
         ///     Unfreeze the time scale.
         /// </summary>
@@ -52,7 +65,7 @@ namespace Tools
         }
 
 
-        void Update()
+        private void Update()
         {
             if (!isFrozen)
                 return;
@@ -63,26 +76,21 @@ namespace Tools
                 Unfreeze();
         }
 
-        IEnumerator FreezeRoutine(float delay)
+        private IEnumerator FreezeRoutine(float delay)
         {
             yield return new WaitForSeconds(delay);
             Freeze();
         }
 
-        void Freeze()
+        private void Freeze()
         {
             initialTimeScale = Time.timeScale;
             Time.timeScale = 0;
             isFrozen = true;
         }
 
-        //------------------------------------------------------------------------------------------------------
-
-        [Header("Test")]
-        [SerializeField] float time;
-        [SerializeField] float delay;
         [Button]
-        void TestFreeze()
+        private void TestFreeze()
         {
             Freeze(time, delay);
         }

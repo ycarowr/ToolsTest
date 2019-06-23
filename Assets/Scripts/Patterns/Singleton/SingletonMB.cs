@@ -12,6 +12,7 @@ namespace Patterns
     ///     5. http://wiki.unity3d.com/index.php/Singleton
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [ExecuteInEditMode]
     public class SingletonMB<T> : MonoBehaviour where T : class
     {
         //--------------------------------------------------------------------------------------------------------------
@@ -116,9 +117,20 @@ namespace Patterns
 
             OnAwake();
         }
+        
 
         #endregion
 
         //--------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        ///     Setter for test purposes.
+        /// </summary>
+        /// <param name="instance"></param>
+        public void InjectInstance(T instance)
+        {
+            Instance = instance;
+        }
+        
     }
 }

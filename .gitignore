@@ -83,3 +83,5 @@ $RECYCLE.BIN/
 *.lnk
 .idea/
 Assets/Plugins/Editor/JetBrains.meta
+Assets/Plugins/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll.meta
+Assets/Plugins/JetBrains.meta

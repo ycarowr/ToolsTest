@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4124782147999362}
   - component: {fileID: 198578963439784676}
-  - component: {fileID: 114909131535838238}
   - component: {fileID: 199178446559780234}
+  - component: {fileID: 1286508212939507406}
   m_Layer: 19
   m_Name: TrailParticles
   m_TagString: Untagged
@@ -4700,21 +4700,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &114909131535838238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1566439441896868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfdaab23ec5f65f45b5bed0b9ed124f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoPlay: 0
-  trail: {fileID: 198578963439784676}
-  trailMaterial: {fileID: 2100000, guid: 00806d1913bcdad41976fb143d60eccf, type: 2}
 --- !u!199 &199178446559780234
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -4777,3 +4762,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &1286508212939507406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566439441896868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5137cf2d477f74e81f483885fb41ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoPlay: 0
+  trail: {fileID: 198578963439784676}
+  trailMaterial: {fileID: 2100000, guid: cb8cef1eeca85604fa1cac9f3a96d262, type: 2}

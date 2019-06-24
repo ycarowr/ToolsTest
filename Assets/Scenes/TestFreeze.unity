@@ -1203,17 +1203,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 792743496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b81aaf5904f5b746881051c8a373c10, type: 3}
+  m_Script: {fileID: 11500000, guid: 5334f4df84208814c9afa8e006d7e6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalFramesFrozen: 0
-  isFrozen: 0
-  fixFrameRate: 1
-  fixedFrameRate: 60
-  frozenCount: 0
-  initialTimeScale: 1
-  time: 5
   delay: 0
+  fixedFrameRate: 60
+  fixFrameRate: 1
+  frozenCount: 0
+  initialTimeScale: 0
+  isFrozen: 0
+  time: 0
+  totalFramesFrozen: 0
 --- !u!4 &792743498
 Transform:
   m_ObjectHideFlags: 0

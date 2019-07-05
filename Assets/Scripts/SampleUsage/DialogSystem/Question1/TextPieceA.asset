@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcab75401a7828f419300d5386c3a328, type: 3}
   m_Name: TextPieceA
   m_EditorClassIdentifier: 
-  Author: An author
-  Text: '- An author talks.'
+  Author: Oak
   Buttons:
-  - {fileID: 11400000, guid: 3d2513bfea202d045a1a3372c123308c, type: 2}
+  - {fileID: 11400000, guid: 89ba30ba5252c2542881bee9acb72a11, type: 2}
+  - {fileID: 11400000, guid: 40353db67e9cb6446abef60e99b12672, type: 2}
+  Text: '- May I ask you another question?'

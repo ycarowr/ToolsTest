@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcab75401a7828f419300d5386c3a328, type: 3}
-  m_Name: TextPieceC
+  m_Name: TextPieceD
   m_EditorClassIdentifier: 
-  Author: An author
-  Text: '- An author talks once again.'
+  Author: Oak
   Buttons:
-  - {fileID: 11400000, guid: 4194f7b84bcc5434a8a24209c3eb1949, type: 2}
-  - {fileID: 11400000, guid: f15692b188c21da41aaf6ab54243955e, type: 2}
+  - {fileID: 11400000, guid: 3d2513bfea202d045a1a3372c123308c, type: 2}
+  Text: I see.
